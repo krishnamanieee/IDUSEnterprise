@@ -7,6 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 
 /**
@@ -22,6 +27,18 @@ public class AddLoanFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    TextView txtcustumname, txtcustumid, txtphnno, txtaddr, txtcity, txtpincode, txtloanamount,txtloanduration, txtloanoption,
+            txtstartdate, txtenddate, txtremarks, txtcustum, txtshop, txtidproof, txtaddrproof;
+
+    EditText edtcustumname, edtcustumid, edtphnno, edtaddr1, edtaddr2, edtcity, edtpincode, edtloanamount, edtloanduration,
+            edtstartdate, edtenddate, edtremarks;
+
+    ImageView imgcustum, imgshop, imgidproof, imgaddrproof;
+
+    Spinner spinloanoption;
+
+    Button btnsubmit,btnreset;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -64,7 +81,37 @@ public class AddLoanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_loan, container, false);
+        View v = inflater.inflate(R.layout.fragment_add_loan, container, false);
+
+        edtcustumname = (EditText) v.findViewById(R.id.edit_txt_custumname);
+        edtcustumid = (EditText) v.findViewById(R.id.edit_txt_custumid);
+        edtphnno = (EditText) v.findViewById(R.id.edit_txt__phnno);
+        edtaddr1 = (EditText) v.findViewById(R.id.edit_txt_addr1);
+        edtaddr2 = (EditText) v.findViewById(R.id.edit_txt_addr2);
+        edtcity = (EditText) v.findViewById(R.id.edit_txt_city);
+        edtpincode = (EditText) v.findViewById(R.id.edit_txt_pincode);
+        edtloanamount = (EditText) v.findViewById(R.id.edit_txt_loan_amount);
+        edtloanduration = (EditText) v.findViewById(R.id.edit_txt_loan_duration);
+        edtstartdate = (EditText) v.findViewById(R.id.edit_txt_start_date);
+        edtenddate = (EditText) v.findViewById(R.id.edit_txt_end_date);
+        edtremarks = (EditText) v.findViewById(R.id.edit_txt_remarks);
+
+        imgcustum = (ImageView) v.findViewById(R.id.img_view_custum);
+        imgshop = (ImageView) v.findViewById(R.id.img_view_shop);
+        imgidproof = (ImageView) v.findViewById(R.id.img_view_idproof);
+        imgaddrproof = (ImageView) v.findViewById(R.id.img_view_addrproof);
+
+        btnsubmit = (Button) v.findViewById(R.id.btn_submit);
+        btnreset = (Button) v.findViewById(R.id.btn_reset);
+
+        spinloanoption = (Spinner)v.findViewById(R.id.spin_loan_option);
+
+
+
+        return v;
+
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

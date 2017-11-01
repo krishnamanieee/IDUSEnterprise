@@ -31,14 +31,14 @@
 
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/txtview_custumname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
                         android:text="Customer Name" />
 
                     <EditText
-                        android:id="@+id/editText"
+                        android:id="@+id/edit_txt_custumname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -54,12 +54,13 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txtview_custmid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Customer Id" />
 
                     <EditText
-
+                        android:id="@+id/edit_txt_custumid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -85,7 +86,7 @@
 
 
                     <TextView
-
+                        android:id="@+id/txtview_phnno"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -93,6 +94,7 @@
 
                     <EditText
 
+                        android:id="@+id/edit_txt_phnno"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -122,6 +124,7 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_addr"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -129,6 +132,7 @@
 
                     <EditText
 
+                        android:id="@+id/edit_txt_addr1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -136,6 +140,7 @@
 
                     <EditText
 
+                        android:id="@+id/edit_txt_addr2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -164,6 +169,7 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_loan_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -171,6 +177,7 @@
 
                     <EditText
 
+                        android:id="@+id/edit_txt_loan_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -180,8 +187,8 @@
                 </LinearLayout>
 
 
-
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/linearLayout14"
                 android:layout_width="match_parent"
@@ -199,6 +206,7 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_loan_duration"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -206,6 +214,7 @@
 
                     <EditText
 
+                        android:id="@+id/edit_txt_loan_duration"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -221,13 +230,14 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txtview_loan_option"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Loan Options" />
 
                     <Spinner
 
-                        android:id="@+id/spinner"
+                        android:id="@+id/spin_loan_option"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:ems="10"
@@ -253,6 +263,7 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -260,6 +271,7 @@
 
                     <EditText
 
+                        android:id="@+id/edit_txt_city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -275,12 +287,14 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txtview_pincode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pincode" />
 
                     <EditText
 
+                        android:id="@+id/edit_txt_pincode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -306,6 +320,7 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_start_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -313,7 +328,7 @@
 
                     <EditText
 
-                        android:id="@+id/editText4"
+                        android:id="@+id/edit_txt_start_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="8"
@@ -329,12 +344,14 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txtview_end_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="End Date" />
 
                     <EditText
 
+                        android:id="@+id/edit_txt_end_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -363,6 +380,7 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_remarks"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -370,7 +388,7 @@
 
                     <EditText
 
-                        android:id="@+id/editText5"
+                        android:id="@+id/edit_txt_remarks"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
@@ -399,6 +417,7 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_custum"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -407,6 +426,7 @@
 
                     <ImageView
 
+                        android:id="@+id/img_view_custum"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_weight="0.00"
@@ -421,7 +441,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/txtview_shop"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -429,7 +449,7 @@
                         android:text="Shop" />
 
                     <ImageView
-                        android:id="@+id/imageView4"
+                        android:id="@+id/img_view_shop"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_weight="0.00"
@@ -445,6 +465,7 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_idproof"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -453,6 +474,7 @@
 
                     <ImageView
 
+                        android:id="@+id/img_view_idprrof"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_weight="0.00"
@@ -468,6 +490,7 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_addrproof"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -476,6 +499,7 @@
 
                     <ImageView
 
+                        android:id="@+id/img_view_addrproof"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_weight="0.00"
@@ -498,6 +522,7 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/btn_submit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
@@ -508,6 +533,7 @@
                     android:textStyle="bold" />
 
                 <Button
+                    android:id="@+id/btn_reset"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/secondaryColor"

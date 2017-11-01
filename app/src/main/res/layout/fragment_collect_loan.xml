@@ -12,10 +12,11 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:id="@+id/txtview_due_amount2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
 
             <LinearLayout
@@ -32,14 +33,14 @@
 
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/txtview_custumname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
                         android:text="Customer Name" />
 
                     <EditText
-                        android:id="@+id/editText"
+                        android:id="@+id/edit_txt_custumname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -69,6 +70,7 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_phnno"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -76,6 +78,7 @@
 
                     <EditText
 
+                        android:id="@+id/edit_txt__phnno"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -91,12 +94,14 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txtview_city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="City" />
 
                     <EditText
 
+                        android:id="@+id/edit_txt_city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -104,26 +109,31 @@
 
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_below="@+id/linearLayout1"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
-                android:layout_below="@+id/linearLayout1"
                 android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="180dp"
-                        android:layout_height="wrap_content"
-                        android:text="Loan Id" />
+                <TextView
+                    android:id="@+id/txtview_loan_id"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:text="Loan Id" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=":" />
+
                 <TextView
+                    android:id="@+id/txtview_loanid2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -131,26 +141,31 @@
                     android:text="LOANXXX" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_below="@+id/linearLayout2"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/linearLayout2"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/txtview_total_amount"
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:text="Total Amount" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=":" />
+
                 <TextView
+                    android:id="@+id/txtview_total_amount2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -158,26 +173,31 @@
                     android:text="XXXXX" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_below="@+id/linearLayout3"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/linearLayout3"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/txtview_paid_amount"
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:text="Paid Amount" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=":" />
+
                 <TextView
+                    android:id="@+id/txtview_paid_amount2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -186,26 +206,31 @@
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/linearLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_below="@+id/linearLayout4"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/linearLayout4"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/txtview_balance_amount"
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:text="Balance Amount" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=":" />
+
                 <TextView
+                    android:id="@+id/txtview_balance_amount2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -214,26 +239,31 @@
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/linearLayout6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_below="@+id/linearLayout5"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/linearLayout5"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/txtview_due_date"
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:text="Due Date" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=":" />
+
                 <TextView
+                    android:id="@+id/txtview_due_date2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -242,26 +272,31 @@
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/linearLayout7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_below="@+id/linearLayout6"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/linearLayout6"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/txtview_due_amount"
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:text="Due Amount" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=":" />
+
                 <TextView
+                    android:id="@+id/txtview_due_amount2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -270,6 +305,7 @@
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/linearLayout8"
                 android:layout_width="match_parent"
@@ -277,42 +313,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/linearLayout7"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.00"
-                    android:text="Due Paid Date" />
-
-                <EditText
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName" />
-                </LinearLayout>
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/linearLayout9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/linearLayout8"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
 
                 <LinearLayout
@@ -323,6 +325,44 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_due_paid_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.00"
+                        android:text="Due Paid Date" />
+
+                    <EditText
+
+                        android:id="@+id/edit_txt__due_paid_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/linearLayout8"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+
+                        android:id="@+id/txtview_paid_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -330,12 +370,14 @@
 
                     <EditText
 
+                        android:id="@+id/edit_txt_paid_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="textPersonName" />
                 </LinearLayout>
-                </LinearLayout>
+            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/linearLayout10"
                 android:layout_width="match_parent"
@@ -343,38 +385,36 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/linearLayout9"
-                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:layout_marginTop="5dp">
+                android:orientation="horizontal">
 
-                    <Button
+                <Button
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.00"
-                        android:text="Pay"
-                        android:layout_marginRight="20dp"
-                        android:textAllCaps="false"
-                        android:background="@color/colorPrimary"
-                        android:textColor="@color/primaryTextColor"
-                        android:textStyle="bold"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="0.00"
+                    android:background="@color/colorPrimary"
+                    android:text="Pay"
+                    android:textAllCaps="false"
+                    android:textColor="@color/primaryTextColor"
+                    android:textStyle="bold" />
+
                 <Button
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.00"
-                    android:text="Reset"
-
-                    android:textAllCaps="false"
                     android:background="@color/secondaryColor"
+
+                    android:text="Reset"
+                    android:textAllCaps="false"
                     android:textColor="@color/primaryTextColor"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
-
-
-
 
 
         </RelativeLayout>

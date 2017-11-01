@@ -10,7 +10,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -32,14 +32,14 @@
 
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/txtview_custumname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
                         android:text="Customer Name" />
 
                     <EditText
-                        android:id="@+id/editText"
+                        android:id="@+id/edt_txt_custmname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -55,12 +55,14 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txtview_custmid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Customer Id" />
 
                     <EditText
 
+                        android:id="@+id/edt_txt_custmid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -95,6 +97,7 @@
 
                     <EditText
 
+                        android:id="@+id/edt_txt_phnno"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
@@ -122,6 +125,7 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_addr"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -129,6 +133,7 @@
 
                     <EditText
 
+                        android:id="@+id/edt_txt__addr"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
@@ -136,6 +141,7 @@
 
                     <EditText
 
+                        android:id="@+id/edt_txt_addr2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
@@ -162,6 +168,7 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -169,6 +176,7 @@
 
                     <EditText
 
+                        android:id="@+id/edt_txt_city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="8"
@@ -184,12 +192,14 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txtview_pincode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pincode" />
 
                     <EditText
 
+                        android:id="@+id/edt_txt__pincode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -217,6 +227,7 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_map"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -229,18 +240,19 @@
                         android:orientation="horizontal">
 
                         <EditText
-                            android:id="@+id/editText2"
+                            android:id="@+id/edt_txt__map1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="6" />
 
                         <EditText
-                            android:id="@+id/editText3"
+                            android:id="@+id/edt_txt_map2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="6" />
 
                         <ImageView
+                            android:id="@+id/img_view_map"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -271,6 +283,7 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_remarks"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -278,6 +291,7 @@
 
                     <EditText
 
+                        android:id="@+id/edt_txt_remark"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
@@ -306,6 +320,7 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_custm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -314,6 +329,7 @@
 
                     <ImageView
 
+                        android:id="@+id/img_view_custm"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_weight="0.00"
@@ -328,7 +344,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/txtview_shop"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -336,7 +352,7 @@
                         android:text="Shop" />
 
                     <ImageView
-                        android:id="@+id/imageView4"
+                        android:id="@+id/img_view_shop"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_weight="0.00"
@@ -352,6 +368,7 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_idproof"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -360,6 +377,7 @@
 
                     <ImageView
 
+                        android:id="@+id/img_view_idproof"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_weight="0.00"
@@ -375,6 +393,7 @@
 
                     <TextView
 
+                        android:id="@+id/txtview_addrproof"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
@@ -383,6 +402,7 @@
 
                     <ImageView
 
+                        android:id="@+id/img_view_addrproof"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_weight="0.00"
@@ -402,9 +422,10 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/linearLayout6"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <Button
+                    android:id="@+id/btn_submit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
@@ -415,6 +436,7 @@
                     android:textStyle="bold" />
 
                 <Button
+                    android:id="@+id/btn_reset"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/secondaryColor"
