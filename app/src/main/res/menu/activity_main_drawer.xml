@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/nav_home" />
+        <item
+            android:id="@+id/nav_Collect_loan"
+            android:icon="@drawable/ic_collect_amount"
+            android:title="@string/nav_Collect_loan" />
+        <item
+            android:id="@+id/nav_new_loan"
+            android:icon="@drawable/icon_newloan"
+            android:title="@string/nav_new_loan" />
+        <item
+            android:id="@+id/nav_new_customer"
+            android:icon="@drawable/icon_new_customer"
+            android:title="@string/nav_new_customer" />
+
+        <item
+            android:id="@+id/nav_existing_customer"
+            android:icon="@drawable/icon_exisiting_customer"
+            android:title="@string/nav_existing_customer" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_exit_to_app"
+            android:title="@string/nav_logout" />
+    </group>
+
+
+
+</menu>

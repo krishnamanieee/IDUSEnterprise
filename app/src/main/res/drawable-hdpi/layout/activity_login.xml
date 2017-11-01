@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.rohasoft.idus.LoginActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:layout_marginTop="70dp"
+        android:id="@+id/linearLayout">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_weight="1"
+            app:srcCompat="@mipmap/ic_launcher" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearLayout"
+        android:orientation="vertical"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="User Id" />
+
+        <EditText
+            android:id="@+id/editText_UserId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Password" />
+
+        <EditText
+            android:id="@+id/editText_Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/button_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/primaryTextColor"
+            android:layout_marginTop="20dp"
+            android:textAllCaps="false"
+            android:text="Login" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
