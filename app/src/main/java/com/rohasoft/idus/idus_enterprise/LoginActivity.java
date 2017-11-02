@@ -92,6 +92,21 @@ public class LoginActivity extends Activity {
         startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (authenticate() == true){
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+
+
+        }
+
+    }
+    public  boolean authenticate(){
+        return userLocalstore.getUserLoggedIn();
+
+    }
+
 
 
 

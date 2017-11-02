@@ -28,8 +28,7 @@ public class AddLoanFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    TextView txtcustumname, txtcustumid, txtphnno, txtaddr, txtcity, txtpincode, txtloanamount,txtloanduration, txtloanoption,
-            txtstartdate, txtenddate, txtremarks, txtcustum, txtshop, txtidproof, txtaddrproof;
+
 
     EditText edtcustumname, edtcustumid, edtphnno, edtaddr1, edtaddr2, edtcity, edtpincode, edtloanamount, edtloanduration,
             edtstartdate, edtenddate, edtremarks;

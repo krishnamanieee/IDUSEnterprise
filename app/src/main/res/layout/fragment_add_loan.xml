@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.rohasoft.idus.AddLoanFragment">
+    tools:context="com.rohasoft.idus.idus_enterprise.LoginActivity">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -94,7 +94,7 @@
 
                     <EditText
 
-                        android:id="@+id/edit_txt_phnno"
+                        android:id="@+id/edit_addloan_phnno"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"

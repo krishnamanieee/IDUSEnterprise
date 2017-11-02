@@ -7,8 +7,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.rohasoft.idus.idus_enterprise.R;
+import com.rohasoft.idus.idus_enterprise.other.GetLoanCallBack;
+import com.rohasoft.idus.idus_enterprise.other.Loan;
+import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
 
 
 /**
@@ -28,6 +36,14 @@ public class MoviesFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    EditText edtcustumname, edtcustumid, edtphnno, edtaddr1, edtaddr2, edtcity, edtpincode, edtloanamount, edtloanduration,
+            edtstartdate, edtenddate, edtremarks;
+
+    ImageView imgcustum, imgshop, imgidproof, imgaddrproof;
+
+    Spinner spinloanoption;
+
+    Button btnsubmit,btnreset;
 
     private OnFragmentInteractionListener mListener;
 
@@ -65,9 +81,91 @@ public class MoviesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View v=inflater.inflate(R.layout.fragment_add_loan, container, false);
+
+
+        edtcustumname = (EditText) v.findViewById(R.id.edit_txt_custumname);
+        edtcustumid = (EditText) v.findViewById(R.id.edit_txt_custumid);
+        edtphnno = (EditText) v.findViewById(R.id.edit_addloan_phnno);
+        edtaddr1 = (EditText) v.findViewById(R.id.edit_txt_addr1);
+        edtaddr2 = (EditText) v.findViewById(R.id.edit_txt_addr2);
+        edtcity = (EditText) v.findViewById(R.id.edit_txt_city);
+        edtpincode = (EditText) v.findViewById(R.id.edit_txt_pincode);
+        edtloanamount = (EditText) v.findViewById(R.id.edit_txt_loan_amount);
+
+        edtloanduration = (EditText) v.findViewById(R.id.edit_txt_loan_duration);
+        edtstartdate = (EditText) v.findViewById(R.id.edit_txt_start_date);
+        edtenddate = (EditText) v.findViewById(R.id.edit_txt_end_date);
+        edtremarks = (EditText) v.findViewById(R.id.edit_txt_remarks);
+
+        imgcustum = (ImageView) v.findViewById(R.id.img_view_custum);
+        imgshop = (ImageView) v.findViewById(R.id.img_view_shop);
+        imgidproof = (ImageView) v.findViewById(R.id.img_view_idproof);
+        imgaddrproof = (ImageView) v.findViewById(R.id.img_view_addrproof);
+
+        btnsubmit = (Button) v.findViewById(R.id.btn_submit);
+        btnreset = (Button) v.findViewById(R.id.btn_reset);
+
+        spinloanoption = (Spinner)v.findViewById(R.id.spin_loan_option);
+
+
+
+        btnsubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String cus_name=edtcustumname.getText().toString().trim();
+                String cus_id=edtcustumid.getText().toString().trim();
+                String phone=edtphnno.getText().toString().trim();
+                String address=edtaddr1.getText().toString().trim() +", "+edtaddr2.getText().toString().trim();
+                String city=edtcity.getText().toString().trim();
+                /*String pincode=edtpincode.getText().toString().trim();
+                String loan_amt=edtloanamount.getText().toString().trim();
+               String loan_opttion=spinloanoption.getSelectedItem().toString().trim();
+                String loan_duration=edtloanduration.getText().toString().trim();
+                String Start_date=edtstartdate.getText().toString().trim();
+                String end_date=edtenddate.getText().toString().trim();
+                String remarks=edtremarks.getText().toString().trim();*/
+                /*String cus_name=edtcustumname.getText().toString().trim();
+                String cus_id=edtcustumid.getText().toString().trim();
+                String phone="";
+                String address="";
+                String city="";*/
+                String pincode="";
+                String loan_amt="";
+                String loan_opttion="Select loan otons";
+                String loan_duration="";
+                String Start_date="";
+                String end_date="";
+                String remarks="";
+                Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,Start_date,end_date,remarks);
+
+                AddLoan(loan);
+
+
+            }
+        });
+
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_loan, container, false);
+        return v;
     }
+
+    private void AddLoan(Loan loan) {
+
+        ServerRequest serverRequest=new ServerRequest(getContext());
+        serverRequest.storeLoanDataInBackground(loan, new GetLoanCallBack() {
+            @Override
+            public void done(Loan returedGuser) {
+                Toast.makeText(getContext(),"Insert",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

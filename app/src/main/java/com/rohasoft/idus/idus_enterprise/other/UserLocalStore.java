@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
  */
 
 public class UserLocalStore {
-    public  static final String SP_NAME="userDetails1";
+    public  static final String SP_NAME="userDetails";
     SharedPreferences userlocalDatabase;
 
     public UserLocalStore(Context context){
@@ -42,7 +42,7 @@ public class UserLocalStore {
     }
 
     public boolean getUserLoggedIn(){
-        if(userlocalDatabase.getBoolean("loggedIn",false) ){
+        if(userlocalDatabase.getBoolean("loggedIn",false) == true ){
             return  true;
         }
         else {

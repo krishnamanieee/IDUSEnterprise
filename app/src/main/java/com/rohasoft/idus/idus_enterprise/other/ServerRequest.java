@@ -42,6 +42,11 @@ public class ServerRequest {
         new storeUserDataAsyncTask(user, userCallback).execute();
 
     }
+    public void storeLoanDataInBackground(Loan loan, GetLoanCallBack  loanCallBack) {
+        progressDialog.show();
+        new storeLoanDataAsyncTask(loan, loanCallBack).execute();
+
+    }
 
 
     public void fetchUserDataInBackground(User user, GetUserCallback callBack) {
@@ -90,6 +95,56 @@ public class ServerRequest {
         protected void onPostExecute(Void aVoid) {
             progressDialog.dismiss();
             userCallback.done(null);
+            super.onPostExecute(aVoid);
+        }
+    }
+    public class storeLoanDataAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        Loan loan;
+        GetLoanCallBack loanCallBack;
+
+        public storeLoanDataAsyncTask(Loan loan, GetLoanCallBack loanCallBack) {
+
+            this.loan = loan;
+            this.loanCallBack = loanCallBack;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            dataToSend.add(new BasicNameValuePair("customer_name", loan.customer_name));
+            dataToSend.add(new BasicNameValuePair("customer_id", loan.customer_id));
+            dataToSend.add(new BasicNameValuePair("phone", loan.phone));
+            dataToSend.add(new BasicNameValuePair("address", loan.address));
+            dataToSend.add(new BasicNameValuePair("city", loan.city));
+            dataToSend.add(new BasicNameValuePair("pincode", loan.pincode));
+            dataToSend.add(new BasicNameValuePair("loan_amount", loan.loan_amount));
+            dataToSend.add(new BasicNameValuePair("loan_option", loan.loan_option));
+            dataToSend.add(new BasicNameValuePair("loan_duration", loan.loan_duration));
+            dataToSend.add(new BasicNameValuePair("start_date", loan.start_date));
+            dataToSend.add(new BasicNameValuePair("end_date", loan.end_date));
+            dataToSend.add(new BasicNameValuePair("remarks", loan.remarks));
+
+            HttpParams httpRequestParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+
+            HttpClient client = new DefaultHttpClient(httpRequestParams);
+            HttpPost post = new HttpPost(SERVER_ADDRESS + "add_loan.php");
+
+            try {
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                client.execute(post);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            progressDialog.dismiss();
+            loanCallBack.done(null);
             super.onPostExecute(aVoid);
         }
     }

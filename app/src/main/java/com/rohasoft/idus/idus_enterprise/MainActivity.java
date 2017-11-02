@@ -38,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private FloatingActionButton fab;
 
+    private static final int TIME_DELAY = 2000;
+
+    private static long back_pressed;
+
     // urls to load navigation header background image
     // and profile image
    // private static final String urlNavHeaderBg = "http://api.androidhive.info/images/nav-menu-header-bg.jpg";
@@ -314,12 +318,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
+            super.onBackPressed();
+        } else {
+            Toast.makeText(getBaseContext(), "Press once again to exit!",
+                    Toast.LENGTH_SHORT).show();
+        }
+        back_pressed = System.currentTimeMillis();
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawers();
             return;
         }
 
-        // This code loads home fragment when back key is pressed
+        /*// This code loads home fragment when back key is pressed
         // when user is in com.rohasoft.idus.idus_enterprise.other fragment than home
         if (shouldLoadHomeFragOnBackPress) {
             // checking if user is on com.rohasoft.idus.idus_enterprise.other navigation menu
@@ -330,7 +341,7 @@ public class MainActivity extends AppCompatActivity {
                 loadHomeFragment();
                 return;
             }
-        }
+        }*/
 
         super.onBackPressed();
     }
@@ -386,7 +397,7 @@ public class MainActivity extends AppCompatActivity {
         else
             fab.hide();
     }
-    @Override
+   /* @Override
     protected void onStart() {
         super.onStart();
         if (authenticate() == true){
@@ -398,14 +409,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public  boolean authenticate(){
-        return userLocalstore.getUserLoggedIn();
+        //return userLocalstore.getUserLoggedIn();
+        return true;
     }
     public void displayUserData(){
         User user=userLocalstore.getLoggedInUser();
+    }*/
 
 
-
-
-
-    }
 }
