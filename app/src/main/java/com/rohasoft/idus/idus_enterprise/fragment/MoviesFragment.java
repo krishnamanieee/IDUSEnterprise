@@ -1,13 +1,20 @@
 package com.rohasoft.idus.idus_enterprise.fragment;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -18,6 +25,14 @@ import com.rohasoft.idus.idus_enterprise.other.GetLoanCallBack;
 import com.rohasoft.idus.idus_enterprise.other.Loan;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,7 +42,7 @@ import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
  * Use the {@link MoviesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MoviesFragment extends Fragment {
+public class MoviesFragment extends Fragment implements DatePickerDialog.OnDateSetListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -44,6 +59,12 @@ public class MoviesFragment extends Fragment {
     Spinner spinloanoption;
 
     Button btnsubmit,btnreset;
+
+
+    private DatePickerDialog startDatePickerDialog;
+    private DatePickerDialog endDatePickerDialog;
+
+    private SimpleDateFormat dateFormatter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -88,16 +109,16 @@ public class MoviesFragment extends Fragment {
         edtcustumname = (EditText) v.findViewById(R.id.edit_txt_custumname);
         edtcustumid = (EditText) v.findViewById(R.id.edit_txt_custumid);
         edtphnno = (EditText) v.findViewById(R.id.edit_addloan_phnno);
-        edtaddr1 = (EditText) v.findViewById(R.id.edit_txt_addr1);
-        edtaddr2 = (EditText) v.findViewById(R.id.edit_txt_addr2);
-        edtcity = (EditText) v.findViewById(R.id.edit_txt_city);
-        edtpincode = (EditText) v.findViewById(R.id.edit_txt_pincode);
-        edtloanamount = (EditText) v.findViewById(R.id.edit_txt_loan_amount);
+        edtaddr1 = (EditText) v.findViewById(R.id.edit_addloan_adr1);
+        edtaddr2 = (EditText) v.findViewById(R.id.edit_addloan_adr2);
+        edtcity = (EditText) v.findViewById(R.id.edit_addloan_city);
+        edtpincode = (EditText) v.findViewById(R.id.edit_addloan_pincode);
+        edtloanamount = (EditText) v.findViewById(R.id.edit_addloan_loan_amount);
 
-        edtloanduration = (EditText) v.findViewById(R.id.edit_txt_loan_duration);
-        edtstartdate = (EditText) v.findViewById(R.id.edit_txt_start_date);
-        edtenddate = (EditText) v.findViewById(R.id.edit_txt_end_date);
-        edtremarks = (EditText) v.findViewById(R.id.edit_txt_remarks);
+        edtloanduration = (EditText) v.findViewById(R.id.edit_addloan_loan_duration);
+        edtstartdate = (EditText) v.findViewById(R.id.edit_addloan_start_date);
+        edtenddate = (EditText) v.findViewById(R.id.edit_addloan__end_date);
+        edtremarks = (EditText) v.findViewById(R.id.edit_addloan_remarks);
 
         imgcustum = (ImageView) v.findViewById(R.id.img_view_custum);
         imgshop = (ImageView) v.findViewById(R.id.img_view_shop);
@@ -107,9 +128,22 @@ public class MoviesFragment extends Fragment {
         btnsubmit = (Button) v.findViewById(R.id.btn_submit);
         btnreset = (Button) v.findViewById(R.id.btn_reset);
 
-        spinloanoption = (Spinner)v.findViewById(R.id.spin_loan_option);
+        spinloanoption = (Spinner)v.findViewById(R.id.spin_addloan_loan_option);
 
+        addLoanOption();
+        edtstartdate.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                Calendar calendar=Calendar.getInstance();
+                /*startDatePickerDialog= new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                    }
+                })*/
+            }
+        });
 
         btnsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,26 +154,18 @@ public class MoviesFragment extends Fragment {
                 String phone=edtphnno.getText().toString().trim();
                 String address=edtaddr1.getText().toString().trim() +", "+edtaddr2.getText().toString().trim();
                 String city=edtcity.getText().toString().trim();
-                /*String pincode=edtpincode.getText().toString().trim();
+                String pincode=edtpincode.getText().toString().trim();
                 String loan_amt=edtloanamount.getText().toString().trim();
-               String loan_opttion=spinloanoption.getSelectedItem().toString().trim();
-                String loan_duration=edtloanduration.getText().toString().trim();
-                String Start_date=edtstartdate.getText().toString().trim();
+               String loan_opttion=spinloanoption.getSelectedItem().toString();
+               String loan_duration=edtloanduration.getText().toString().trim();
+                String start_date=edtstartdate.getText().toString().trim();
                 String end_date=edtenddate.getText().toString().trim();
-                String remarks=edtremarks.getText().toString().trim();*/
-                /*String cus_name=edtcustumname.getText().toString().trim();
-                String cus_id=edtcustumid.getText().toString().trim();
-                String phone="";
-                String address="";
-                String city="";*/
-                String pincode="";
-                String loan_amt="";
-                String loan_opttion="Select loan otons";
-                String loan_duration="";
-                String Start_date="";
-                String end_date="";
-                String remarks="";
-                Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,Start_date,end_date,remarks);
+                String remarks=edtremarks.getText().toString().trim();
+
+                edtstartdate.setInputType(InputType.TYPE_NULL);
+                edtstartdate.requestFocus();
+
+                Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,start_date,end_date,remarks);
 
                 AddLoan(loan);
 
@@ -153,6 +179,8 @@ public class MoviesFragment extends Fragment {
         return v;
     }
 
+
+
     private void AddLoan(Loan loan) {
 
         ServerRequest serverRequest=new ServerRequest(getContext());
@@ -162,6 +190,21 @@ public class MoviesFragment extends Fragment {
                 Toast.makeText(getContext(),"Insert",Toast.LENGTH_SHORT).show();
             }
         });
+
+
+    }
+    public void addLoanOption(){
+        List<String> list =new ArrayList<String>();
+        list.add("Select Option");
+        list.add("Daily");
+        list.add("Weelky");
+        list.add("By Weelky");
+        list.add("Monthly");
+
+
+        ArrayAdapter<String> data = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, list);
+        data.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinloanoption.setAdapter(data);
 
 
     }
@@ -190,6 +233,23 @@ public class MoviesFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+    public void datePicker(View view){
+
+        DatePickerFragment fragment = new DatePickerFragment();
+        fragment.show( , "date");
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int day) {
+        Calendar calendar=new GregorianCalendar(year,month,day);
+
+    }
+    private void setDate(final Calendar calendar){
+        final DateFormat dateFormat=DateFormat.getDateInstance(DateFormat.MEDIUM);
+        edtstartdate.setText(dateFormat.format(calendar.getTime()));
+    }
+
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -204,5 +264,21 @@ public class MoviesFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    public static class DatePickerFragment extends DialogFragment {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+
+            return new DatePickerDialog(getActivity(),
+                    (DatePickerDialog.OnDateSetListener)
+                            getActivity(), year, month, day);
+        }
+
     }
 }

@@ -132,7 +132,7 @@
 
                     <EditText
 
-                        android:id="@+id/edit_txt_addr1"
+                        android:id="@+id/edit_addloan_adr1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -140,7 +140,7 @@
 
                     <EditText
 
-                        android:id="@+id/edit_txt_addr2"
+                        android:id="@+id/edit_addloan_adr2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -177,7 +177,7 @@
 
                     <EditText
 
-                        android:id="@+id/edit_txt_loan_amount"
+                        android:id="@+id/edit_addloan_loan_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -214,7 +214,7 @@
 
                     <EditText
 
-                        android:id="@+id/edit_txt_loan_duration"
+                        android:id="@+id/edit_addloan_loan_duration"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -237,7 +237,7 @@
 
                     <Spinner
 
-                        android:id="@+id/spin_loan_option"
+                        android:id="@+id/spin_addloan_loan_option"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:ems="10"
@@ -271,7 +271,7 @@
 
                     <EditText
 
-                        android:id="@+id/edit_txt_city"
+                        android:id="@+id/edit_addloan_city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -294,7 +294,7 @@
 
                     <EditText
 
-                        android:id="@+id/edit_txt_pincode"
+                        android:id="@+id/edit_addloan_pincode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -328,7 +328,7 @@
 
                     <EditText
 
-                        android:id="@+id/edit_txt_start_date"
+                        android:id="@+id/edit_addloan_start_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="8"
@@ -351,7 +351,7 @@
 
                     <EditText
 
-                        android:id="@+id/edit_txt_end_date"
+                        android:id="@+id/edit_addloan__end_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -388,7 +388,7 @@
 
                     <EditText
 
-                        android:id="@+id/edit_txt_remarks"
+                        android:id="@+id/edit_addloan_remarks"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
