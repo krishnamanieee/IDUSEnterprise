@@ -1,13 +1,10 @@
 package com.rohasoft.idus.idus_enterprise.fragment;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,11 +22,9 @@ import com.rohasoft.idus.idus_enterprise.other.GetLoanCallBack;
 import com.rohasoft.idus.idus_enterprise.other.Loan;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -42,7 +37,7 @@ import java.util.List;
  * Use the {@link MoviesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MoviesFragment extends Fragment implements DatePickerDialog.OnDateSetListener{
+public class MoviesFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -145,9 +140,33 @@ public class MoviesFragment extends Fragment implements DatePickerDialog.OnDateS
             }
         });
 
+        btnreset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                edtcustumname.setText("");
+                edtcustumid.setText("");
+                edtphnno.setText("");
+                edtaddr1.setText("");
+                edtaddr2.setText("");
+                edtcity.setText("");
+                edtloanamount.setText("");
+                edtloanduration.setText("");
+                edtstartdate.setText("");
+                edtenddate.setText("");
+                edtremarks.setText("");
+                addLoanOption();
+
+
+            }
+        });
+
         btnsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
 
                 String cus_name=edtcustumname.getText().toString().trim();
                 String cus_id=edtcustumid.getText().toString().trim();
@@ -164,10 +183,22 @@ public class MoviesFragment extends Fragment implements DatePickerDialog.OnDateS
 
                 edtstartdate.setInputType(InputType.TYPE_NULL);
                 edtstartdate.requestFocus();
+                if (cus_name.isEmpty()){
+                    if (phone.length() == 10){
+                        Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,start_date,end_date,remarks);
 
-                Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,start_date,end_date,remarks);
+                        AddLoan(loan);
+                    }
+                    else {
+                        edtphnno.setError("please enter valid phone no");
+                    }
+                }
 
-                AddLoan(loan);
+                else {
+                    edtcustumname.setError("please select customer name");
+                }
+
+
 
 
             }
@@ -233,21 +264,6 @@ public class MoviesFragment extends Fragment implements DatePickerDialog.OnDateS
         super.onDetach();
         mListener = null;
     }
-    public void datePicker(View view){
-
-        DatePickerFragment fragment = new DatePickerFragment();
-        fragment.show( , "date");
-    }
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int day) {
-        Calendar calendar=new GregorianCalendar(year,month,day);
-
-    }
-    private void setDate(final Calendar calendar){
-        final DateFormat dateFormat=DateFormat.getDateInstance(DateFormat.MEDIUM);
-        edtstartdate.setText(dateFormat.format(calendar.getTime()));
-    }
 
 
 
@@ -264,21 +280,5 @@ public class MoviesFragment extends Fragment implements DatePickerDialog.OnDateS
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-    public static class DatePickerFragment extends DialogFragment {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-
-
-            return new DatePickerDialog(getActivity(),
-                    (DatePickerDialog.OnDateSetListener)
-                            getActivity(), year, month, day);
-        }
-
     }
 }

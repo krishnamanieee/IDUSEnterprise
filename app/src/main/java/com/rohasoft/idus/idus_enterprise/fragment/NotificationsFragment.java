@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 
 import com.rohasoft.idus.idus_enterprise.R;
@@ -20,6 +22,12 @@ import com.rohasoft.idus.idus_enterprise.R;
  * create an instance of this fragment.
  */
 public class NotificationsFragment extends Fragment {
+
+    EditText editText_cusName,editText_cusId,editText_phone,editText_addr1,editText_addr2,editText_city,editText_pincode,editText_lacMap,editText_lanMap,
+    editText_remarks;
+    Button button_addCustomer,button_reset;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -66,7 +74,25 @@ public class NotificationsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_customer, container, false);
+        View v=  inflater.inflate(R.layout.fragment_add_customer, container, false);
+
+
+        editText_cusName= (EditText) v.findViewById(R.id.edt_addcus_custmname);
+
+        editText_phone= (EditText) v.findViewById(R.id.edt_addcus_phnno);
+        editText_addr1= (EditText) v.findViewById(R.id.edt_addcus_addr1);
+        editText_addr2= (EditText) v.findViewById(R.id.edt_addcus_addr2);
+        editText_city= (EditText) v.findViewById(R.id.edt_addcus_city);
+        editText_pincode= (EditText) v.findViewById(R.id.edt_addcus_pincode);
+        editText_lacMap= (EditText) v.findViewById(R.id.edt_addcus_maplac);
+        editText_lanMap= (EditText) v.findViewById(R.id.edt_addcus_maplan);
+        editText_remarks= (EditText) v.findViewById(R.id.edt_addcus__remark);
+
+        button_addCustomer= (Button) v.findViewById(R.id.btn_addcus_submit);
+        button_reset= (Button) v.findViewById(R.id.btn_addcus_reset);
+
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
