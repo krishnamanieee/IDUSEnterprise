@@ -112,12 +112,12 @@ public class MoviesFragment extends Fragment {
 
         edtloanduration = (EditText) v.findViewById(R.id.edit_addloan_loan_duration);
         edtstartdate = (EditText) v.findViewById(R.id.edit_addloan_start_date);
-        edtenddate = (EditText) v.findViewById(R.id.edit_addloan__end_date);
+        edtenddate = (EditText) v.findViewById(R.id.edit_addloan_end_date);
         edtremarks = (EditText) v.findViewById(R.id.edit_addloan_remarks);
 
         imgcustum = (ImageView) v.findViewById(R.id.img_view_custum);
         imgshop = (ImageView) v.findViewById(R.id.img_view_shop);
-        imgidproof = (ImageView) v.findViewById(R.id.img_view_idproof);
+       // imgidproof = (ImageView) v.findViewById(R.id.img_view_idproof);
         imgaddrproof = (ImageView) v.findViewById(R.id.img_view_addrproof);
 
         btnsubmit = (Button) v.findViewById(R.id.btn_submit);
@@ -126,19 +126,7 @@ public class MoviesFragment extends Fragment {
         spinloanoption = (Spinner)v.findViewById(R.id.spin_addloan_loan_option);
 
         addLoanOption();
-        edtstartdate.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                Calendar calendar=Calendar.getInstance();
-                /*startDatePickerDialog= new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                    }
-                })*/
-            }
-        });
 
         btnreset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,7 +191,6 @@ public class MoviesFragment extends Fragment {
 
             }
         });
-
 
 
         // Inflate the layout for this fragment

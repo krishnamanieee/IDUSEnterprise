@@ -92,7 +92,7 @@ public class LoginActivity extends Activity {
         startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
     }
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
         if (authenticate() == true){
@@ -105,7 +105,7 @@ public class LoginActivity extends Activity {
     public  boolean authenticate(){
         return userLocalstore.getUserLoggedIn();
 
-    }
+    }*/
 
 
 

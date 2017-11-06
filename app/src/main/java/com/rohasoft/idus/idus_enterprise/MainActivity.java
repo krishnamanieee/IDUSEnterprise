@@ -263,8 +263,10 @@ public class MainActivity extends AppCompatActivity {
                         CURRENT_TAG = TAG_NEWCUSTOMER;
                         break;
                     case R.id.nav_existing_customer:
-                        navItemIndex = 4;
-                        CURRENT_TAG = TAG_EXISTINGCUSTOMER;
+
+                        startActivity(new Intent(getApplicationContext(),AddLoan_Activity.class));
+                        /*navItemIndex = 4;
+                        CURRENT_TAG = TAG_EXISTINGCUSTOMER;*/
                         break;
                     case R.id.nav_logout:
                        // navItemIndex = 5;
@@ -276,7 +278,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     default:
-                        navItemIndex = 0;
+                      //  navItemIndex = 0;
                 }
 
                 //Checking if the item is in checked state or not, if not make it in checked state
@@ -320,6 +322,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
             super.onBackPressed();
+
         } else {
             Toast.makeText(getBaseContext(), "Press once again to exit!",
                     Toast.LENGTH_SHORT).show();
@@ -327,7 +330,7 @@ public class MainActivity extends AppCompatActivity {
         back_pressed = System.currentTimeMillis();
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawers();
-            return;
+            return ;
         }
 
         /*// This code loads home fragment when back key is pressed
@@ -343,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }*/
 
-        super.onBackPressed();
+
     }
 
     @Override

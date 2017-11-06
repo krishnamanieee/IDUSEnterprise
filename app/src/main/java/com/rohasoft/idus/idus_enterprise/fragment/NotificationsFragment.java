@@ -9,9 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 import com.rohasoft.idus.idus_enterprise.R;
+import com.rohasoft.idus.idus_enterprise.other.Customer;
+import com.rohasoft.idus.idus_enterprise.other.GetCustomerCallBack;
+import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,7 +82,6 @@ public class NotificationsFragment extends Fragment {
 
 
         editText_cusName= (EditText) v.findViewById(R.id.edt_addcus_custmname);
-
         editText_phone= (EditText) v.findViewById(R.id.edt_addcus_phnno);
         editText_addr1= (EditText) v.findViewById(R.id.edt_addcus_addr1);
         editText_addr2= (EditText) v.findViewById(R.id.edt_addcus_addr2);
@@ -91,8 +94,36 @@ public class NotificationsFragment extends Fragment {
         button_addCustomer= (Button) v.findViewById(R.id.btn_addcus_submit);
         button_reset= (Button) v.findViewById(R.id.btn_addcus_reset);
 
+        button_addCustomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String cusName=editText_cusName.getText().toString().trim();
+                String phone=editText_phone.getText().toString().trim();
+                String addr1=editText_addr1.getText().toString().trim();
+                String addr2=editText_addr2.getText().toString().trim();
+                String city=editText_city.getText().toString().trim();
+                String pincode=editText_pincode.getText().toString().trim();
+                String lanMap=editText_lanMap.getText().toString().trim();
+                String lacMap=editText_lacMap.getText().toString().trim();
+                String remark=editText_remarks.getText().toString().trim();
+
+                Customer customer=new Customer(cusName,phone,addr1+","+addr2,city,pincode,lanMap,lacMap,remark);
+                addCustomer(customer);
+            }
+        });
 
         return v;
+    }
+
+    private void addCustomer(Customer customer) {
+
+        ServerRequest serverRequest=new ServerRequest(getContext());
+        serverRequest.storeCustomerDataInBackground(customer, new GetCustomerCallBack() {
+            @Override
+            public void done(Customer returedCustomer) {
+                Toast.makeText(getContext(),"new Customer add sucessfully",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event

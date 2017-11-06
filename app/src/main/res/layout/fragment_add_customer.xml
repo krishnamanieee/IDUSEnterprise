@@ -33,16 +33,16 @@
 
                     <TextView
                         android:id="@+id/txtview_custumname"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
                         android:text="Customer Name" />
 
                     <EditText
                         android:id="@+id/edt_addcus_custmname"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ems="10"
+
                         android:inputType="textPersonName" />
 
 
@@ -83,7 +83,7 @@
 
                     <EditText
 
-                        android:id="@+id/edt_addcus_phnno1"
+                        android:id="@+id/edt_addcus_phnno"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
@@ -121,7 +121,7 @@
 
                     <EditText
 
-                        android:id="@+id/edt_addcus_addr11"
+                        android:id="@+id/edt_addcus_addr1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
@@ -129,7 +129,7 @@
 
                     <EditText
 
-                        android:id="@+id/edt_addcus_addr21"
+                        android:id="@+id/edt_addcus_addr2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
@@ -164,7 +164,7 @@
 
                     <EditText
 
-                        android:id="@+id/edt_addcus_city1"
+                        android:id="@+id/edt_addcus_city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="8"
@@ -180,14 +180,14 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/txtview_pincode1"
+                        android:id="@+id/txtview_pincode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pincode" />
 
                     <EditText
 
-                        android:id="@+id/edt_addcus_pincode1"
+                        android:id="@+id/edt_addcus_pincode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -228,19 +228,19 @@
                         android:orientation="horizontal">
 
                         <EditText
-                            android:id="@+id/edt_addcus_maplac1"
+                            android:id="@+id/edt_addcus_maplac"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="6" />
 
                         <EditText
-                            android:id="@+id/edt_addcus_maplan1"
+                            android:id="@+id/edt_addcus_maplan"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="6" />
 
                         <ImageView
-                            android:id="@+id/img_addcus_map1"
+                            android:id="@+id/img_addcus_map"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -279,7 +279,7 @@
 
                     <EditText
 
-                        android:id="@+id/edt_addcus__remark1"
+                        android:id="@+id/edt_addcus__remark"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
@@ -317,7 +317,7 @@
 
                     <ImageView
 
-                        android:id="@+id/img_addcus_custm1"
+                        android:id="@+id/img_addcus_custm"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_weight="0.00"
@@ -365,7 +365,7 @@
 
                     <ImageView
 
-                        android:id="@+id/img_addcus_idproof1"
+                        android:id="@+id/img_addcus_idproof"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_weight="0.00"
@@ -410,10 +410,10 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/linearLayout6"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btn_addcus_submit1"
+                    android:id="@+id/btn_addcus_submit"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginRight="20dp"
@@ -424,7 +424,7 @@
                     android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/btn_addcus_reset1"
+                    android:id="@+id/btn_addcus_reset"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/secondaryColor"
