@@ -16,6 +16,10 @@ import android.widget.Toast;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.rohasoft.idus.idus_enterprise.other.GetLoanCallBack;
+import com.rohasoft.idus.idus_enterprise.other.Loan;
+import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
+
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -102,13 +106,72 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
                 Toast.makeText(getApplicationContext(),""+result,Toast.LENGTH_SHORT).show();
 
 
+                String cus_name=edtcustumname.getText().toString().trim();
+                String cus_id=edtcustumid.getText().toString().trim();
+                String phone=edtphnno.getText().toString().trim();
+                String address=edtaddr1.getText().toString().trim() +", "+edtaddr2.getText().toString().trim();
+                String city=edtcity.getText().toString().trim();
+                String pincode=edtpincode.getText().toString().trim();
+                String loan_amt=edtloanamount.getText().toString().trim();
+                String loan_opttion=spinloanoption.getSelectedItem().toString();
+                String loan_duration=edtloanduration.getText().toString().trim();
+                String start_date=edtstartdate.getText().toString().trim();
+                String end_date=edtenddate.getText().toString().trim();
+                String remarks=edtremarks.getText().toString().trim();
+
+
+                if (cus_name.isEmpty()){
+                    if (phone.length() == 10){
+                        if(pincode.length()==6){
+                            if(city.isEmpty()){
+                                Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,start_date,end_date,remarks);
+
+                                AddLoan(loan);
+                            }
+                            else{
+                                edtcity.setError("Please enter the City");
+                            }
+
+
+                        }
+                        else {
+                            edtpincode.setError("please enter valid pincode");
+                        }
+
+                    }
+                    else {
+                        edtphnno.setError("please enter valid phone no");
+                    }
+                }
+
+                else {
+                    edtcustumname.setError("please select customer name");
+                }
+
+
+
             }
+
+
         });
 
 
 
 
     }
+
+    private void AddLoan(Loan loan) {
+        ServerRequest serverRequest=new ServerRequest(this);
+        serverRequest.storeLoanDataInBackground(loan, new GetLoanCallBack() {
+            @Override
+            public void done(Loan returedGuser) {
+                Toast.makeText(getApplicationContext(),"Insert",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+
 
     private void setDateTimeField() {
         edtstartdate.setOnClickListener(this);
