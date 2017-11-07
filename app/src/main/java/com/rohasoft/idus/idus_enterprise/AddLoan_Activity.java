@@ -82,6 +82,8 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
         btnsubmit = (Button) findViewById(R.id.btn_submit);
         btnreset = (Button) findViewById(R.id.btn_reset);
 
+        reset();
+
         spinloanoption = (Spinner) findViewById(R.id.spin_addloan_loan_option);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         setDateTimeField();
@@ -93,6 +95,33 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
 
 
     }
+
+    private void reset() {
+
+
+
+        btnreset.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                edtcustumname.setText("");
+                edtcustumid.setText("");
+                edtphnno.setText("");
+                edtaddr1.setText("");
+                edtaddr2.setText("");
+                edtcity.setText("");
+                edtpincode.setText("");
+                edtloanamount.setText("");
+                edtloanduration.setText("");
+                edtstartdate.setText("");
+                edtenddate.setText("");
+                edtremarks.setText("");
+            }
+        });
+    }
+
+
+
 
     private void SaveDataToServer() {
         btnsubmit.setOnClickListener(new OnClickListener() {

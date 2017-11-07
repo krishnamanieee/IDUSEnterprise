@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.rohasoft.idus.idus_enterprise.R;
 import com.rohasoft.idus.idus_enterprise.other.Customer;
 import com.rohasoft.idus.idus_enterprise.other.GetCustomerCallBack;
+import com.rohasoft.idus.idus_enterprise.other.Loan;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
 
 /**
@@ -103,6 +104,8 @@ public class AddCustomerFragment extends Fragment{
         button_addCustomer= (Button) v.findViewById(R.id.btn_addcus_submit);
         button_reset= (Button) v.findViewById(R.id.btn_addcus_reset);
 
+        reset();
+
 
 
         button_addCustomer.setOnClickListener(new View.OnClickListener() {
@@ -119,13 +122,61 @@ public class AddCustomerFragment extends Fragment{
                 String lacMap=editText_lacMap.getText().toString().trim();
                 String remark=editText_remarks.getText().toString().trim();
 
-                Customer customer=new Customer(cusName,phone,addr1+","+addr2,city,pincode,lanMap,lacMap,remark);
-                addCustomer(customer);
+
+                if (cusName.isEmpty()){
+                    if (phone.length() == 10){
+                        if(pincode.length()==6){
+                            if(city.isEmpty()){
+                                Customer customer=new Customer(cusName,phone,addr1+","+addr2,city,pincode,lanMap,lacMap,remark);
+                                addCustomer(customer);
+                            }
+                            else{
+                                editText_city.setError("Please enter the City");
+                            }
+
+
+                        }
+                        else {
+                            editText_pincode.setError("please enter valid pincode");
+                        }
+
+                    }
+                    else {
+                        editText_phone.setError("please enter valid phone no");
+                    }
+                }
+
+                else {
+                    editText_cusName.setError("please select customer name");
+                }
+
+
             }
         });
 
         return v;
     }
+
+    private void reset() {
+
+        button_reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                editText_cusName.setText("");
+                editText_phone.setText("");
+                editText_addr1.setText("");
+                editText_addr2.setText("");
+                editText_city.setText("");
+                editText_pincode.setText("");
+                editText_lacMap.setText("");
+                editText_remarks.setText("");
+            }
+        });
+    }
+
+
 
     private void addCustomer(Customer customer) {
 
