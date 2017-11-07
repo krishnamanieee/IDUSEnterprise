@@ -16,6 +16,7 @@ import android.widget.Toast;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -67,6 +68,8 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
         edtstartdate.requestFocus();
         edtenddate.setInputType(InputType.TYPE_NULL);
 
+
+
         imgcustum = (ImageView) findViewById(R.id.img_view_custum);
         imgshop = (ImageView) findViewById(R.id.img_view_shop);
         // imgidproof = (ImageView) v.findViewById(R.id.img_view_idproof);
@@ -81,6 +84,28 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
 
 
         addLoanOption();
+
+        SaveDataToServer();
+
+
+    }
+
+    private void SaveDataToServer() {
+        btnsubmit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double loanamount=Integer.parseInt(edtloanamount.getText().toString().trim());
+                double loanduaration=Integer.parseInt(edtloanduration.getText().toString().trim());
+
+                double result=loanamount/loanduaration;
+
+                Toast.makeText(getApplicationContext(),""+result,Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
+
+
 
 
     }

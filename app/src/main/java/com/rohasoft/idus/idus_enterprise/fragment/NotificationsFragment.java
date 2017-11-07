@@ -1,21 +1,32 @@
 package com.rohasoft.idus.idus_enterprise.fragment;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.rohasoft.idus.idus_enterprise.MainActivity;
 import com.rohasoft.idus.idus_enterprise.R;
 import com.rohasoft.idus.idus_enterprise.other.Customer;
 import com.rohasoft.idus.idus_enterprise.other.GetCustomerCallBack;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
+
+import java.text.DecimalFormat;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,11 +36,12 @@ import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
  * Use the {@link NotificationsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NotificationsFragment extends Fragment {
+public class NotificationsFragment extends Fragment{
 
-    EditText editText_cusName,editText_cusId,editText_phone,editText_addr1,editText_addr2,editText_city,editText_pincode,editText_lacMap,editText_lanMap,
+    EditText editText_cusName,editText_phone,editText_addr1,editText_addr2,editText_city,editText_pincode,editText_lacMap,editText_lanMap,
     editText_remarks;
     Button button_addCustomer,button_reset;
+    ImageView imageView_addcus_map;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -91,12 +103,22 @@ public class NotificationsFragment extends Fragment {
         editText_lanMap= (EditText) v.findViewById(R.id.edt_addcus_maplan);
         editText_remarks= (EditText) v.findViewById(R.id.edt_addcus__remark);
 
+        imageView_addcus_map= (ImageView) v.findViewById(R.id.img_addcus_map);
+
+
+
+
+
+
         button_addCustomer= (Button) v.findViewById(R.id.btn_addcus_submit);
         button_reset= (Button) v.findViewById(R.id.btn_addcus_reset);
+
+
 
         button_addCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String cusName=editText_cusName.getText().toString().trim();
                 String phone=editText_phone.getText().toString().trim();
                 String addr1=editText_addr1.getText().toString().trim();
@@ -149,6 +171,7 @@ public class NotificationsFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this

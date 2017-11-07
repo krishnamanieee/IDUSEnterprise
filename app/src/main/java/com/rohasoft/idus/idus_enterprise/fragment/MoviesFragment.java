@@ -163,8 +163,8 @@ public class MoviesFragment extends Fragment {
                 String city=edtcity.getText().toString().trim();
                 String pincode=edtpincode.getText().toString().trim();
                 String loan_amt=edtloanamount.getText().toString().trim();
-               String loan_opttion=spinloanoption.getSelectedItem().toString();
-               String loan_duration=edtloanduration.getText().toString().trim();
+                String loan_opttion=spinloanoption.getSelectedItem().toString();
+                String loan_duration=edtloanduration.getText().toString().trim();
                 String start_date=edtstartdate.getText().toString().trim();
                 String end_date=edtenddate.getText().toString().trim();
                 String remarks=edtremarks.getText().toString().trim();
