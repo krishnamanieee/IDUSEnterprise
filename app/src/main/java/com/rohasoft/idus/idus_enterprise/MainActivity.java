@@ -3,10 +3,13 @@ package com.rohasoft.idus.idus_enterprise;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,18 +17,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rohasoft.idus.idus_enterprise.fragment.*;
 import com.rohasoft.idus.idus_enterprise.fragment.AddCustomerFragment;
+import com.rohasoft.idus.idus_enterprise.fragment.AddLoanFragment;
 import com.rohasoft.idus.idus_enterprise.fragment.CollectLoanFragment;
+import com.rohasoft.idus.idus_enterprise.fragment.HomeFragment;
+import com.rohasoft.idus.idus_enterprise.fragment.SettingsFragment;
+import com.rohasoft.idus.idus_enterprise.other.CollectLoan;
 import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
 
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView navigationView;
     private DrawerLayout drawer;
@@ -41,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
     // urls to load navigation header background image
     // and profile image
-   // private static final String urlNavHeaderBg = "http://api.androidhive.info/images/nav-menu-header-bg.jpg";
-   // private static final String urlProfileImg = "https://lh3.googleusercontent.com/eCtE_G34M9ygdkmOpYvCag1vBARCmZwnVS6rS5t4JLzJ6QgQSBquM0nuTsCpLhYbKljoyS-txg";
+    // private static final String urlNavHeaderBg = "http://api.androidhive.info/images/nav-menu-header-bg.jpg";
+    // private static final String urlProfileImg = "https://lh3.googleusercontent.com/eCtE_G34M9ygdkmOpYvCag1vBARCmZwnVS6rS5t4JLzJ6QgQSBquM0nuTsCpLhYbKljoyS-txg";
 
     // index to identify current nav menu item
     public static int navItemIndex = 0;
@@ -98,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // load nav menu header data
-       // loadNavHeader();
+        // loadNavHeader();
 
         // initializing navigation menu
         setUpNavigationView();
@@ -117,8 +122,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private void loadNavHeader() {
         // name, website
-      //  txtName.setText("Ravi Tamada");
-       // txtWebsite.setText("www.androidhive.info");
+        //  txtName.setText("Ravi Tamada");
+        // txtWebsite.setText("www.androidhive.info");
 
       /*  // loading header background image
         Glide.with(this).load(urlNavHeaderBg)
@@ -207,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
                 return addLoanFragment;
             case 3:
                 // New Customer fragment
-                com.rohasoft.idus.idus_enterprise.fragment.AddCustomerFragment addCustomerFragment = new AddCustomerFragment();
+                AddCustomerFragment addCustomerFragment = new AddCustomerFragment();
                 return addCustomerFragment;
 
             case 4:
@@ -261,21 +266,21 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_existing_customer:
 
-                        startActivity(new Intent(getApplicationContext(),AddLoan_Activity.class));
-                        /*navItemIndex = 4;
-                        CURRENT_TAG = TAG_EXISTINGCUSTOMER;*/
+                       // startActivity(new Intent(getApplicationContext(),AddLoan_Activity.class));
+                        navItemIndex = 4;
+                        CURRENT_TAG = TAG_EXISTINGCUSTOMER;
                         break;
                     case R.id.nav_logout:
-                       // navItemIndex = 5;
+                        // navItemIndex = 5;
                         userLocalstore.clearUserData();
                         userLocalstore.setUserLoggedIn(false);
                         startActivity(new Intent(getApplicationContext(),SplashActivity.class));
                         Toast.makeText(getApplicationContext(),"LOGOUT", Toast.LENGTH_SHORT).show();
-                       // CURRENT_TAG = TAG_SETTINGS;
+                        // CURRENT_TAG = TAG_SETTINGS;
                         break;
 
                     default:
-                      //  navItemIndex = 0;
+                        //  navItemIndex = 0;
                 }
 
                 //Checking if the item is in checked state or not, if not make it in checked state
@@ -397,6 +402,11 @@ public class MainActivity extends AppCompatActivity {
         else
             fab.hide();
     }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
+    }
    /* @Override
     protected void onStart() {
         super.onStart();
@@ -415,6 +425,5 @@ public class MainActivity extends AppCompatActivity {
     public void displayUserData(){
         User user=userLocalstore.getLoggedInUser();
     }*/
-
 
 }

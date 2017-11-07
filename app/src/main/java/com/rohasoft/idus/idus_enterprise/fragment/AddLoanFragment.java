@@ -1,10 +1,13 @@
 package com.rohasoft.idus.idus_enterprise.fragment;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +19,22 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.rohasoft.idus.idus_enterprise.Adapter.AddLoanCus;
 import com.rohasoft.idus.idus_enterprise.R;
+import com.rohasoft.idus.idus_enterprise.other.AddLoanCusList;
 import com.rohasoft.idus.idus_enterprise.other.GetLoanCallBack;
 import com.rohasoft.idus.idus_enterprise.other.Loan;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,23 +55,21 @@ public class AddLoanFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    EditText edtcustumname, edtcustumid, edtphnno, edtaddr1, edtaddr2, edtcity, edtpincode, edtloanamount, edtloanduration,
-            edtstartdate, edtenddate, edtremarks;
 
-    ImageView imgcustum, imgshop, imgidproof, imgaddrproof;
+//    private static final String URL_DATA="http://autojobshere.company/app/json";
+    private static final String URL_DATA="http://idusmarket.com/loan-app/app/fetchaddloancuslist.php";
 
-    Spinner spinloanoption;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter  adapter;
 
-    Button btnsubmit,btnreset;
+    private List<AddLoanCusList> list;
 
 
-    private DatePickerDialog startDatePickerDialog;
-    private DatePickerDialog endDatePickerDialog;
-
-    private SimpleDateFormat dateFormatter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -97,138 +110,73 @@ public class AddLoanFragment extends Fragment {
 
         View v=inflater.inflate(R.layout.fragment_add_loan, container, false);
 
+        recyclerView=(RecyclerView) v.findViewById(R.id.recyclerview_addloan);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        edtcustumname = (EditText) v.findViewById(R.id.edit_txt_custumname);
-        edtcustumid = (EditText) v.findViewById(R.id.edit_txt_custumid);
-        edtphnno = (EditText) v.findViewById(R.id.edit_addloan_phnno);
-        edtaddr1 = (EditText) v.findViewById(R.id.edit_addloan_adr1);
-        edtaddr2 = (EditText) v.findViewById(R.id.edit_addloan_adr2);
-        edtcity = (EditText) v.findViewById(R.id.edit_addloan_city);
-        edtpincode = (EditText) v.findViewById(R.id.edit_addloan_pincode);
-        edtloanamount = (EditText) v.findViewById(R.id.edit_addloan_loan_amount);
-
-        edtloanduration = (EditText) v.findViewById(R.id.edit_addloan_loan_duration);
-        edtstartdate = (EditText) v.findViewById(R.id.edit_addloan_start_date);
-        edtenddate = (EditText) v.findViewById(R.id.edit_addloan_end_date);
-        edtremarks = (EditText) v.findViewById(R.id.edit_addloan_remarks);
-
-        imgcustum = (ImageView) v.findViewById(R.id.img_view_custum);
-        imgshop = (ImageView) v.findViewById(R.id.img_view_shop);
-       // imgidproof = (ImageView) v.findViewById(R.id.img_view_idproof);
-        imgaddrproof = (ImageView) v.findViewById(R.id.img_view_addrproof);
-
-        btnsubmit = (Button) v.findViewById(R.id.btn_submit);
-        btnreset = (Button) v.findViewById(R.id.btn_reset);
-
-        spinloanoption = (Spinner)v.findViewById(R.id.spin_addloan_loan_option);
-
-        addLoanOption();
-
-
-        btnreset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                edtcustumname.setText("");
-                edtcustumid.setText("");
-                edtphnno.setText("");
-                edtaddr1.setText("");
-                edtaddr2.setText("");
-                edtcity.setText("");
-                edtloanamount.setText("");
-                edtloanduration.setText("");
-                edtstartdate.setText("");
-                edtenddate.setText("");
-                edtremarks.setText("");
-                addLoanOption();
-
-
-            }
-        });
-
-        btnsubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        list=new ArrayList<>();
+        loadRecyclerViewData();
 
 
 
-                String cus_name=edtcustumname.getText().toString().trim();
-                String cus_id=edtcustumid.getText().toString().trim();
-                String phone=edtphnno.getText().toString().trim();
-                String address=edtaddr1.getText().toString().trim() +", "+edtaddr2.getText().toString().trim();
-                String city=edtcity.getText().toString().trim();
-                String pincode=edtpincode.getText().toString().trim();
-                String loan_amt=edtloanamount.getText().toString().trim();
-                String loan_opttion=spinloanoption.getSelectedItem().toString();
-                String loan_duration=edtloanduration.getText().toString().trim();
-                String start_date=edtstartdate.getText().toString().trim();
-                String end_date=edtenddate.getText().toString().trim();
-                String remarks=edtremarks.getText().toString().trim();
-
-                edtstartdate.setInputType(InputType.TYPE_NULL);
-                edtstartdate.requestFocus();
-                if (cus_name.isEmpty()){
-                    if (phone.length() == 10){
-                        if(pincode.length()==6){
-
-                            Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,start_date,end_date,remarks);
-
-                            AddLoan(loan);
-                        }
-                        else {
-                            edtpincode.setError("please enter valid pincode");
-                        }
-
-                    }
-                    else {
-                        edtphnno.setError("please enter valid phone no");
-                    }
-                }
-
-                else {
-                    edtcustumname.setError("please select customer name");
-                }
-
-
-
-
-            }
-        });
 
 
         // Inflate the layout for this fragment
         return v;
     }
 
+    private void loadRecyclerViewData() {
+
+        final ProgressDialog progressDialog=new ProgressDialog(getContext());
+        progressDialog.setMessage("loading Data....");
+        progressDialog.show();
 
 
-    private void AddLoan(Loan loan) {
+        StringRequest stringRequest=new StringRequest(Request.Method.GET,
+                URL_DATA,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
 
-        ServerRequest serverRequest=new ServerRequest(getContext());
-        serverRequest.storeLoanDataInBackground(loan, new GetLoanCallBack() {
-            @Override
-            public void done(Loan returedGuser) {
-                Toast.makeText(getContext(),"Insert",Toast.LENGTH_SHORT).show();
-            }
-        });
+                        progressDialog.dismiss();
 
 
-    }
-    public void addLoanOption(){
-        List<String> list =new ArrayList<String>();
-        list.add("Select Option");
-        list.add("Daily");
-        list.add("Weelky");
-        list.add("By Weelky");
-        list.add("Monthly");
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+//                            JSONArray jsonArray=jsonObject.getJSONArray("server_response");
+                            JSONArray jsonArray=jsonObject.getJSONArray("admin");
 
+                            for (int i=0;i<jsonArray.length();i++){
+                                JSONObject  object=jsonArray.getJSONObject(i);
 
-        ArrayAdapter<String> data = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, list);
-        data.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinloanoption.setAdapter(data);
+                                AddLoanCusList items=new AddLoanCusList(
+                                        object.getString("customer_name"),
+                                        object.getString("city"),
+                                        object.getString("id"),
+                                        object.getString("address")
+                                );
 
+                                list.add(items);
 
+                            }
+
+                            adapter=new AddLoanCus(list,getContext());
+                            recyclerView.setAdapter(adapter );
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+
+        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
     }
 
 

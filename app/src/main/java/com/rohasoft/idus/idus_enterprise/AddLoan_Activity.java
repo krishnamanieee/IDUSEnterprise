@@ -2,6 +2,8 @@ package com.rohasoft.idus.idus_enterprise;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.InputType;
@@ -16,9 +18,18 @@ import android.widget.Toast;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.rohasoft.idus.idus_enterprise.other.Customer;
+import com.rohasoft.idus.idus_enterprise.other.GetCustomerCallBack;
 import com.rohasoft.idus.idus_enterprise.other.GetLoanCallBack;
 import com.rohasoft.idus.idus_enterprise.other.Loan;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
+import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -48,12 +59,21 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
     private DatePickerDialog toDatePickerDialog;
 
     private SimpleDateFormat dateFormatter;
+    String id,CusName,phone,address;
+
+
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_laon);
+
+
+
+
+
+
         edtcustumname = (EditText) findViewById(R.id.edit_txt_custumname);
         edtcustumid = (EditText) findViewById(R.id.edit_txt_custumid);
         edtphnno = (EditText) findViewById(R.id.edit_addloan_phnno);
@@ -92,9 +112,28 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
         addLoanOption();
 
         SaveDataToServer();
+        if(getIntent().getExtras().getString("id").length()>0){
+            id=getIntent().getExtras().getString("id");
+            CusName=getIntent().getExtras().getString("cusName");
+            phone=getIntent().getExtras().getString("phone");
+            address=getIntent().getExtras().getString("address");
+
+            edtcustumname.setText(CusName);
+            edtcustumid.setText("CUS"+id);
+            edtphnno.setText(phone);
+            edtaddr1.setText(address);
+
+
+
+
+        }
+
 
 
     }
+
+
+
 
     private void reset() {
 
@@ -296,4 +335,6 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
            // toDatePickerDialog.show();
         }
     }
+
+
 }

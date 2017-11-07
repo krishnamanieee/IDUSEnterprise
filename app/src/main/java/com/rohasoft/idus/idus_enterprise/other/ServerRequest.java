@@ -45,6 +45,7 @@ public class ServerRequest {
         new storeUserDataAsyncTask(user, userCallback).execute();
 
     }
+
     public void storeCustomerDataInBackground(Customer customer, GetCustomerCallBack customerCallBack) {
         progressDialog.show();
         new storeCustomerDataAsyncTask(customer, customerCallBack).execute();
@@ -115,6 +116,8 @@ public class ServerRequest {
             super.onPostExecute(aVoid);
         }
     }
+
+
 
 
     public class storeUserDataAsyncTask extends AsyncTask<Void, Void, Void> {
