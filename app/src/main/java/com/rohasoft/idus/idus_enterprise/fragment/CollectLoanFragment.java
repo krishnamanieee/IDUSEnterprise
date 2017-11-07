@@ -7,9 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 
 import com.rohasoft.idus.idus_enterprise.R;
+
+import static com.rohasoft.idus.idus_enterprise.R.id.edit_colloan_due_paid_date;
+import static com.rohasoft.idus.idus_enterprise.R.id.edit_colloan_paid_amount;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +25,12 @@ import com.rohasoft.idus.idus_enterprise.R;
  * create an instance of this fragment.
  */
 public class CollectLoanFragment extends Fragment {
+
+    Button pay, reset;
+    EditText duePaidDate, paidAmount;
+
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -65,9 +76,36 @@ public class CollectLoanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
+        View v = inflater.inflate(R.layout.fragment_collect_loan, container, false);
+        pay = (Button) v.findViewById(R.id.btn_colloan_pay);
+        reset = (Button) v.findViewById(R.id.btn_colloan_reset);
+        duePaidDate = (EditText)v.findViewById(R.id.edit_colloan_due_paid_date);
+        paidAmount  = (EditText) v.findViewById(edit_colloan_paid_amount);
+        reset();
+        pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_collect_loan, container, false);
+         return  v;
     }
+
+    private void reset() {
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                duePaidDate.setText("");
+                paidAmount.setText("");
+            }
+        });
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -107,4 +145,6 @@ public class CollectLoanFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }

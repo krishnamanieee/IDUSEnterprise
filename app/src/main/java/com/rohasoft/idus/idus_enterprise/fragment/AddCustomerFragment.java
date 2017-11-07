@@ -171,6 +171,7 @@ public class AddCustomerFragment extends Fragment{
                 editText_city.setText("");
                 editText_pincode.setText("");
                 editText_lacMap.setText("");
+                editText_lanMap.setText("");
                 editText_remarks.setText("");
             }
         });
