@@ -1,17 +1,24 @@
 package com.rohasoft.idus.idus_enterprise.fragment;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 
 import com.rohasoft.idus.idus_enterprise.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import static com.rohasoft.idus.idus_enterprise.R.id.edit_colloan_due_paid_date;
 import static com.rohasoft.idus.idus_enterprise.R.id.edit_colloan_paid_amount;
@@ -28,7 +35,7 @@ public class CollectLoanFragment extends Fragment {
 
     Button pay, reset;
     EditText duePaidDate, paidAmount;
-
+    private SimpleDateFormat dateFormatter;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -84,16 +91,46 @@ public class CollectLoanFragment extends Fragment {
         reset = (Button) v.findViewById(R.id.btn_colloan_reset);
         duePaidDate = (EditText)v.findViewById(R.id.edit_colloan_due_paid_date);
         paidAmount  = (EditText) v.findViewById(edit_colloan_paid_amount);
+        duePaidDate.setInputType(InputType.TYPE_NULL);
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         reset();
+
+        getDate();
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
 
             }
         });
         // Inflate the layout for this fragment
          return  v;
+    }
+
+    private void getDate() {
+
+        duePaidDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar newCalendar=Calendar.getInstance();
+
+                DatePickerDialog datePickerDialog=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+
+                        Calendar newDate = Calendar.getInstance();
+                        newDate.set(year, monthOfYear, dayOfMonth);
+                        duePaidDate.setText(dateFormatter.format(newDate.getTime()));
+
+                    }
+                },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+                datePickerDialog.show();
+
+            }
+        });
+
     }
 
     private void reset() {
@@ -130,6 +167,8 @@ public class CollectLoanFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+
 
     /**
      * This interface must be implemented by activities that contain this

@@ -102,6 +102,9 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
         btnsubmit = (Button) findViewById(R.id.btn_submit);
         btnreset = (Button) findViewById(R.id.btn_reset);
 
+        edtcustumid.setEnabled(false);
+        edtcustumid.setInputType(InputType.TYPE_NULL);
+
         reset();
 
         spinloanoption = (Spinner) findViewById(R.id.spin_addloan_loan_option);
