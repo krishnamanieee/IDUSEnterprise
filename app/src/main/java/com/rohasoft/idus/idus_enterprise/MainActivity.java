@@ -19,12 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rohasoft.idus.idus_enterprise.fragment.HomeFragment;
-import com.rohasoft.idus.idus_enterprise.fragment.MoviesFragment;
-import com.rohasoft.idus.idus_enterprise.fragment.NotificationsFragment;
-import com.rohasoft.idus.idus_enterprise.fragment.PhotosFragment;
-import com.rohasoft.idus.idus_enterprise.fragment.SettingsFragment;
-import com.rohasoft.idus.idus_enterprise.other.User;
+import com.rohasoft.idus.idus_enterprise.fragment.*;
+import com.rohasoft.idus.idus_enterprise.fragment.AddCustomerFragment;
+import com.rohasoft.idus.idus_enterprise.fragment.CollectLoanFragment;
 import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
 
 
@@ -202,16 +199,16 @@ public class MainActivity extends AppCompatActivity {
                 return homeFragment;
             case 1:
                 // Collect Loan
-                PhotosFragment photosFragment = new PhotosFragment();
-                return photosFragment;
+                CollectLoanFragment collectLoanFragment = new CollectLoanFragment();
+                return collectLoanFragment;
             case 2:
                 // New Laon fragment
-                MoviesFragment moviesFragment = new MoviesFragment();
-                return moviesFragment;
+                AddLoanFragment addLoanFragment = new AddLoanFragment();
+                return addLoanFragment;
             case 3:
                 // New Customer fragment
-                NotificationsFragment notificationsFragment = new NotificationsFragment();
-                return notificationsFragment;
+                com.rohasoft.idus.idus_enterprise.fragment.AddCustomerFragment addCustomerFragment = new AddCustomerFragment();
+                return addCustomerFragment;
 
             case 4:
                 // New Existing fragment

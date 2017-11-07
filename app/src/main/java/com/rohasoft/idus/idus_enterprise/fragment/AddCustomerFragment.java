@@ -1,15 +1,8 @@
 package com.rohasoft.idus.idus_enterprise.fragment;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,23 +13,20 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-import com.rohasoft.idus.idus_enterprise.MainActivity;
 import com.rohasoft.idus.idus_enterprise.R;
 import com.rohasoft.idus.idus_enterprise.other.Customer;
 import com.rohasoft.idus.idus_enterprise.other.GetCustomerCallBack;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
 
-import java.text.DecimalFormat;
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NotificationsFragment.OnFragmentInteractionListener} interface
+ * {@link AddCustomerFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NotificationsFragment#newInstance} factory method to
+ * Use the {@link AddCustomerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NotificationsFragment extends Fragment{
+public class AddCustomerFragment extends Fragment{
 
     EditText editText_cusName,editText_phone,editText_addr1,editText_addr2,editText_city,editText_pincode,editText_lacMap,editText_lanMap,
     editText_remarks;
@@ -55,7 +45,7 @@ public class NotificationsFragment extends Fragment{
 
     private OnFragmentInteractionListener mListener;
 
-    public NotificationsFragment() {
+    public AddCustomerFragment() {
         // Required empty public constructor
     }
 
@@ -65,11 +55,11 @@ public class NotificationsFragment extends Fragment{
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NotificationsFragment.
+     * @return A new instance of fragment AddCustomerFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NotificationsFragment newInstance(String param1, String param2) {
-        NotificationsFragment fragment = new NotificationsFragment();
+    public static AddCustomerFragment newInstance(String param1, String param2) {
+        AddCustomerFragment fragment = new AddCustomerFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
