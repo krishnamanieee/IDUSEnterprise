@@ -173,9 +173,16 @@ public class MoviesFragment extends Fragment {
                 edtstartdate.requestFocus();
                 if (cus_name.isEmpty()){
                     if (phone.length() == 10){
-                        Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,start_date,end_date,remarks);
+                        if(pincode.length()==6){
 
-                        AddLoan(loan);
+                            Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,start_date,end_date,remarks);
+
+                            AddLoan(loan);
+                        }
+                        else {
+                            edtpincode.setError("please enter valid pincode");
+                        }
+
                     }
                     else {
                         edtphnno.setError("please enter valid phone no");

@@ -36,13 +36,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.00"
+                        android:inputType="text"
                         android:text="Customer Name" />
 
                     <EditText
                         android:id="@+id/edt_addcus_custmname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:inputType="textPersonName" />
 
 
@@ -88,7 +88,6 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:inputType="number|phone"
-
                         android:maxLength="10" />
                 </LinearLayout>
 
@@ -125,7 +124,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="text" />
 
                     <EditText
 
@@ -133,7 +132,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="text" />
                 </LinearLayout>
 
 
@@ -168,7 +167,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="8"
-                        android:inputType="textPersonName" />
+                        android:inputType="text" />
 
 
                 </LinearLayout>
@@ -191,7 +190,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:maxLength="6"
+                        android:inputType="number" />
 
                 </LinearLayout>
 
@@ -230,6 +230,7 @@
                         <EditText
                             android:id="@+id/edt_addcus_maplac"
                             android:layout_width="wrap_content"
+                            android:inputType="numberDecimal"
                             android:layout_height="wrap_content"
                             android:ems="6" />
 
@@ -237,7 +238,9 @@
                             android:id="@+id/edt_addcus_maplan"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
                             android:ems="6" />
+
 
                         <ImageView
                             android:id="@+id/img_addcus_map"
@@ -283,7 +286,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="text" />
 
 
                 </LinearLayout>
