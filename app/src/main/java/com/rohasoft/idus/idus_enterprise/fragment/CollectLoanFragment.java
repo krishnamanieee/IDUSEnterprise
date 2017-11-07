@@ -14,12 +14,12 @@ import com.rohasoft.idus.idus_enterprise.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PhotosFragment.OnFragmentInteractionListener} interface
+ * {@link CollectLoanFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PhotosFragment#newInstance} factory method to
+ * Use the {@link CollectLoanFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PhotosFragment extends Fragment {
+public class CollectLoanFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +31,7 @@ public class PhotosFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public PhotosFragment() {
+    public CollectLoanFragment() {
         // Required empty public constructor
     }
 
@@ -41,11 +41,11 @@ public class PhotosFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PhotosFragment.
+     * @return A new instance of fragment CollectLoanFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PhotosFragment newInstance(String param1, String param2) {
-        PhotosFragment fragment = new PhotosFragment();
+    public static CollectLoanFragment newInstance(String param1, String param2) {
+        CollectLoanFragment fragment = new CollectLoanFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
