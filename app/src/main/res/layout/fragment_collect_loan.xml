@@ -40,7 +40,7 @@
                         android:text="Customer Name" />
 
                     <EditText
-                        android:id="@+id/edit_addloan_custumname"
+                        android:id="@+id/edit_colLoan_custumname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -78,12 +78,12 @@
 
                     <EditText
 
-                        android:id="@+id/edit_addloan__phnno"
+                        android:id="@+id/edit_colLoan__phnno"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:maxLength="10"
-                        android:inputType="phone|number" />
+                        android:inputType="phone|number"
+                        android:maxLength="10" />
 
 
                 </LinearLayout>
@@ -102,7 +102,7 @@
 
                     <EditText
 
-                        android:id="@+id/edit_addloan_city"
+                        android:id="@+id/edit_colLoan_city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"

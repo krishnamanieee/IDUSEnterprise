@@ -20,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import static com.rohasoft.idus.idus_enterprise.R.id.edit_addloan_pincode;
+import static com.rohasoft.idus.idus_enterprise.R.id.edit_colLoan__phnno;
 import static com.rohasoft.idus.idus_enterprise.R.id.edit_colloan_due_paid_date;
 import static com.rohasoft.idus.idus_enterprise.R.id.edit_colloan_paid_amount;
 
@@ -34,7 +36,7 @@ import static com.rohasoft.idus.idus_enterprise.R.id.edit_colloan_paid_amount;
 public class CollectLoanFragment extends Fragment {
 
     Button pay, reset;
-    EditText duePaidDate, paidAmount;
+    EditText duePaidDate, paidAmount,phoneno,pincode;
     private SimpleDateFormat dateFormatter;
 
 
@@ -89,8 +91,20 @@ public class CollectLoanFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_collect_loan, container, false);
         pay = (Button) v.findViewById(R.id.btn_colloan_pay);
         reset = (Button) v.findViewById(R.id.btn_colloan_reset);
+
+        phoneno = (EditText) v.findViewById(R.id.edit_colLoan__phnno);
+        phoneno.setEnabled(false);
+        phoneno.setInputType(InputType.TYPE_NULL);
+
+        pincode  = (EditText) v.findViewById(R.id.edit_addloan_pincode);
+        pincode.setEnabled(false);
+        pincode.setInputType(InputType.TYPE_NULL);
+
         duePaidDate = (EditText)v.findViewById(R.id.edit_colloan_due_paid_date);
-        paidAmount  = (EditText) v.findViewById(edit_colloan_paid_amount);
+
+        paidAmount  = (EditText) v.findViewById(R.id.edit_colloan_paid_amount);
+
+
         duePaidDate.setInputType(InputType.TYPE_NULL);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         reset();

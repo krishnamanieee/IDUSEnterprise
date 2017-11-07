@@ -3,11 +3,13 @@ package com.rohasoft.idus.idus_enterprise;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -75,12 +77,28 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
 
 
         edtcustumname = (EditText) findViewById(R.id.edit_txt_custumname);
+        edtcustumname.setEnabled(false);
+        edtcustumname.setInputType(InputType.TYPE_NULL);
+
         edtcustumid = (EditText) findViewById(R.id.edit_txt_custumid);
+        edtcustumid.setEnabled(false);
+        edtcustumid.setInputType(InputType.TYPE_NULL);
+
         edtphnno = (EditText) findViewById(R.id.edit_addloan_phnno);
+        edtphnno.setEnabled(false);
+        edtphnno.setInputType(InputType.TYPE_NULL);
+
         edtaddr1 = (EditText) findViewById(R.id.edit_addloan_adr1);
         edtaddr2 = (EditText) findViewById(R.id.edit_addloan_adr2);
+
         edtcity = (EditText) findViewById(R.id.edit_addloan_city);
+        edtcity.setEnabled(false);
+        edtcity.setInputType(InputType.TYPE_NULL);
+
         edtpincode = (EditText) findViewById(R.id.edit_addloan_pincode);
+        edtpincode.setEnabled(false);
+        edtpincode.setInputType(InputType.TYPE_NULL);
+
         edtloanamount = (EditText) findViewById(R.id.edit_addloan_loan_amount);
 
         edtloanduration = (EditText) findViewById(R.id.edit_addloan_loan_duration);
