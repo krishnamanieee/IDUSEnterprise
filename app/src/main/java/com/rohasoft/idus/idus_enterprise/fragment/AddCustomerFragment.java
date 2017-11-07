@@ -123,10 +123,10 @@ public class AddCustomerFragment extends Fragment{
                 String remark=editText_remarks.getText().toString().trim();
 
 
-                if (cusName.isEmpty()){
+                if (cusName.length() > 0){
                     if (phone.length() == 10){
                         if(pincode.length()==6){
-                            if(city.isEmpty()){
+                            if(city.length() > 0){
                                 Customer customer=new Customer(cusName,phone,addr1+","+addr2,city,pincode,lanMap,lacMap,remark);
                                 addCustomer(customer);
                             }
@@ -147,7 +147,7 @@ public class AddCustomerFragment extends Fragment{
                 }
 
                 else {
-                    editText_cusName.setError("please select customer name");
+                    editText_cusName.setError("please fill customer name");
                 }
 
 

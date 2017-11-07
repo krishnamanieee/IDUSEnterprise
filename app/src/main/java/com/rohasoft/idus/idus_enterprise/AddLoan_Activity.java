@@ -166,12 +166,9 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
         btnsubmit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                double loanamount=Integer.parseInt(edtloanamount.getText().toString().trim());
-                double loanduaration=Integer.parseInt(edtloanduration.getText().toString().trim());
+//
 
-                double result=loanamount/loanduaration;
 
-                Toast.makeText(getApplicationContext(),""+result,Toast.LENGTH_SHORT).show();
 
 
                 String cus_name=edtcustumname.getText().toString().trim();
