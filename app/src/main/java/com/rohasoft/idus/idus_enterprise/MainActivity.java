@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -24,9 +23,8 @@ import android.widget.Toast;
 import com.rohasoft.idus.idus_enterprise.fragment.AddCustomerFragment;
 import com.rohasoft.idus.idus_enterprise.fragment.AddLoanFragment;
 import com.rohasoft.idus.idus_enterprise.fragment.CollectLoanFragment;
+import com.rohasoft.idus.idus_enterprise.fragment.ExistingCusFragment;
 import com.rohasoft.idus.idus_enterprise.fragment.HomeFragment;
-import com.rohasoft.idus.idus_enterprise.fragment.SettingsFragment;
-import com.rohasoft.idus.idus_enterprise.other.CollectLoan;
 import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
 
 public class MainActivity extends AppCompatActivity
@@ -83,24 +81,27 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        // Navigation view header
+                // Navigation view header
         navHeader = navigationView.getHeaderView(0);
 
 
         // load toolbar titles from string resources
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        /*fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-/*                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                CollectLoanFragment collectLoanFragment = new CollectLoanFragment();
+
+
+*//*                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-               */
+               *//*
 
             }
-        });
+        });*/
 
         // load nav menu header data
         // loadNavHeader();
@@ -217,11 +218,11 @@ public class MainActivity extends AppCompatActivity
 
             case 4:
                 // New Existing fragment
-                SettingsFragment settingsFragment = new SettingsFragment();
-                return settingsFragment;
+                ExistingCusFragment existingCusFragment = new ExistingCusFragment();
+                return existingCusFragment;
            /* case 5:
                 // New Existing fragment
-              //  SettingsFragment settingsFragment = new SettingsFragment();
+              //  ExistingCusFragment existingCusFragment = new ExistingCusFragment();
 
                 return null;*/
             default:
@@ -398,7 +399,7 @@ public class MainActivity extends AppCompatActivity
     // show or hide the fab
     private void toggleFab() {
         if (navItemIndex == 0)
-            fab.show();
+            fab.hide();
         else
             fab.hide();
     }

@@ -4,13 +4,11 @@
     android:layout_height="match_parent"
     tools:context="com.rohasoft.idus.idus_enterprise.MainActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-
-
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview_colectLoan"
+        android:id="@+id/recyclerview_existingCus"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
+
 </FrameLayout>

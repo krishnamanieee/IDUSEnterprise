@@ -16,8 +16,10 @@ import android.widget.Toast;
 import com.rohasoft.idus.idus_enterprise.R;
 import com.rohasoft.idus.idus_enterprise.other.Customer;
 import com.rohasoft.idus.idus_enterprise.other.GetCustomerCallBack;
+import com.rohasoft.idus.idus_enterprise.other.GetUserCallback;
 import com.rohasoft.idus.idus_enterprise.other.Loan;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
+import com.rohasoft.idus.idus_enterprise.other.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,10 +31,11 @@ import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
  */
 public class AddCustomerFragment extends Fragment{
 
-    EditText editText_cusName,editText_phone,editText_addr1,editText_addr2,editText_city,editText_pincode,editText_lacMap,editText_lanMap,
+    EditText editText_cusName,editText_phone,editText_addr1,editText_city,editText_pincode,editText_lacMap,editText_lanMap,
     editText_remarks;
     Button button_addCustomer,button_reset;
     ImageView imageView_addcus_map;
+    String cusName,phone,addr1,city,pincode,lanMap,lacMap,remark;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -87,7 +90,7 @@ public class AddCustomerFragment extends Fragment{
         editText_cusName= (EditText) v.findViewById(R.id.edt_addcus_custmname);
         editText_phone= (EditText) v.findViewById(R.id.edt_addcus_phnno);
         editText_addr1= (EditText) v.findViewById(R.id.edt_addcus_addr1);
-        editText_addr2= (EditText) v.findViewById(R.id.edt_addcus_addr2);
+
         editText_city= (EditText) v.findViewById(R.id.edt_addcus_city);
         editText_pincode= (EditText) v.findViewById(R.id.edt_addcus_pincode);
         editText_lacMap= (EditText) v.findViewById(R.id.edt_addcus_maplac);
@@ -108,27 +111,29 @@ public class AddCustomerFragment extends Fragment{
 
 
 
+
+
         button_addCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cusName=editText_cusName.getText().toString().trim();
+                phone=editText_phone.getText().toString().trim();
+                addr1=editText_addr1.getText().toString().trim();
 
-                String cusName=editText_cusName.getText().toString().trim();
-                String phone=editText_phone.getText().toString().trim();
-                String addr1=editText_addr1.getText().toString().trim();
-                String addr2=editText_addr2.getText().toString().trim();
-                String city=editText_city.getText().toString().trim();
-                String pincode=editText_pincode.getText().toString().trim();
-                String lanMap=editText_lanMap.getText().toString().trim();
-                String lacMap=editText_lacMap.getText().toString().trim();
-                String remark=editText_remarks.getText().toString().trim();
+                city=editText_city.getText().toString().trim();
+                pincode=editText_pincode.getText().toString().trim();
+                lanMap=editText_lanMap.getText().toString().trim();
+                lacMap=editText_lacMap.getText().toString().trim();
+                 remark=editText_remarks.getText().toString().trim();
 
 
                 if (cusName.length() > 0){
                     if (phone.length() == 10){
                         if(pincode.length()==6){
                             if(city.length() > 0){
-                                Customer customer=new Customer(cusName,phone,addr1+","+addr2,city,pincode,lanMap,lacMap,remark);
-                                addCustomer(customer);
+                                User user=new User(phone);
+                                authenticate(user);
+
                             }
                             else{
                                 editText_city.setError("Please enter the City");
@@ -157,6 +162,27 @@ public class AddCustomerFragment extends Fragment{
         return v;
     }
 
+
+
+    private void authenticate(User user){
+        ServerRequest serverRequest=new ServerRequest(getContext());
+        serverRequest.fetchPhoneDataInBackground(user, new GetUserCallback() {
+            @Override
+            public void done(User returedUser) {
+                if (returedUser == null){
+
+                     Customer customer=new Customer(cusName,phone,addr1,city,pincode,lanMap,lacMap,remark);
+                    addCustomer(customer);
+                    reset();
+
+
+                }else {
+                    editText_phone.setError("phone exists");
+                }
+            }
+        });
+    }
+
     private void reset() {
 
         button_reset.setOnClickListener(new View.OnClickListener() {
@@ -167,7 +193,6 @@ public class AddCustomerFragment extends Fragment{
                 editText_cusName.setText("");
                 editText_phone.setText("");
                 editText_addr1.setText("");
-                editText_addr2.setText("");
                 editText_city.setText("");
                 editText_pincode.setText("");
                 editText_lacMap.setText("");

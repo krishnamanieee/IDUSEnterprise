@@ -10,14 +10,35 @@ public class AddLoanCusList {
     private String phone;
     private String cusId;
     private String address;
+    private String city;
+    private String pincode;
 
 
 
-    public AddLoanCusList(String cusName, String phone, String cusId, String address) {
+    public AddLoanCusList(String cusName, String phone, String cusId, String address,String city,String pincode) {
         this.cusName = cusName;
         this.phone = phone;
         this.cusId = cusId;
-        this.address = address;    }
+        this.address = address;
+        this.city=city;
+        this.pincode=pincode;
+    }
+    public AddLoanCusList(String cusName, String phone, String cusId, String city) {
+        this.cusName = cusName;
+        this.phone = phone;
+        this.cusId = cusId;
+        this.address = "";
+        this.city=city;
+        this.pincode="";
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getPincode() {
+        return pincode;
+    }
 
     public String getCusName() {
         return cusName;

@@ -126,13 +126,7 @@
                         android:ems="10"
                         android:inputType="text" />
 
-                    <EditText
 
-                        android:id="@+id/edt_addcus_addr2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:ems="10"
-                        android:inputType="text" />
                 </LinearLayout>
 
 

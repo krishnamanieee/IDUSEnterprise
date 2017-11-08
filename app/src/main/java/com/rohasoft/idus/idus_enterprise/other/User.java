@@ -10,6 +10,7 @@ public class User {
 
 
 
+
     public  User(String name,String email,String phone_no,String pass, String otp){
         this.name=name;
         this.email=email;
@@ -24,6 +25,15 @@ public class User {
         this.email=email;
         this.phone_no="";
         this.pass=pass;
+        this.otp="";
+
+
+    }
+    public  User(String phone_no){
+        this.name="";
+        this.email="";
+        this.phone_no=phone_no;
+        this.pass="";
         this.otp="";
 
 

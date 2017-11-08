@@ -69,6 +69,11 @@ public class ServerRequest {
          new FetchUserDataAsyncTask(user,callBack).execute();
     }
 
+    public void fetchPhoneDataInBackground(User user, GetUserCallback callBack) {
+        progressDialog.show();
+         new FetchPhoneDataAsyncTask(user,callBack).execute();
+    }
+
     public class storeCustomerDataAsyncTask extends AsyncTask<Void, Void, Void>{
 
         Customer customer;
@@ -326,6 +331,72 @@ public class ServerRequest {
         }
 
     }
+    public class FetchPhoneDataAsyncTask extends AsyncTask<Void, Void, User> {
+
+        User user;
+        GetUserCallback userCallback;
+
+        public FetchPhoneDataAsyncTask(User user, GetUserCallback userCallback) {
+
+            this.user = user;
+            this.userCallback = userCallback;
+        }
+
+        @Override
+        protected User doInBackground(Void... params) {
+
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+
+            dataToSend.add(new BasicNameValuePair("email", user.phone_no));
+            dataToSend.add(new BasicNameValuePair("password", user.pass));
+
+
+            HttpParams httpRequestParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+
+            HttpClient client = new DefaultHttpClient(httpRequestParams);
+            HttpPost post = new HttpPost(SERVER_ADDRESS + "phone_check.php");
+
+            User returnedUser = null;
+
+            try {
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                HttpResponse httpResponse = client.execute(post);
+
+                HttpEntity entity = httpResponse.getEntity();
+                String result = EntityUtils.toString(entity);
+                JSONObject jobject = new JSONObject(result);
+
+                int i=jobject.length();
+
+
+                if (jobject.length() == 0) {
+
+                    returnedUser = null;
+
+                } else {
+                    String email = jobject.getString("phone");
+
+                    returnedUser = new User(email);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return returnedUser;
+        }
+
+        @Override
+        protected void onPostExecute(User returnedUser) {
+            progressDialog.dismiss();
+            userCallback.done(returnedUser);
+            super.onPostExecute(returnedUser);
+        }
+
+    }
+
+
 
 
 }

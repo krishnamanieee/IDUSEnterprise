@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.rohasoft.idus.idus_enterprise.fragment.AddLoanFragment;
 import com.rohasoft.idus.idus_enterprise.other.Customer;
 import com.rohasoft.idus.idus_enterprise.other.GetCustomerCallBack;
 import com.rohasoft.idus.idus_enterprise.other.GetLoanCallBack;
@@ -47,8 +50,8 @@ import static java.security.AccessController.getContext;
  * Created by Ayothi selvam on 04-11-2017.
  */
 
-public class AddLoan_Activity extends Activity implements OnClickListener{
-    EditText edtcustumname, edtcustumid, edtphnno, edtaddr1, edtaddr2, edtcity, edtpincode, edtloanamount, edtloanduration,
+public class AddLoan_Activity extends AppCompatActivity implements OnClickListener{
+    EditText edtcustumname, edtcustumid, edtphnno, edtaddr, edtcity, edtpincode, edtloanamount, edtloanduration,
             edtstartdate, edtenddate, edtremarks;
 
     ImageView imgcustum, imgshop, imgidproof, imgaddrproof;
@@ -61,7 +64,7 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
     private DatePickerDialog toDatePickerDialog;
 
     private SimpleDateFormat dateFormatter;
-    String id,CusName,phone,address;
+    String id,CusName,phone,address,city,pincode;
 
 
 
@@ -69,6 +72,7 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_add_laon);
 
 
@@ -88,8 +92,8 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
         edtphnno.setEnabled(false);
         edtphnno.setInputType(InputType.TYPE_NULL);
 
-        edtaddr1 = (EditText) findViewById(R.id.edit_addloan_adr1);
-        edtaddr2 = (EditText) findViewById(R.id.edit_addloan_adr2);
+        edtaddr = (EditText) findViewById(R.id.edit_addloan_adr1);
+
 
         edtcity = (EditText) findViewById(R.id.edit_addloan_city);
         edtcity.setEnabled(false);
@@ -123,7 +127,21 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
         edtcustumid.setEnabled(false);
         edtcustumid.setInputType(InputType.TYPE_NULL);
 
-        reset();
+        edtaddr.setEnabled(false);
+        edtaddr.setInputType(InputType.TYPE_NULL);
+
+        edtcustumid.setEnabled(false);
+        edtcustumid.setInputType(InputType.TYPE_NULL);
+
+
+        btnreset.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reset();
+
+            }
+        });
+
 
         spinloanoption = (Spinner) findViewById(R.id.spin_addloan_loan_option);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
@@ -138,11 +156,15 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
             CusName=getIntent().getExtras().getString("cusName");
             phone=getIntent().getExtras().getString("phone");
             address=getIntent().getExtras().getString("address");
+            city=getIntent().getExtras().getString("city");
+            pincode=getIntent().getExtras().getString("pincode");
 
             edtcustumname.setText(CusName);
             edtcustumid.setText("CUS"+id);
             edtphnno.setText(phone);
-            edtaddr1.setText(address);
+            edtaddr.setText(address);
+            edtcity.setText(city);
+            edtpincode.setText(pincode);
 
 
 
@@ -157,27 +179,21 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
 
 
     private void reset() {
+        edtcustumname.setText("");
+        edtcustumid.setText("");
+        edtphnno.setText("");
+        edtaddr.setText("");
+
+        edtcity.setText("");
+        edtpincode.setText("");
+        edtloanamount.setText("");
+        edtloanduration.setText("");
+        edtstartdate.setText("");
+        edtenddate.setText("");
+        edtremarks.setText("");
 
 
 
-        btnreset.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                edtcustumname.setText("");
-                edtcustumid.setText("");
-                edtphnno.setText("");
-                edtaddr1.setText("");
-                edtaddr2.setText("");
-                edtcity.setText("");
-                edtpincode.setText("");
-                edtloanamount.setText("");
-                edtloanduration.setText("");
-                edtstartdate.setText("");
-                edtenddate.setText("");
-                edtremarks.setText("");
-            }
-        });
     }
 
 
@@ -195,7 +211,7 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
                 String cus_name=edtcustumname.getText().toString().trim();
                 String cus_id=edtcustumid.getText().toString().trim();
                 String phone=edtphnno.getText().toString().trim();
-                String address=edtaddr1.getText().toString().trim() +", "+edtaddr2.getText().toString().trim();
+                String address=edtaddr.getText().toString().trim();
                 String city=edtcity.getText().toString().trim();
                 String pincode=edtpincode.getText().toString().trim();
                 String loan_amt=edtloanamount.getText().toString().trim();
@@ -206,13 +222,16 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
                 String remarks=edtremarks.getText().toString().trim();
 
 
-                if (cus_name.isEmpty()){
+                if (cus_name.length()>0){
                     if (phone.length() == 10){
                         if(pincode.length()==6){
-                            if(city.isEmpty()){
+                            if(city.length()>0){
                                 Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,start_date,end_date,remarks);
 
                                 AddLoan(loan);
+                                reset();
+                                onBackPressed();
+
                             }
                             else{
                                 edtcity.setError("Please enter the City");
@@ -344,6 +363,8 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
         spinloanoption.setAdapter(data);
     }
 
+
+
     @Override
     public void onClick(View view) {
         if(view == edtstartdate) {
@@ -352,6 +373,11 @@ public class AddLoan_Activity extends Activity implements OnClickListener{
         } else if(view == edtenddate) {
            // toDatePickerDialog.show();
         }
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 

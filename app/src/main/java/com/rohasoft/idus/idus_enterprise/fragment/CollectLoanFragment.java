@@ -1,10 +1,13 @@
 package com.rohasoft.idus.idus_enterprise.fragment;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +17,26 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.rohasoft.idus.idus_enterprise.Adapter.AddLoanCus;
+import com.rohasoft.idus.idus_enterprise.Adapter.CollectLoanAdapter;
 import com.rohasoft.idus.idus_enterprise.R;
+import com.rohasoft.idus.idus_enterprise.other.AddLoanCusList;
+import com.rohasoft.idus.idus_enterprise.other.CollectLoanList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import static com.rohasoft.idus.idus_enterprise.R.id.edit_addloan_pincode;
@@ -35,9 +54,12 @@ import static com.rohasoft.idus.idus_enterprise.R.id.edit_colloan_paid_amount;
  */
 public class CollectLoanFragment extends Fragment {
 
-    Button pay, reset;
-    EditText duePaidDate, paidAmount,phoneno,pincode;
-    private SimpleDateFormat dateFormatter;
+    private static final String URL_DATA="http://www.idusmarket.com/loan-app/app/fetchcolloanlist.php";
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter  adapter;
+
+    private List<CollectLoanList> list;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -89,73 +111,82 @@ public class CollectLoanFragment extends Fragment {
 
 
         View v = inflater.inflate(R.layout.fragment_collect_loan, container, false);
-        pay = (Button) v.findViewById(R.id.btn_colloan_pay);
-        reset = (Button) v.findViewById(R.id.btn_colloan_reset);
 
-        phoneno = (EditText) v.findViewById(R.id.edit_colLoan__phnno);
-        phoneno.setEnabled(false);
-        phoneno.setInputType(InputType.TYPE_NULL);
+        recyclerView=(RecyclerView) v.findViewById(R.id.recyclerview_colectLoan);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        pincode  = (EditText) v.findViewById(R.id.edit_addloan_pincode);
-        pincode.setEnabled(false);
-        pincode.setInputType(InputType.TYPE_NULL);
+        list=new ArrayList<>();
+        loadRecyclerViewData();
 
-        duePaidDate = (EditText)v.findViewById(R.id.edit_colloan_due_paid_date);
-
-        paidAmount  = (EditText) v.findViewById(R.id.edit_colloan_paid_amount);
-
-
-        duePaidDate.setInputType(InputType.TYPE_NULL);
-        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-        reset();
-
-        getDate();
-        pay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-            }
-        });
         // Inflate the layout for this fragment
          return  v;
     }
+    private void loadRecyclerViewData() {
 
-    private void getDate() {
+        final ProgressDialog progressDialog=new ProgressDialog(getContext());
+        progressDialog.setMessage("loading Data....");
+        progressDialog.show();
 
-        duePaidDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar newCalendar=Calendar.getInstance();
 
-                DatePickerDialog datePickerDialog=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+        StringRequest stringRequest=new StringRequest(Request.Method.GET,
+                URL_DATA,
+                new Response.Listener<String>() {
                     @Override
-                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                    public void onResponse(String response) {
 
-                        Calendar newDate = Calendar.getInstance();
-                        newDate.set(year, monthOfYear, dayOfMonth);
-                        duePaidDate.setText(dateFormatter.format(newDate.getTime()));
+                        progressDialog.dismiss();
+
+
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+//                            JSONArray jsonArray=jsonObject.getJSONArray("server_response");
+                            JSONArray jsonArray=jsonObject.getJSONArray("loan");
+
+                            for (int i=0;i<jsonArray.length();i++){
+                                JSONObject  object=jsonArray.getJSONObject(i);
+
+                                CollectLoanList items=new CollectLoanList(
+                                        object.getString("customer_name"),
+                                        object.getString("customer_id"),
+                                        object.getString("phone"),
+                                        object.getString("city"),
+                                        object.getString("id"),
+                                        object.getString("address"),
+                                        object.getString("id"),
+                                        object.getString("address"),
+                                        object.getString("id"),
+                                        object.getString("address")
+                                );
+
+                                list.add(items);
+
+                            }
+
+                            adapter=new CollectLoanAdapter(list,getContext());
+                            recyclerView.setAdapter(adapter );
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                     }
-                },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
 
-                datePickerDialog.show();
+                    }
+                });
 
-            }
-        });
-
+        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
     }
 
-    private void reset() {
-        reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                duePaidDate.setText("");
-                paidAmount.setText("");
-            }
-        });
-    }
+
+
+
+
+
 
 
     // TODO: Rename method, update argument and hook method into UI event
