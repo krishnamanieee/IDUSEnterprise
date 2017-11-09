@@ -7,24 +7,20 @@ import android.widget.Button;
  */
 
 public class CollectLoan {
-    String customerName,loanId,phone,city,total_amount,paid_amount,balance_amount,due_date,due_amount,due_paid_date,due_paid_amount;
+    String customerName,phone,city,loanId,totalAmount,paidAmount,balanceAmount,dueDate,dueAmount,duePaidDate,duePaidAmount,status;
 
-
-
-    public CollectLoan(String customerName,String loanId,String phone,String city,String total_amount,String paid_amount,String balance_amount,String due_date,String due_amount,String due_paid_date,String due_paid_amount){
-
-        this.customerName=customerName;
-        this.loanId=loanId;
-        this.phone=phone;
-        this.city=city;
-        this.total_amount=total_amount;
-        this.paid_amount=paid_amount;
-        this.balance_amount=balance_amount;
-        this.due_date=due_date;
-        this.due_amount=due_amount;
-        this.due_paid_date=due_paid_date;
-        this.due_paid_amount=due_paid_amount;
-
-
+    public CollectLoan(String customerName, String phone, String city, String loanId, String totalAmount, String paidAmount, String balanceAmount, String dueDate, String dueAmount, String duePaidDate, String duePaidAmount,String status) {
+        this.customerName = customerName;
+        this.phone = phone;
+        this.city = city;
+        this.loanId = loanId;
+        this.totalAmount = totalAmount;
+        this.paidAmount = paidAmount;
+        this.balanceAmount = balanceAmount;
+        this.dueDate = dueDate;
+        this.dueAmount = dueAmount;
+        this.duePaidDate = duePaidDate;
+        this.duePaidAmount = duePaidAmount;
+        this.status=status;
     }
 }

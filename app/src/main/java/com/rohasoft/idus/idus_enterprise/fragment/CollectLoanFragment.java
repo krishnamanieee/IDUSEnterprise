@@ -122,6 +122,7 @@ public class CollectLoanFragment extends Fragment {
         // Inflate the layout for this fragment
          return  v;
     }
+
     private void loadRecyclerViewData() {
 
         final ProgressDialog progressDialog=new ProgressDialog(getContext());
@@ -152,11 +153,12 @@ public class CollectLoanFragment extends Fragment {
                                         object.getString("phone"),
                                         object.getString("city"),
                                         object.getString("id"),
-                                        object.getString("address"),
-                                        object.getString("id"),
-                                        object.getString("address"),
-                                        object.getString("id"),
-                                        object.getString("address")
+                                        object.getString("loan_option"),
+                                        object.getString("loan_amount"),
+                                        object.getString("paid_amount"),
+                                        object.getString("balance_amount"),
+                                        object.getString("current_due_date"),
+                                        object.getString("current_due_amount")
                                 );
 
                                 list.add(items);

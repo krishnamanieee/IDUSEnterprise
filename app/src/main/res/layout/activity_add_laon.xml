@@ -466,7 +466,7 @@
 
                 <ImageView
 
-                    android:id="@+id/img_view_idprrof"
+                    android:id="@+id/img_view_idproof"
                     app:srcCompat="@drawable/ic_menu_camera"
                     android:layout_width="80dp"
                     android:layout_height="80dp"

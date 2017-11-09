@@ -48,6 +48,12 @@ public class CollectLoanAdapter extends RecyclerView.Adapter<CollectLoanAdapter.
 
         holder.textView_cusName.setText(collectLoan.getCusName());
         holder.textView_phone.setText(collectLoan.getPhone());
+        holder.textView_city.setText(collectLoan.getCity());
+        holder.textView_loanId.setText("LOAN"+collectLoan.getLoanId());
+        holder.textView_loanAmount.setText(collectLoan.getTotalAmount());
+
+
+
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,6 +62,13 @@ public class CollectLoanAdapter extends RecyclerView.Adapter<CollectLoanAdapter.
                 intent.putExtra("cusName",collectLoan.getCusName());
                 intent.putExtra("phone",collectLoan.getPhone());
                 intent.putExtra("city",collectLoan.getCity());
+                intent.putExtra("cusId",collectLoan.getCusId());
+                intent.putExtra("loanOption",collectLoan.getLoanOption());
+                intent.putExtra("totalAmount",collectLoan.getTotalAmount());
+                intent.putExtra("paidAmount",collectLoan.getPaidAmount());
+                intent.putExtra("balanceAmount",collectLoan.getBalanceAmount());
+                intent.putExtra("NextdueDate",collectLoan.getDueDate());
+                intent.putExtra("NextdueAmount",collectLoan.getDueAmount());
 
                 context.startActivity(intent);
             }
@@ -72,14 +85,17 @@ public class CollectLoanAdapter extends RecyclerView.Adapter<CollectLoanAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textView_cusName,textView_phone;
+        TextView textView_cusName,textView_phone, textView_loanId,textView_city,textView_loanAmount;
         LinearLayout linearLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             textView_cusName=(TextView) itemView.findViewById(R.id.txt_colloanlistcusnmae);
-            textView_phone=(TextView) itemView.findViewById(R.id.txt_coloanlistphone);
+            textView_loanId=(TextView) itemView.findViewById(R.id.txt_colloanlistloanid);
+            textView_city=(TextView) itemView.findViewById(R.id.txt_coloanlistcity);
+            textView_phone=(TextView) itemView.findViewById(R.id.txt_colloanlistphone);
+            textView_loanAmount=(TextView) itemView.findViewById(R.id.txt_colloanlistloanamt);
             linearLayout=(LinearLayout) itemView.findViewById(R.id.linearLayout_ColLoanCusitems);
         }
         }

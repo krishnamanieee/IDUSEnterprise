@@ -1,8 +1,16 @@
 package com.rohasoft.idus.idus_enterprise.fragment;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +22,20 @@ import android.widget.Toast;
 
 
 import com.rohasoft.idus.idus_enterprise.R;
+import com.rohasoft.idus.idus_enterprise.imageUpload.ConnectionDetector;
+import com.rohasoft.idus.idus_enterprise.imageUpload.HttpFileUpload;
 import com.rohasoft.idus.idus_enterprise.other.Customer;
 import com.rohasoft.idus.idus_enterprise.other.GetCustomerCallBack;
 import com.rohasoft.idus.idus_enterprise.other.GetUserCallback;
 import com.rohasoft.idus.idus_enterprise.other.Loan;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
 import com.rohasoft.idus.idus_enterprise.other.User;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,8 +50,19 @@ public class AddCustomerFragment extends Fragment{
     EditText editText_cusName,editText_phone,editText_addr1,editText_city,editText_pincode,editText_lacMap,editText_lanMap,
     editText_remarks;
     Button button_addCustomer,button_reset;
-    ImageView imageView_addcus_map;
+
+    ImageView imgcustum, imgshop, imgidproof, imgaddrproof;
     String cusName,phone,addr1,city,pincode,lanMap,lacMap,remark;
+
+
+    String imagepath = "";
+    String fname;
+    File file;
+    private Uri selectedImage = null;
+    private Bitmap bitmap, bitmapRotate;
+    private Boolean upflag = false;
+    private ProgressDialog pDialog;
+    private ConnectionDetector cd;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -97,9 +124,41 @@ public class AddCustomerFragment extends Fragment{
         editText_lanMap= (EditText) v.findViewById(R.id.edt_addcus_maplan);
         editText_remarks= (EditText) v.findViewById(R.id.edt_addcus__remark);
 
-        imageView_addcus_map= (ImageView) v.findViewById(R.id.img_addcus_map);
+        cd = new ConnectionDetector(getContext());
+
+        imgcustum=(ImageView) v.findViewById(R.id.img_addcus_custm);
+        imgshop=(ImageView) v.findViewById(R.id.img_addcus_shop1);
+        imgidproof=(ImageView) v.findViewById(R.id.img_addcus_idproof);
+        imgaddrproof=(ImageView) v.findViewById(R.id.img_addcus_addrproof);
 
 
+        imgcustum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customerImg();
+            }
+        });
+
+        imgshop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShopImage();
+            }
+        });
+
+        imgidproof.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IdProof();
+            }
+        });
+
+        imgaddrproof.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddressProof();
+            }
+        });
 
 
 
@@ -108,6 +167,11 @@ public class AddCustomerFragment extends Fragment{
         button_reset= (Button) v.findViewById(R.id.btn_addcus_reset);
 
         reset();
+
+
+
+
+
 
 
 
@@ -253,5 +317,313 @@ public class AddCustomerFragment extends Fragment{
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    private void customerImg() {
+        Intent cameraintent = new Intent(
+                android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraintent, 101);
+    }
+    private void ShopImage() {
+        Intent cameraintent = new Intent(
+                android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraintent, 102);
+    }
+    private void IdProof() {
+        Intent cameraintent = new Intent(
+                android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraintent, 103);
+    }
+    private void AddressProof() {
+        Intent cameraintent = new Intent(
+                android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraintent, 104);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        try {
+            switch (requestCode) {
+
+                case 101:
+                    if (resultCode == Activity.RESULT_OK) {
+                        if (data != null) {
+                            selectedImage = data.getData(); // the uri of the image taken
+                            if (String.valueOf((Bitmap) data.getExtras().get("data")).equals("null")) {
+                                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                            } else {
+                                bitmap = (Bitmap) data.getExtras().get("data");
+                            }
+                            if (Float.valueOf(getImageOrientation()) >= 0) {
+                                bitmapRotate = rotateImage(bitmap, Float.valueOf(getImageOrientation()));
+                            } else {
+                                bitmapRotate = bitmap;
+                                bitmap.recycle();
+                            }
+
+
+                            imgcustum.setImageBitmap(bitmapRotate);
+
+//                            Saving image to mobile internal memory for sometime
+                            String root = getContext().getFilesDir().toString();
+                            File myDir = new File(root + "/androidlift");
+                            myDir.mkdirs();
+
+                            Random generator = new Random();
+                            int n = 10000;
+                            n = generator.nextInt(n);
+
+//                            Give the file name that u want
+                            fname = "Cus" + n + ".jpg";
+
+                            imagepath = root + "/androidlift/" + fname;
+                            file = new File(myDir, fname);
+                            upflag = true;
+                        }
+                        if (cd.isConnectingToInternet()) {
+                            if (!upflag) {
+                                Toast.makeText(getContext(), "Image Not Captured..!", Toast.LENGTH_LONG).show();
+                            } else {
+                                saveFile(bitmapRotate, file);
+                            }
+                        } else {
+                            Toast.makeText(getContext(), "No Internet Connection !", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    break;
+                case 102:
+                    if (resultCode == Activity.RESULT_OK) {
+                        if (data != null) {
+                            selectedImage = data.getData(); // the uri of the image taken
+                            if (String.valueOf((Bitmap) data.getExtras().get("data")).equals("null")) {
+                                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                            } else {
+                                bitmap = (Bitmap) data.getExtras().get("data");
+                            }
+                            if (Float.valueOf(getImageOrientation()) >= 0) {
+                                bitmapRotate = rotateImage(bitmap, Float.valueOf(getImageOrientation()));
+                            } else {
+                                bitmapRotate = bitmap;
+                                bitmap.recycle();
+                            }
+
+
+                            imgshop.setImageBitmap(bitmapRotate);
+
+//                            Saving image to mobile internal memory for sometime
+                            String root = getContext().getFilesDir().toString();
+                            File myDir = new File(root + "/androidlift");
+                            myDir.mkdirs();
+
+                            Random generator = new Random();
+                            int n = 10000;
+                            n = generator.nextInt(n);
+
+//                            Give the file name that u want
+                            fname = "Shop" + n + ".jpg";
+
+                            imagepath = root + "/androidlift/" + fname;
+                            file = new File(myDir, fname);
+                            upflag = true;
+                        }
+                        if (cd.isConnectingToInternet()) {
+                            if (!upflag) {
+                                Toast.makeText(getContext(), "Image Not Captured..!", Toast.LENGTH_LONG).show();
+                            } else {
+                                saveFile(bitmapRotate, file);
+                            }
+                        } else {
+                            Toast.makeText(getContext(), "No Internet Connection !", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    break;
+                case 103:
+                    if (resultCode == Activity.RESULT_OK) {
+                        if (data != null) {
+                            selectedImage = data.getData(); // the uri of the image taken
+                            if (String.valueOf((Bitmap) data.getExtras().get("data")).equals("null")) {
+                                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                            } else {
+                                bitmap = (Bitmap) data.getExtras().get("data");
+                            }
+                            if (Float.valueOf(getImageOrientation()) >= 0) {
+                                bitmapRotate = rotateImage(bitmap, Float.valueOf(getImageOrientation()));
+                            } else {
+                                bitmapRotate = bitmap;
+                                bitmap.recycle();
+                            }
+
+
+                            imgidproof.setImageBitmap(bitmapRotate);
+
+//                            Saving image to mobile internal memory for sometime
+                            String root = getContext().getFilesDir().toString();
+                            File myDir = new File(root + "/androidlift");
+                            myDir.mkdirs();
+
+                            Random generator = new Random();
+                            int n = 10000;
+                            n = generator.nextInt(n);
+
+//                            Give the file name that u want
+                            fname = "id" + n + ".jpg";
+
+                            imagepath = root + "/androidlift/" + fname;
+                            file = new File(myDir, fname);
+                            upflag = true;
+                        }
+                        if (cd.isConnectingToInternet()) {
+                            if (!upflag) {
+                                Toast.makeText(getContext(), "Image Not Captured..!", Toast.LENGTH_LONG).show();
+                            } else {
+                                saveFile(bitmapRotate, file);
+                            }
+                        } else {
+                            Toast.makeText(getContext(), "No Internet Connection !", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    break;
+                case 104:
+                    if (resultCode == Activity.RESULT_OK) {
+                        if (data != null) {
+                            selectedImage = data.getData(); // the uri of the image taken
+                            if (String.valueOf((Bitmap) data.getExtras().get("data")).equals("null")) {
+                                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                            } else {
+                                bitmap = (Bitmap) data.getExtras().get("data");
+                            }
+                            if (Float.valueOf(getImageOrientation()) >= 0) {
+                                bitmapRotate = rotateImage(bitmap, Float.valueOf(getImageOrientation()));
+                            } else {
+                                bitmapRotate = bitmap;
+                                bitmap.recycle();
+                            }
+
+
+                            imgaddrproof.setImageBitmap(bitmapRotate);
+
+//                            Saving image to mobile internal memory for sometime
+                            String root = getContext().getFilesDir().toString();
+                            File myDir = new File(root + "/androidlift");
+                            myDir.mkdirs();
+
+                            Random generator = new Random();
+                            int n = 10000;
+                            n = generator.nextInt(n);
+
+//                            Give the file name that u want
+                            fname = "proof" + n + ".jpg";
+
+                            imagepath = root + "/androidlift/" + fname;
+                            file = new File(myDir, fname);
+                            upflag = true;
+                        }
+                        if (cd.isConnectingToInternet()) {
+                            if (!upflag) {
+                                Toast.makeText(getContext(), "Image Not Captured..!", Toast.LENGTH_LONG).show();
+                            } else {
+                                saveFile(bitmapRotate, file);
+                            }
+                        } else {
+                            Toast.makeText(getContext(), "No Internet Connection !", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    break;
+
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Bitmap retVal;
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        retVal = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+
+        return retVal;
+    }
+
+    //    In some mobiles image will get rotate so to correting that this code will help us
+    private int getImageOrientation() {
+        final String[] imageColumns = {MediaStore.Images.Media._ID, MediaStore.Images.ImageColumns.ORIENTATION};
+        final String imageOrderBy = MediaStore.Images.Media._ID + " DESC";
+        Cursor cursor = getActivity().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                imageColumns, null, null, imageOrderBy);
+
+        if (cursor.moveToFirst()) {
+            int orientation = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.ImageColumns.ORIENTATION));
+            System.out.println("orientation===" + orientation);
+            cursor.close();
+            return orientation;
+        } else {
+            return 0;
+        }
+    }
+
+    //    Saving file to the mobile internal memory
+    private void saveFile(Bitmap sourceUri, File destination) {
+        if (destination.exists()) destination.delete();
+        try {
+            FileOutputStream out = new FileOutputStream(destination);
+            sourceUri.compress(Bitmap.CompressFormat.JPEG, 60, out);
+            out.flush();
+            out.close();
+            if (cd.isConnectingToInternet()) {
+                new DoFileUpload().execute();
+            } else {
+                Toast.makeText(getContext(), "No Internet Connection..", Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    class DoFileUpload extends AsyncTask<String, String, String> {
+
+        @Override
+        protected void onPreExecute() {
+
+            pDialog = new ProgressDialog(getContext());
+            pDialog.setMessage("wait uploading Image..");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try {
+                // Set your file path here
+                FileInputStream fstrm = new FileInputStream(imagepath);
+                // Set your server page url (and the file title/description)
+                HttpFileUpload hfu = new HttpFileUpload("http://autojobshere.com/app/file_upload.php", "ftitle", "fdescription", fname);
+                upflag = hfu.Send_Now(fstrm);
+            } catch (FileNotFoundException e) {
+                // Error: File not found
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String file_url) {
+            if (pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+            if (upflag) {
+                Toast.makeText(getContext(), "Uploading Complete", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getContext(), "Unfortunately file is not Uploaded..", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }

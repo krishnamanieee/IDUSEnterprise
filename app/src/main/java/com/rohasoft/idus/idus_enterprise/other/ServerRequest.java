@@ -16,9 +16,11 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ayothi selvam on 30-10-2017.
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 public class ServerRequest {
     ProgressDialog progressDialog;
     public static final int CONNECTION_TIMEOUT = 1000 * 15;
+    private List<GetLoanData> list;
 
     public static final String SERVER_ADDRESS = "http://www.idusmarket.com/loan-app/app/";
 //    public static final String SERVER_ADDRESS = "http://127.0.0.1/loan_app/add_cus.php";
@@ -67,6 +70,10 @@ public class ServerRequest {
     public void fetchUserDataInBackground(User user, GetUserCallback callBack) {
         progressDialog.show();
          new FetchUserDataAsyncTask(user,callBack).execute();
+    }
+    public void fetchCustomerLoanDataInBackground(GetLoanData getLoan, GetCustomerLaonCallBack getCustomerLaonCallBack) {
+        progressDialog.show();
+        new FetchCustomerLoanAsyncTask(getLoan,getCustomerLaonCallBack).execute();
     }
 
     public void fetchPhoneDataInBackground(User user, GetUserCallback callBack) {
@@ -193,6 +200,8 @@ public class ServerRequest {
             dataToSend.add(new BasicNameValuePair("loan_duration", loan.loan_duration));
             dataToSend.add(new BasicNameValuePair("start_date", loan.start_date));
             dataToSend.add(new BasicNameValuePair("end_date", loan.end_date));
+            dataToSend.add(new BasicNameValuePair("current_due_date", loan.current_due_date));
+            dataToSend.add(new BasicNameValuePair("current_due_amount", loan.current_due_amount));
             dataToSend.add(new BasicNameValuePair("remarks", loan.remarks));
 
             HttpParams httpRequestParams = new BasicHttpParams();
@@ -236,12 +245,14 @@ public class ServerRequest {
             dataToSend.add(new BasicNameValuePair("loanId",collectLoan.loanId));
             dataToSend.add(new BasicNameValuePair("phone",collectLoan.phone));
             dataToSend.add(new BasicNameValuePair("city",collectLoan.city));
-            dataToSend.add(new BasicNameValuePair("total_amount",collectLoan.total_amount));
-            dataToSend.add(new BasicNameValuePair("due_amount",collectLoan.due_amount));
-            dataToSend.add(new BasicNameValuePair("balance_amount",collectLoan.balance_amount));
-            dataToSend.add(new BasicNameValuePair("due_date",collectLoan.due_date));
-            dataToSend.add(new BasicNameValuePair("due_paid_date",collectLoan.due_paid_date));
-            dataToSend.add(new BasicNameValuePair("due_paid_amount",collectLoan.due_paid_amount));
+            dataToSend.add(new BasicNameValuePair("totalAmount",collectLoan.totalAmount));
+            dataToSend.add(new BasicNameValuePair("paidAmount",collectLoan.paidAmount));
+            dataToSend.add(new BasicNameValuePair("balanceAmount",collectLoan.balanceAmount));
+            dataToSend.add(new BasicNameValuePair("dueDate",collectLoan.dueDate));
+            dataToSend.add(new BasicNameValuePair("dueAmount",collectLoan.dueAmount));
+            dataToSend.add(new BasicNameValuePair("duePaidDate",collectLoan.duePaidDate));
+            dataToSend.add(new BasicNameValuePair("duePaidAmount",collectLoan.duePaidAmount));
+            dataToSend.add(new BasicNameValuePair("status",collectLoan.status));
 
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -394,6 +405,84 @@ public class ServerRequest {
             super.onPostExecute(returnedUser);
         }
 
+    }
+
+
+    public class FetchCustomerLoanAsyncTask extends  AsyncTask<Void,Void,GetLoanData>{
+
+        GetLoanData getLoanData;
+        GetCustomerLaonCallBack getCustomerLaonCallBack;
+
+        public FetchCustomerLoanAsyncTask(GetLoanData getLoanData, GetCustomerLaonCallBack getCustomerLaonCallBack) {
+            this.getLoanData = getLoanData;
+            this.getCustomerLaonCallBack = getCustomerLaonCallBack;
+        }
+
+        @Override
+        protected GetLoanData doInBackground(Void... voids) {
+            list=new ArrayList<>();
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+
+            dataToSend.add(new BasicNameValuePair("cusid", getLoanData.getCusId()));
+
+
+
+            HttpParams httpRequestParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpRequestParams, CONNECTION_TIMEOUT);
+
+            HttpClient client = new DefaultHttpClient(httpRequestParams);
+            HttpPost post = new HttpPost(SERVER_ADDRESS + "getcusloandata.php");
+
+            GetLoanData items=null;
+
+            try {
+                post.setEntity(new UrlEncodedFormEntity(dataToSend));
+                HttpResponse httpResponse = client.execute(post);
+
+                HttpEntity entity = httpResponse.getEntity();
+                String result = EntityUtils.toString(entity);
+                JSONObject jobject = new JSONObject(result);
+                JSONArray jsonArray=jobject.getJSONArray("loan");
+
+
+                if (jsonArray.length() == 0) {
+
+                    items = null;
+
+                } else {
+                    for (int i=0;i<jsonArray.length();i++){
+                        JSONObject  object=jsonArray.getJSONObject(i);
+
+                         items=new GetLoanData(
+                                object.getString("id"),
+                                object.getString("id"),
+                                object.getString("id"),
+                                object.getString("id"),
+                                object.getString("id"),
+                                object.getString("id"),
+                                object.getString("id"),
+                                object.getString("id"),
+                                object.getString("id"),
+                                object.getString("id"),
+                                object.getString("id")
+                        );
+
+
+
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return items;
+        }
+
+        @Override
+        protected void onPostExecute(GetLoanData getLoanData) {
+            progressDialog.dismiss();
+            super.onPostExecute(getLoanData);
+        }
     }
 
 

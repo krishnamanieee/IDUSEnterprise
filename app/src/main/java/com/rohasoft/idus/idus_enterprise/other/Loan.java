@@ -6,9 +6,9 @@ package com.rohasoft.idus.idus_enterprise.other;
 
 public class Loan {
 
-    String customer_name,customer_id,phone,address,city,pincode,loan_amount,loan_option,loan_duration,start_date,end_date,remarks;
+    String customer_name,customer_id,phone,address,city,pincode,loan_amount,loan_option,loan_duration,start_date,end_date,remarks,current_due_date,current_due_amount;
 
-    public  Loan(String customer_name,String customer_id,String phone,String address,String city,String pincode,String loan_amount,String loan_option,String loan_duration,String start_date,String end_date,String remarks){
+    public  Loan(String customer_name,String customer_id,String phone,String address,String city,String pincode,String loan_amount,String loan_option,String loan_duration,String start_date,String end_date,String current_due_date,String current_due_amount,String remarks){
         this.customer_name=customer_name;
         this.customer_id=customer_id;
         this.phone=phone;
@@ -20,6 +20,9 @@ public class Loan {
         this.loan_duration=loan_duration;
         this.start_date=start_date;
         this.end_date=end_date;
+        this.current_due_date=current_due_date;
+        this.current_due_amount=current_due_amount;
         this.remarks=remarks;
+
     }
 }

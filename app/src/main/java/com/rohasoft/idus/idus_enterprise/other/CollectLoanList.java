@@ -7,14 +7,18 @@ package com.rohasoft.idus.idus_enterprise.other;
 public class CollectLoanList {
 
 
-    String CusName,CusId,phone,city,loanId,totalAmount,paidAmount,balanceAmount,dueDate,dueAmount;
+    String CusName,CusId,phone,city,loanId,loanOption,totalAmount,paidAmount,balanceAmount,dueDate,dueAmount;
 
-    public CollectLoanList(String cusName, String cusId, String phone, String city, String loanId, String totalAmount, String paidAmount, String balanceAmount, String dueDate, String dueAmount) {
+
+
+    public CollectLoanList(String cusName, String cusId, String phone, String city, String loanId, String loanOption, String totalAmount, String paidAmount, String balanceAmount, String dueDate, String dueAmount) {
         CusName = cusName;
         CusId = cusId;
         this.phone = phone;
         this.city = city;
         this.loanId = loanId;
+        this.loanOption=loanOption;
+
         this.totalAmount = totalAmount;
         this.paidAmount = paidAmount;
         this.balanceAmount = balanceAmount;
@@ -60,5 +64,9 @@ public class CollectLoanList {
 
     public String getDueAmount() {
         return dueAmount;
+    }
+
+    public String getLoanOption() {
+        return loanOption;
     }
 }

@@ -5,7 +5,13 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +29,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.rohasoft.idus.idus_enterprise.fragment.AddLoanFragment;
+import com.rohasoft.idus.idus_enterprise.imageUpload.ConnectionDetector;
+import com.rohasoft.idus.idus_enterprise.imageUpload.HttpFileUpload;
 import com.rohasoft.idus.idus_enterprise.other.Customer;
 import com.rohasoft.idus.idus_enterprise.other.GetCustomerCallBack;
 import com.rohasoft.idus.idus_enterprise.other.GetLoanCallBack;
@@ -36,6 +44,10 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,7 +55,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
+import static android.R.attr.bitmap;
 import static java.security.AccessController.getContext;
 
 /**
@@ -60,8 +74,10 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
     Button btnsubmit,btnreset;
 
+
     private DatePickerDialog fromDatePickerDialog;
     private DatePickerDialog toDatePickerDialog;
+
 
     private SimpleDateFormat dateFormatter;
     String id,CusName,phone,address,city,pincode;
@@ -118,7 +134,7 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
         imgcustum = (ImageView) findViewById(R.id.img_view_custum);
         imgshop = (ImageView) findViewById(R.id.img_view_shop);
-        // imgidproof = (ImageView) v.findViewById(R.id.img_view_idproof);
+         imgidproof = (ImageView) findViewById(R.id.img_view_idproof);
         imgaddrproof = (ImageView) findViewById(R.id.img_view_addrproof);
 
         btnsubmit = (Button) findViewById(R.id.btn_submit);
@@ -132,7 +148,6 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
         edtcustumid.setEnabled(false);
         edtcustumid.setInputType(InputType.TYPE_NULL);
-
 
         btnreset.setOnClickListener(new OnClickListener() {
             @Override
@@ -158,17 +173,12 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
             address=getIntent().getExtras().getString("address");
             city=getIntent().getExtras().getString("city");
             pincode=getIntent().getExtras().getString("pincode");
-
             edtcustumname.setText(CusName);
             edtcustumid.setText("CUS"+id);
             edtphnno.setText(phone);
             edtaddr.setText(address);
             edtcity.setText(city);
             edtpincode.setText(pincode);
-
-
-
-
         }
 
 
@@ -183,7 +193,6 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
         edtcustumid.setText("");
         edtphnno.setText("");
         edtaddr.setText("");
-
         edtcity.setText("");
         edtpincode.setText("");
         edtloanamount.setText("");
@@ -192,10 +201,7 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
         edtenddate.setText("");
         edtremarks.setText("");
 
-
-
     }
-
 
 
 
@@ -203,11 +209,6 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
         btnsubmit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-//
-
-
-
-
                 String cus_name=edtcustumname.getText().toString().trim();
                 String cus_id=edtcustumid.getText().toString().trim();
                 String phone=edtphnno.getText().toString().trim();
@@ -226,7 +227,56 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
                     if (phone.length() == 10){
                         if(pincode.length()==6){
                             if(city.length()>0){
-                                Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,start_date,end_date,remarks);
+
+                               SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                                Calendar c = Calendar.getInstance();
+                                try {
+                                    c.setTime(sdf.parse(start_date));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                if (loan_opttion == "Daily"){
+
+                                    c.add(Calendar.DATE, 1 );
+
+                                }
+                                else if(loan_opttion == "Weekly"){
+
+
+                                    c.add(Calendar.DATE, 7);
+
+                                }
+                                else if(loan_opttion == "By Weekly"){
+
+
+                                    c.add(Calendar.DATE, 15);
+
+                                }
+                                else if(loan_opttion == "Monthly"){
+
+
+                                    c.add(Calendar.MONTH, 1);
+
+                                }
+
+
+                                SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+                                int totAmt=Integer.parseInt(loan_amt);
+                                int totDur=Integer.parseInt(loan_duration);
+
+
+
+                                String currentDueDate = sdf1.format(c.getTime());
+
+                                String DueAmount=String.valueOf(totAmt/totDur);
+
+
+
+
+
+
+                                Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,start_date,end_date,currentDueDate,DueAmount,remarks);
 
                                 AddLoan(loan);
                                 reset();
@@ -379,6 +429,7 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
         onBackPressed();
         return true;
     }
+
 
 
 }
