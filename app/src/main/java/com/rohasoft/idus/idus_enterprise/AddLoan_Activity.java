@@ -37,6 +37,7 @@ import com.rohasoft.idus.idus_enterprise.other.GetLoanCallBack;
 import com.rohasoft.idus.idus_enterprise.other.Loan;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
 import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
+import com.squareup.picasso.Picasso;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -80,7 +81,7 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
 
     private SimpleDateFormat dateFormatter;
-    String id,CusName,phone,address,city,pincode;
+    String id,CusName,phone,address,city,pincode,cusImg,shopImg,addressImg,idImg;
 
 
 
@@ -173,12 +174,21 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
             address=getIntent().getExtras().getString("address");
             city=getIntent().getExtras().getString("city");
             pincode=getIntent().getExtras().getString("pincode");
+            cusImg=getIntent().getExtras().getString("cusImg");
+            shopImg=getIntent().getExtras().getString("shopImg");
+            idImg=getIntent().getExtras().getString("idImg");
+            addressImg=getIntent().getExtras().getString("addressImg");
             edtcustumname.setText(CusName);
             edtcustumid.setText("CUS"+id);
             edtphnno.setText(phone);
             edtaddr.setText(address);
             edtcity.setText(city);
             edtpincode.setText(pincode);
+
+            Picasso.with(this).load("http://idusmarket.com/loan-app/app/images/"+cusImg).into(imgcustum);
+            Picasso.with(this).load("http://idusmarket.com/loan-app/app/images/"+shopImg).into(imgshop);
+            Picasso.with(this).load("http://idusmarket.com/loan-app/app/images/"+idImg).into(imgidproof);
+            Picasso.with(this).load("http://idusmarket.com/loan-app/app/images/"+addressImg).into(imgaddrproof);
         }
 
 
@@ -276,7 +286,7 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
 
 
-                                Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,start_date,end_date,currentDueDate,DueAmount,remarks);
+                                Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,start_date,end_date,currentDueDate,DueAmount,remarks,cusImg,shopImg,idImg,addressImg);
 
                                 AddLoan(loan);
                                 reset();

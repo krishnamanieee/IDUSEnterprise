@@ -158,7 +158,11 @@ public class CollectLoanFragment extends Fragment {
                                         object.getString("paid_amount"),
                                         object.getString("balance_amount"),
                                         object.getString("current_due_date"),
-                                        object.getString("current_due_amount")
+                                        object.getString("current_due_amount"),
+                                        object.getString("customer_image"),
+                                        object.getString("shop_image"),
+                                        object.getString("idproof_image"),
+                                        object.getString("addressproof_image")
                                 );
 
                                 list.add(items);

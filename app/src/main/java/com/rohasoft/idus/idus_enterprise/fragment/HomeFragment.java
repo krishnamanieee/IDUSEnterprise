@@ -135,7 +135,8 @@ public class HomeFragment extends Fragment {
                                         object.getString("city"),
                                         object.getString("phone"),
                                         object.getString("due_paid_date"),
-                                        object.getString("due_paid_amount")
+                                        object.getString("due_paid_amount"),
+                                        object.getString("customer_image")
                                 );
 
                                 list.add(items);

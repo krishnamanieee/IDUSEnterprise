@@ -64,6 +64,8 @@ public class AddCustomerFragment extends Fragment{
     private ProgressDialog pDialog;
     private ConnectionDetector cd;
 
+    String customerImage,shopImage,idProofImage,addressProofImage,longTime;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -166,11 +168,19 @@ public class AddCustomerFragment extends Fragment{
         button_addCustomer= (Button) v.findViewById(R.id.btn_addcus_submit);
         button_reset= (Button) v.findViewById(R.id.btn_addcus_reset);
 
-        reset();
+        button_reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reset();
+            }
+        });
 
 
 
 
+
+
+         longTime = String.valueOf(System.currentTimeMillis());
 
 
 
@@ -197,7 +207,6 @@ public class AddCustomerFragment extends Fragment{
                             if(city.length() > 0){
                                 User user=new User(phone);
                                 authenticate(user);
-
                             }
                             else{
                                 editText_city.setError("Please enter the City");
@@ -235,7 +244,7 @@ public class AddCustomerFragment extends Fragment{
             public void done(User returedUser) {
                 if (returedUser == null){
 
-                     Customer customer=new Customer(cusName,phone,addr1,city,pincode,lanMap,lacMap,remark);
+                    Customer customer=new Customer(cusName,phone,addr1,city,pincode,lanMap,lacMap,customerImage,shopImage,idProofImage,addressProofImage,remark);
                     addCustomer(customer);
                     reset();
 
@@ -249,9 +258,7 @@ public class AddCustomerFragment extends Fragment{
 
     private void reset() {
 
-        button_reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
 
 
                 editText_cusName.setText("");
@@ -262,8 +269,7 @@ public class AddCustomerFragment extends Fragment{
                 editText_lacMap.setText("");
                 editText_lanMap.setText("");
                 editText_remarks.setText("");
-            }
-        });
+
     }
 
 
@@ -373,8 +379,8 @@ public class AddCustomerFragment extends Fragment{
                             n = generator.nextInt(n);
 
 //                            Give the file name that u want
-                            fname = "Cus" + n + ".jpg";
-
+                            fname = "CUS_IMG_" + longTime + ".jpg";
+                            customerImage=fname;
                             imagepath = root + "/androidlift/" + fname;
                             file = new File(myDir, fname);
                             upflag = true;
@@ -420,8 +426,8 @@ public class AddCustomerFragment extends Fragment{
                             n = generator.nextInt(n);
 
 //                            Give the file name that u want
-                            fname = "Shop" + n + ".jpg";
-
+                            fname = "SHOP_IMG_" + longTime + ".jpg";
+                            shopImage=fname;
                             imagepath = root + "/androidlift/" + fname;
                             file = new File(myDir, fname);
                             upflag = true;
@@ -467,8 +473,8 @@ public class AddCustomerFragment extends Fragment{
                             n = generator.nextInt(n);
 
 //                            Give the file name that u want
-                            fname = "id" + n + ".jpg";
-
+                            fname = "ID_IMG_" + longTime + ".jpg";
+                            idProofImage=fname;
                             imagepath = root + "/androidlift/" + fname;
                             file = new File(myDir, fname);
                             upflag = true;
@@ -514,8 +520,8 @@ public class AddCustomerFragment extends Fragment{
                             n = generator.nextInt(n);
 
 //                            Give the file name that u want
-                            fname = "proof" + n + ".jpg";
-
+                            fname = "ADDRESS_IMG_" + longTime + ".jpg";
+                            addressProofImage=fname;
                             imagepath = root + "/androidlift/" + fname;
                             file = new File(myDir, fname);
                             upflag = true;
@@ -605,7 +611,7 @@ public class AddCustomerFragment extends Fragment{
                 // Set your file path here
                 FileInputStream fstrm = new FileInputStream(imagepath);
                 // Set your server page url (and the file title/description)
-                HttpFileUpload hfu = new HttpFileUpload("http://autojobshere.com/app/file_upload.php", "ftitle", "fdescription", fname);
+                HttpFileUpload hfu = new HttpFileUpload("http://www.idusmarket.com/loan-app/app/file_upload.php", "ftitle", "fdescription", fname);
                 upflag = hfu.Send_Now(fstrm);
             } catch (FileNotFoundException e) {
                 // Error: File not found

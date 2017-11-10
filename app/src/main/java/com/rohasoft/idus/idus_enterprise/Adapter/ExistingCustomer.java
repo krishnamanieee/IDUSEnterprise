@@ -6,13 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rohasoft.idus.idus_enterprise.AddLoan_Activity;
 import com.rohasoft.idus.idus_enterprise.CustomerDescriptionActivity;
+import com.rohasoft.idus.idus_enterprise.CustomerViewActivity;
 import com.rohasoft.idus.idus_enterprise.R;
 import com.rohasoft.idus.idus_enterprise.other.AddLoanCusList;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -46,10 +49,12 @@ public class ExistingCustomer extends RecyclerView.Adapter<ExistingCustomer.View
 
         holder.textView_cusName.setText(loanCusList.getCusName());
         holder.textView_phone.setText(loanCusList.getPhone());
+        Picasso.with(context)
+                .load("http://idusmarket.com/loan-app/app/images/"+loanCusList.getCusImag()).into(holder.imageView_cusphoto);
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context, CustomerDescriptionActivity.class);
+                Intent intent=new Intent(context, CustomerViewActivity.class);
                 intent.putExtra("id",loanCusList.getCusId());
                 intent.putExtra("cusName",loanCusList.getCusName());
                 intent.putExtra("phone",loanCusList.getPhone());
@@ -72,12 +77,14 @@ public class ExistingCustomer extends RecyclerView.Adapter<ExistingCustomer.View
 
         TextView textView_cusName,textView_phone;
         LinearLayout linearLayout;
+        ImageView  imageView_cusphoto;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             textView_cusName=(TextView) itemView.findViewById(R.id.txt_Addloanlistcus);
             textView_phone=(TextView) itemView.findViewById(R.id.txt_Addloanlistphone);
+            imageView_cusphoto=(ImageView) itemView.findViewById(R.id.img_AddLoanCusImg);
             linearLayout=(LinearLayout) itemView.findViewById(R.id.linearLayout_addLoanCus);
         }
     }

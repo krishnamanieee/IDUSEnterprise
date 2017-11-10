@@ -8,22 +8,41 @@ public class CollectLoanList {
 
 
     String CusName,CusId,phone,city,loanId,loanOption,totalAmount,paidAmount,balanceAmount,dueDate,dueAmount;
+    String   customerImage,shopImage,idProofImage,addressProofImage;
 
 
-
-    public CollectLoanList(String cusName, String cusId, String phone, String city, String loanId, String loanOption, String totalAmount, String paidAmount, String balanceAmount, String dueDate, String dueAmount) {
+    public CollectLoanList(String cusName, String cusId, String phone, String city, String loanId, String loanOption, String totalAmount, String paidAmount, String balanceAmount, String dueDate, String dueAmount, String customerImage, String shopImage, String idProofImage, String addressProofImage) {
         CusName = cusName;
         CusId = cusId;
         this.phone = phone;
         this.city = city;
         this.loanId = loanId;
-        this.loanOption=loanOption;
-
+        this.loanOption = loanOption;
         this.totalAmount = totalAmount;
         this.paidAmount = paidAmount;
         this.balanceAmount = balanceAmount;
         this.dueDate = dueDate;
         this.dueAmount = dueAmount;
+        this.customerImage = customerImage;
+        this.shopImage = shopImage;
+        this.idProofImage = idProofImage;
+        this.addressProofImage = addressProofImage;
+    }
+
+    public String getCustomerImage() {
+        return customerImage;
+    }
+
+    public String getShopImage() {
+        return shopImage;
+    }
+
+    public String getIdProofImage() {
+        return idProofImage;
+    }
+
+    public String getAddressProofImage() {
+        return addressProofImage;
     }
 
     public String getCusName() {

@@ -12,17 +12,25 @@ public class AddLoanCusList {
     private String address;
     private String city;
     private String pincode;
+    private String cusImag;
+    private String shopImg;
+    private String idImg;
+    private String addressImg;
 
 
-
-    public AddLoanCusList(String cusName, String phone, String cusId, String address,String city,String pincode) {
+    public AddLoanCusList(String cusName, String phone, String cusId, String address, String city, String pincode, String cusImag, String shopImg, String idImg, String addressImg) {
         this.cusName = cusName;
         this.phone = phone;
         this.cusId = cusId;
         this.address = address;
-        this.city=city;
-        this.pincode=pincode;
+        this.city = city;
+        this.pincode = pincode;
+        this.cusImag = cusImag;
+        this.shopImg = shopImg;
+        this.idImg = idImg;
+        this.addressImg = addressImg;
     }
+
     public AddLoanCusList(String cusName, String phone, String cusId, String city) {
         this.cusName = cusName;
         this.phone = phone;
@@ -30,6 +38,26 @@ public class AddLoanCusList {
         this.address = "";
         this.city=city;
         this.pincode="";
+        this.cusImag = "";
+        this.shopImg = "";
+        this.idImg = "";
+        this.addressImg = "";
+    }
+
+    public String getCusImag() {
+        return cusImag;
+    }
+
+    public String getShopImg() {
+        return shopImg;
+    }
+
+    public String getIdImg() {
+        return idImg;
+    }
+
+    public String getAddressImg() {
+        return addressImg;
     }
 
     public String getCity() {

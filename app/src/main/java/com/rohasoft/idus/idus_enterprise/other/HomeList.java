@@ -6,7 +6,16 @@ package com.rohasoft.idus.idus_enterprise.other;
 
 public class HomeList {
 
-    String cusName,city,phone,duePayDate,amount;
+    String cusName,city,phone,duePayDate,amount,cusImg;
+
+    public HomeList(String cusName, String city, String phone, String duePayDate, String amount, String cusImg) {
+        this.cusName = cusName;
+        this.city = city;
+        this.phone = phone;
+        this.duePayDate = duePayDate;
+        this.amount = amount;
+        this.cusImg = cusImg;
+    }
 
     public String getCusName() {
         return cusName;
@@ -28,12 +37,7 @@ public class HomeList {
         return amount;
     }
 
-    public HomeList(String cusName, String city, String phone, String duePayDate, String amount) {
-
-        this.cusName = cusName;
-        this.city = city;
-        this.phone = phone;
-        this.duePayDate = duePayDate;
-        this.amount = amount;
+    public String getCusImg() {
+        return cusImg;
     }
 }

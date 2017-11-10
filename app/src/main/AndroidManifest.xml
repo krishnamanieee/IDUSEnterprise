@@ -4,8 +4,10 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -29,15 +31,18 @@
             android:name=".LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AddLoan_Activity"
-            android:label="New Loan Application"/>
+        <activity
+            android:name=".AddLoan_Activity"
+            android:label="New Loan Application" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".CustomerDescriptionActivity"
-            android:label="Customer Details"/>
-        <activity android:name=".ColectLoan_Activity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".CustomerViewActivity"/>
+        <activity
+            android:name=".ScheduleActivity"
+            android:label="Customer Details" />
+        <activity android:name=".ColectLoan_Activity" />
     </application>
 
 </manifest>

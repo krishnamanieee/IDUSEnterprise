@@ -31,7 +31,7 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
     EditText duePaidDate, editText_paidAmount;
     EditText  editText_cusName,editText_phone,editText_city;
     private SimpleDateFormat dateFormatter;
-    String id,CusName,phone,city,loanid,totAmt,padiAmt,balAmt,nextDueDate,nextDueAmount,loanOption, status="Acitive";
+    String id,CusName,phone,city,loanid,totAmt,padiAmt,balAmt,nextDueDate,nextDueAmount,loanOption, status="Acitive",cusImg;
 
     TextView textView_loanId,textView_totalAmount,textView_paidAmount,textView_balanceAmount,textView_dueDate, textView_dueAmount,textView_balAmount;
     DatePickerDialog datePickerDialog;
@@ -86,6 +86,7 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
             balAmt =getIntent().getExtras().getString("balanceAmount");
             nextDueDate=getIntent().getExtras().getString("NextdueDate");
             nextDueAmount=getIntent().getExtras().getString("NextdueAmount");
+            cusImg=getIntent().getExtras().getString("cusImg");
 
 
             editText_cusName.setText(CusName);
@@ -182,7 +183,7 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
 
 
 
-                CollectLoan collectLoan=new CollectLoan(cusName,phone,city,loanId,totalAmount,paidAmount,balanceAmount,dueDate,dueAmount,paidDueDate,paidDueAmount,status);
+                CollectLoan collectLoan=new CollectLoan(cusName,phone,city,loanId,totalAmount,paidAmount,balanceAmount,dueDate,dueAmount,paidDueDate,paidDueAmount,status,cusImg);
                 AddDataToSerever(collectLoan);
                 onBackPressed();
             }

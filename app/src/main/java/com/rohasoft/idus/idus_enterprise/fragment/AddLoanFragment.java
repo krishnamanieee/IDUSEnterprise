@@ -155,7 +155,11 @@ public class AddLoanFragment extends Fragment {
                                         object.getString("id"),
                                         object.getString("address"),
                                         object.getString("city"),
-                                        object.getString("pincode")
+                                        object.getString("pincode"),
+                                        object.getString("customer_image"),
+                                        object.getString("shop_image"),
+                                        object.getString("idproof_image"),
+                                        object.getString("addressproof_image")
                                 );
 
                                 list.add(items);

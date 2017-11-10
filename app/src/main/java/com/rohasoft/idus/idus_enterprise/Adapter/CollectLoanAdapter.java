@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.rohasoft.idus.idus_enterprise.R;
 import com.rohasoft.idus.idus_enterprise.other.AddLoanCusList;
 import com.rohasoft.idus.idus_enterprise.other.CollectLoan;
 import com.rohasoft.idus.idus_enterprise.other.CollectLoanList;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -51,7 +53,8 @@ public class CollectLoanAdapter extends RecyclerView.Adapter<CollectLoanAdapter.
         holder.textView_city.setText(collectLoan.getCity());
         holder.textView_loanId.setText("LOAN"+collectLoan.getLoanId());
         holder.textView_loanAmount.setText(collectLoan.getTotalAmount());
-
+        Picasso.with(context)
+                .load("http://idusmarket.com/loan-app/app/images/"+collectLoan.getCustomerImage()).into(holder.imageView_cus);
 
 
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +72,7 @@ public class CollectLoanAdapter extends RecyclerView.Adapter<CollectLoanAdapter.
                 intent.putExtra("balanceAmount",collectLoan.getBalanceAmount());
                 intent.putExtra("NextdueDate",collectLoan.getDueDate());
                 intent.putExtra("NextdueAmount",collectLoan.getDueAmount());
+                intent.putExtra("cusImg",collectLoan.getCustomerImage());
 
                 context.startActivity(intent);
             }
@@ -87,6 +91,7 @@ public class CollectLoanAdapter extends RecyclerView.Adapter<CollectLoanAdapter.
 
         TextView textView_cusName,textView_phone, textView_loanId,textView_city,textView_loanAmount;
         LinearLayout linearLayout;
+        ImageView imageView_cus;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -95,6 +100,7 @@ public class CollectLoanAdapter extends RecyclerView.Adapter<CollectLoanAdapter.
             textView_loanId=(TextView) itemView.findViewById(R.id.txt_colloanlistloanid);
             textView_city=(TextView) itemView.findViewById(R.id.txt_coloanlistcity);
             textView_phone=(TextView) itemView.findViewById(R.id.txt_colloanlistphone);
+            imageView_cus=(ImageView) itemView.findViewById(R.id.img_colLoanCusImg);
             textView_loanAmount=(TextView) itemView.findViewById(R.id.txt_colloanlistloanamt);
             linearLayout=(LinearLayout) itemView.findViewById(R.id.linearLayout_ColLoanCusitems);
         }

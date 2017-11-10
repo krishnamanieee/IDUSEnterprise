@@ -102,6 +102,10 @@ public class ServerRequest {
             dataToSend.add(new BasicNameValuePair("pincode",customer.pincode));
             dataToSend.add(new BasicNameValuePair("mapLan",customer.mapLan));
             dataToSend.add(new BasicNameValuePair("mapLac",customer.mapLac));
+            dataToSend.add(new BasicNameValuePair("customerImage",customer.customerImage));
+            dataToSend.add(new BasicNameValuePair("shopImage",customer.shopImage));
+            dataToSend.add(new BasicNameValuePair("idProofImage",customer.idProofImage));
+            dataToSend.add(new BasicNameValuePair("addressProofImage",customer.addressProofImage));
             dataToSend.add(new BasicNameValuePair("remaks",customer.remaks));
 
             HttpParams httpRequestParams = new BasicHttpParams();
@@ -203,6 +207,10 @@ public class ServerRequest {
             dataToSend.add(new BasicNameValuePair("current_due_date", loan.current_due_date));
             dataToSend.add(new BasicNameValuePair("current_due_amount", loan.current_due_amount));
             dataToSend.add(new BasicNameValuePair("remarks", loan.remarks));
+            dataToSend.add(new BasicNameValuePair("cusImg", loan.cusImg));
+            dataToSend.add(new BasicNameValuePair("shoImg", loan.shoImg));
+            dataToSend.add(new BasicNameValuePair("idImg", loan.idImg));
+            dataToSend.add(new BasicNameValuePair("addressImg", loan.addressImg));
 
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -253,6 +261,7 @@ public class ServerRequest {
             dataToSend.add(new BasicNameValuePair("duePaidDate",collectLoan.duePaidDate));
             dataToSend.add(new BasicNameValuePair("duePaidAmount",collectLoan.duePaidAmount));
             dataToSend.add(new BasicNameValuePair("status",collectLoan.status));
+            dataToSend.add(new BasicNameValuePair("cusImg",collectLoan.cusImg));
 
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
