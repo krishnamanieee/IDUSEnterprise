@@ -49,6 +49,8 @@ public class ExistingCustomer extends RecyclerView.Adapter<ExistingCustomer.View
 
         holder.textView_cusName.setText(loanCusList.getCusName());
         holder.textView_phone.setText(loanCusList.getPhone());
+        holder.textView_city.setText(loanCusList.getCity());
+        holder.textView_cusid.setText(loanCusList.getCusId());
         Picasso.with(context)
                 .load("http://idusmarket.com/loan-app/app/images/"+loanCusList.getCusImag()).into(holder.imageView_cusphoto);
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +67,6 @@ public class ExistingCustomer extends RecyclerView.Adapter<ExistingCustomer.View
             }
         });
 
-
     }
 
     @Override
@@ -75,7 +76,7 @@ public class ExistingCustomer extends RecyclerView.Adapter<ExistingCustomer.View
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textView_cusName,textView_phone;
+        TextView textView_cusName,textView_phone,textView_cusid,textView_city;
         LinearLayout linearLayout;
         ImageView  imageView_cusphoto;
 
@@ -84,6 +85,8 @@ public class ExistingCustomer extends RecyclerView.Adapter<ExistingCustomer.View
 
             textView_cusName=(TextView) itemView.findViewById(R.id.txt_Addloanlistcus);
             textView_phone=(TextView) itemView.findViewById(R.id.txt_Addloanlistphone);
+            textView_cusid=(TextView) itemView.findViewById(R.id.txt_Addloanlistcusid);
+            textView_city=(TextView) itemView.findViewById(R.id.txt_Addloanlistcity);
             imageView_cusphoto=(ImageView) itemView.findViewById(R.id.img_AddLoanCusImg);
             linearLayout=(LinearLayout) itemView.findViewById(R.id.linearLayout_addLoanCus);
         }

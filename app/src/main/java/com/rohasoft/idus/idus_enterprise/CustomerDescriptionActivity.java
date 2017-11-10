@@ -1,44 +1,11 @@
 package com.rohasoft.idus.idus_enterprise;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.rohasoft.idus.idus_enterprise.Adapter.CustomerLoanAdapter;
-import com.rohasoft.idus.idus_enterprise.Adapter.ExistingCustomer;
-import com.rohasoft.idus.idus_enterprise.other.AddLoanCusList;
-import com.rohasoft.idus.idus_enterprise.other.GetCustomerLaonCallBack;
-import com.rohasoft.idus.idus_enterprise.other.GetLoanData;
-import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Ayothi selvam on 08-11-2017.

@@ -54,11 +54,10 @@ import static com.rohasoft.idus.idus_enterprise.R.id.edit_colloan_paid_amount;
  */
 public class CollectLoanFragment extends Fragment {
 
-    private static final String URL_DATA="http://www.idusmarket.com/loan-app/app/fetchcolloanlist.php";
+    private static final String URL_DATA="http://www.idusmarket.com/loan-app/app/allloan.php";
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter  adapter;
-
     private List<CollectLoanList> list;
 
 

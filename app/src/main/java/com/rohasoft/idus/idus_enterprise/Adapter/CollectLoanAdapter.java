@@ -54,7 +54,7 @@ public class CollectLoanAdapter extends RecyclerView.Adapter<CollectLoanAdapter.
         holder.textView_loanId.setText("LOAN"+collectLoan.getLoanId());
         holder.textView_loanAmount.setText(collectLoan.getTotalAmount());
         Picasso.with(context)
-                .load("http://idusmarket.com/loan-app/app/images/"+collectLoan.getCustomerImage()).into(holder.imageView_cus);
+                .load("http://www.idusmarket.com/loan-app/admin/uploads/"+collectLoan.getCustomerImage()).into(holder.imageView_cus);
 
 
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {

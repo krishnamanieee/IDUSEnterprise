@@ -8,6 +8,8 @@ public class HomeList {
 
     String cusName,city,phone,duePayDate,amount,cusImg;
 
+
+
     public HomeList(String cusName, String city, String phone, String duePayDate, String amount, String cusImg) {
         this.cusName = cusName;
         this.city = city;

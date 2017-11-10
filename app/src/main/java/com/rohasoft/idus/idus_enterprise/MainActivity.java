@@ -77,6 +77,8 @@ public class MainActivity extends AppCompatActivity
 
         mHandler = new Handler();
 
+        userLocalstore=new UserLocalStore(this);
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -221,7 +223,7 @@ public class MainActivity extends AppCompatActivity
                 ExistingCusFragment existingCusFragment = new ExistingCusFragment();
                 return existingCusFragment;
            /* case 5:
-                // New Existing fragment
+//                 New Existing fragment
               //  ExistingCusFragment existingCusFragment = new ExistingCusFragment();
 
                 return null;*/

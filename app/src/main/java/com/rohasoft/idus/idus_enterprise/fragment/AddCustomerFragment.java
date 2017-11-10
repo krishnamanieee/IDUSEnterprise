@@ -1,9 +1,11 @@
 package com.rohasoft.idus.idus_enterprise.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -11,7 +13,9 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,6 +118,8 @@ public class AddCustomerFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v=  inflater.inflate(R.layout.fragment_add_customer, container, false);
+
+
 
 
         editText_cusName= (EditText) v.findViewById(R.id.edt_addcus_custmname);
@@ -611,7 +617,7 @@ public class AddCustomerFragment extends Fragment{
                 // Set your file path here
                 FileInputStream fstrm = new FileInputStream(imagepath);
                 // Set your server page url (and the file title/description)
-                HttpFileUpload hfu = new HttpFileUpload("http://www.idusmarket.com/loan-app/app/file_upload.php", "ftitle", "fdescription", fname);
+                HttpFileUpload hfu = new HttpFileUpload("http://www.idusmarket.com/loan-app/admin/file_upload.php", "ftitle", "fdescription", fname);
                 upflag = hfu.Send_Now(fstrm);
             } catch (FileNotFoundException e) {
                 // Error: File not found
@@ -629,6 +635,32 @@ public class AddCustomerFragment extends Fragment{
                 Toast.makeText(getContext(), "Uploading Complete", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getContext(), "Unfortunately file is not Uploaded..", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    public void onStart() {
+        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA , Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+            imgcustum.setEnabled(true);
+            imgshop.setEnabled(true);
+            imgidproof.setEnabled(true);
+            imgaddrproof.setEnabled(true);
+
+        }
+        super.onStart();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 0) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                imgcustum.setEnabled(false);
+                imgshop.setEnabled(false);
+                imgidproof.setEnabled(false);
+                imgaddrproof.setEnabled(false);
             }
         }
     }

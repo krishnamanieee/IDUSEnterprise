@@ -31,7 +31,7 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
     EditText duePaidDate, editText_paidAmount;
     EditText  editText_cusName,editText_phone,editText_city;
     private SimpleDateFormat dateFormatter;
-    String id,CusName,phone,city,loanid,totAmt,padiAmt,balAmt,nextDueDate,nextDueAmount,loanOption, status="Acitive",cusImg;
+    String id,CusName,phone,city,loanid,totAmt,padiAmt,balAmt,nextDueDate,nextDueAmount,loanOption, status="Active",cusImg;
 
     TextView textView_loanId,textView_totalAmount,textView_paidAmount,textView_balanceAmount,textView_dueDate, textView_dueAmount,textView_balAmount;
     DatePickerDialog datePickerDialog;

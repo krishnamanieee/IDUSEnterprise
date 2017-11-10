@@ -1,23 +1,14 @@
 package com.rohasoft.idus.idus_enterprise;
 
-import android.app.Activity;
+import android.Manifest;
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.net.Uri;
-import android.os.AsyncTask;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -25,41 +16,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.view.View;
-import android.view.View.OnClickListener;
 
-import com.rohasoft.idus.idus_enterprise.fragment.AddLoanFragment;
-import com.rohasoft.idus.idus_enterprise.imageUpload.ConnectionDetector;
-import com.rohasoft.idus.idus_enterprise.imageUpload.HttpFileUpload;
-import com.rohasoft.idus.idus_enterprise.other.Customer;
-import com.rohasoft.idus.idus_enterprise.other.GetCustomerCallBack;
 import com.rohasoft.idus.idus_enterprise.other.GetLoanCallBack;
 import com.rohasoft.idus.idus_enterprise.other.Loan;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
-import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
 import com.squareup.picasso.Picasso;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
-import static android.R.attr.bitmap;
-import static java.security.AccessController.getContext;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 
 /**
  * Created by Ayothi selvam on 04-11-2017.
@@ -133,10 +104,15 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
 
 
+
+
         imgcustum = (ImageView) findViewById(R.id.img_view_custum);
         imgshop = (ImageView) findViewById(R.id.img_view_shop);
          imgidproof = (ImageView) findViewById(R.id.img_view_idproof);
         imgaddrproof = (ImageView) findViewById(R.id.img_view_addrproof);
+
+
+
 
         btnsubmit = (Button) findViewById(R.id.btn_submit);
         btnreset = (Button) findViewById(R.id.btn_reset);
@@ -194,6 +170,8 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
 
     }
+
+
 
 
 
@@ -439,6 +417,8 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
         onBackPressed();
         return true;
     }
+
+
 
 
 

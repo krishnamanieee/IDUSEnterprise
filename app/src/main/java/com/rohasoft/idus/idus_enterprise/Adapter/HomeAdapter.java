@@ -47,7 +47,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         holder.textView_amount.setText(list.getAmount());
         holder.textView_date.setText(list.getDuePayDate());
         Picasso.with(context)
-                .load("http://idusmarket.com/loan-app/app/images/"+list.getCusImg()).into(holder.imageView);
+                .load("http://www.idusmarket.com/loan-app/admin/uploads/"+list.getCusImg()).into(holder.imageView);
     }
 
     @Override
