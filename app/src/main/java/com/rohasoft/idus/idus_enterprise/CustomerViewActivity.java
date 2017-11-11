@@ -153,7 +153,7 @@ public class CustomerViewActivity extends AppCompatActivity {
                             }
                             if (list.isEmpty()){
                                 textView_noloan.setVisibility(View.VISIBLE);
-                                Toast.makeText(getApplicationContext(),"make text",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"No Loan Available",Toast.LENGTH_SHORT).show();
                             }
                             else {
                                 adapter=new LaonAdapter(list,getApplicationContext());

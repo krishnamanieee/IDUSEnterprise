@@ -50,9 +50,9 @@ public class ExistingCustomer extends RecyclerView.Adapter<ExistingCustomer.View
         holder.textView_cusName.setText(loanCusList.getCusName());
         holder.textView_phone.setText(loanCusList.getPhone());
         holder.textView_city.setText(loanCusList.getCity());
-        holder.textView_cusid.setText(loanCusList.getCusId());
+        holder.textView_cusid.setText("CUS"+loanCusList.getCusId());
         Picasso.with(context)
-                .load("http://idusmarket.com/loan-app/app/images/"+loanCusList.getCusImag()).into(holder.imageView_cusphoto);
+                .load("http://www.idusmarket.com/loan-app/admin/uploads/"+loanCusList.getCusImag()).into(holder.imageView_cusphoto);
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

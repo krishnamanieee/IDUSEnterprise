@@ -161,10 +161,10 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
             edtcity.setText(city);
             edtpincode.setText(pincode);
 
-            Picasso.with(this).load("http://idusmarket.com/loan-app/app/images/"+cusImg).into(imgcustum);
-            Picasso.with(this).load("http://idusmarket.com/loan-app/app/images/"+shopImg).into(imgshop);
-            Picasso.with(this).load("http://idusmarket.com/loan-app/app/images/"+idImg).into(imgidproof);
-            Picasso.with(this).load("http://idusmarket.com/loan-app/app/images/"+addressImg).into(imgaddrproof);
+            Picasso.with(this).load("http://www.idusmarket.com/loan-app/admin/uploads/"+cusImg).into(imgcustum);
+            Picasso.with(this).load("http://www.idusmarket.com/loan-app/admin/uploads/"+shopImg).into(imgshop);
+            Picasso.with(this).load("http://www.idusmarket.com/loan-app/admin/uploads/"+idImg).into(imgidproof);
+            Picasso.with(this).load("http://www.idusmarket.com/loan-app/admin/uploads/"+addressImg).into(imgaddrproof);
         }
 
 
@@ -188,6 +188,7 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
         edtstartdate.setText("");
         edtenddate.setText("");
         edtremarks.setText("");
+
 
     }
 
@@ -308,7 +309,7 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
         serverRequest.storeLoanDataInBackground(loan, new GetLoanCallBack() {
             @Override
             public void done(Loan returedGuser) {
-                Toast.makeText(getApplicationContext(),"Insert",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"New Loan Added Successfully...",Toast.LENGTH_SHORT).show();
             }
         });
 
