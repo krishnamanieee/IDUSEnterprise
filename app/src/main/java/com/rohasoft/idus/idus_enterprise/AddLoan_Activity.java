@@ -1,20 +1,25 @@
 package com.rohasoft.idus.idus_enterprise;
 
-import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.pm.PackageManager;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rohasoft.idus.idus_enterprise.other.GetLoanCallBack;
@@ -28,9 +33,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 
 /**
  * Created by Ayothi selvam on 04-11-2017.
@@ -53,6 +55,9 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
     private SimpleDateFormat dateFormatter;
     String id,CusName,phone,address,city,pincode,cusImg,shopImg,addressImg,idImg;
+
+    TextView textView_viewSchedule;
+
 
 
 
@@ -99,11 +104,12 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
         edtremarks = (EditText) findViewById(R.id.edit_addloan_remarks);
 
         edtstartdate.setInputType(InputType.TYPE_NULL);
-        edtstartdate.requestFocus();
+        InputMethodManager inputMethodManager=(InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(edtstartdate.getWindowToken(),0);
+
         edtenddate.setInputType(InputType.TYPE_NULL);
 
-
-
+        textView_viewSchedule= (TextView) findViewById(R.id.txt_addcusViewSchedule);
 
 
         imgcustum = (ImageView) findViewById(R.id.img_view_custum);
@@ -167,6 +173,79 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
             Picasso.with(this).load("http://www.idusmarket.com/loan-app/admin/uploads/"+addressImg).into(imgaddrproof);
         }
 
+
+        textView_viewSchedule.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog alertDialog = new AlertDialog.Builder(AddLoan_Activity.this).create();
+                alertDialog.setTitle("Alert Dialog");
+
+                String loanAmt=edtloanamount.getText().toString().trim();
+                String loanop=spinloanoption.getSelectedItem().toString();
+                String loandur=edtloanduration.getText().toString().trim();
+                String startdate=edtstartdate.getText().toString().trim();
+                if (loanAmt.length() >0 ){
+                    if (loanop != "Select Option"){
+
+                        if (loandur.length() >0 ){
+
+                            if (startdate.length() > 0){
+
+                                Intent intent=new Intent(AddLoan_Activity.this,NewScheduleActivity.class);
+                                intent.putExtra("totalAmount",loanAmt);
+                                intent.putExtra("loanOptions",loanop);
+                                intent.putExtra("loanDurations",loandur);
+                                intent.putExtra("startDate",startdate);
+                                startActivity(intent);
+
+                            }else {
+
+                                alertDialog.setMessage("Select the Start Date");
+                                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                });
+                                alertDialog.show();
+
+                            }
+                        }
+                        else {
+
+                            alertDialog.setMessage("Enter the Loan Duration ");
+                            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                            alertDialog.show();
+
+                        }
+
+                    }else {
+                        alertDialog.setMessage("Select the Loan Options");
+                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        alertDialog.show();
+
+                    }
+                }else {
+
+
+                    alertDialog.setMessage("Enter the Loan Amount");
+                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    alertDialog.show();
+                    //alertDialog.setIcon(R.drawable.icon_newloan);
+
+
+                }
+
+
+            }
+        });
 
 
     }
@@ -259,13 +338,7 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
                                 String currentDueDate = sdf1.format(c.getTime());
 
                                 String DueAmount=String.valueOf(totAmt/totDur);
-
-
-
-
-
-
-                                Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,start_date,end_date,currentDueDate,DueAmount,remarks,cusImg,shopImg,idImg,addressImg);
+                                Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,start_date,end_date,remarks,currentDueDate,DueAmount,cusImg,shopImg,idImg,addressImg);
 
                                 AddLoan(loan);
                                 reset();
@@ -325,8 +398,11 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
         fromDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                AlertDialog alertDialog = new AlertDialog.Builder(AddLoan_Activity.this).create();
+                alertDialog.setTitle("Alert Dialog");
 
-                int duration=0;
+
+                int duration=1;
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
                 edtstartdate.setText(dateFormatter.format(newDate.getTime()));
@@ -339,10 +415,27 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                int laonduration=Integer.parseInt(edtloanduration.getText().toString().trim());
+                 int laonduration=1;
+                String s1=edtloanduration.getText().toString().trim();
+                if ( s1.length()!=0 ){
+                    laonduration=Integer.parseInt(edtloanduration.getText().toString().trim());
+
+                }
+                else {
+
+                    alertDialog.setMessage("First Enter loan Duration");
+                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+
+                }
+
+
                 String loanoption=spinloanoption.getSelectedItem().toString().trim();
-                duration= laonduration;
+
                 if (loanoption == "Daily"){
+                    duration= laonduration;
 
                     c.add(Calendar.DATE, duration );
 
@@ -366,8 +459,14 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
                 }
                 else {
-                    Toast.makeText(getApplicationContext(),"Select loan option",Toast.LENGTH_SHORT).show();
+                    alertDialog.setMessage("Select loan option");
+                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
                 }
+
+                alertDialog.show();
 
                 // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
                 SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
@@ -389,6 +488,11 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
     }
 
     private void addLoanOption() {
+
+
+
+
+
         List<String> list =new ArrayList<String>();
         list.add("Select Option");
         list.add("Daily");
@@ -396,10 +500,11 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
         list.add("By Weekly");
         list.add("Monthly");
 
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,R.layout.spiner_item,list);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spiner_item);
+        spinloanoption.setAdapter(spinnerArrayAdapter);
 
-        ArrayAdapter<String> data = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, list);
-        data.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinloanoption.setAdapter(data);
+
     }
 
 

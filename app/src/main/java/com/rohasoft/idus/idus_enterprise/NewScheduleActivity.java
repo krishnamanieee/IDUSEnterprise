@@ -64,7 +64,7 @@ public class NewScheduleActivity extends AppCompatActivity {
         });
 
 
-        Toast.makeText(getApplicationContext(),tot_amt+"",Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getApplicationContext(),tot_amt+"",Toast.LENGTH_SHORT).show();
 
 
 

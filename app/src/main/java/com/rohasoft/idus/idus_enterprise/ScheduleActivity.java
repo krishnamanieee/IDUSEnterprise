@@ -51,9 +51,9 @@ public class ScheduleActivity extends AppCompatActivity {
 
 
             tot_amt = Integer.parseInt(getIntent().getExtras().getString("totalAmount"));
-            duration = Integer.parseInt(getIntent().getExtras().getString("loanOptions"));
+        duration = Integer.parseInt(getIntent().getExtras().getString("loanDurations"));
             dt = getIntent().getExtras().getString("startDate");
-            loanOption = getIntent().getExtras().getString("loanDurations");
+            loanOption = getIntent().getExtras().getString("loanOptions");
 
 
 
@@ -66,7 +66,7 @@ public class ScheduleActivity extends AppCompatActivity {
         });
 
 
-        Toast.makeText(getApplicationContext(),tot_amt+"",Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getApplicationContext(),tot_amt+"",Toast.LENGTH_SHORT).show();
 
 
 

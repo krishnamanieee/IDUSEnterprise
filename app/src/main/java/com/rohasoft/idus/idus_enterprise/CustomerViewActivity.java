@@ -124,7 +124,6 @@ public class CustomerViewActivity extends AppCompatActivity {
                                     String s=object.getString("phone").toString().trim();
                                 Long v1=  Long.parseLong(s);
                                 String s3=textView_phone.getText().toString();
-
                                 Long v2=  Long.parseLong(s3);
                                 if (v1.equals(v2)) {
 
@@ -156,7 +155,7 @@ public class CustomerViewActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),"No Loan Available",Toast.LENGTH_SHORT).show();
                             }
                             else {
-                                adapter=new LaonAdapter(list,getApplicationContext());
+                                adapter=new LaonAdapter(list,CustomerViewActivity.this);
                                 recyclerView.setAdapter(adapter );
                             }
 
