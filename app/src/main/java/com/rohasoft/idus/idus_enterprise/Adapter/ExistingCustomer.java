@@ -63,6 +63,8 @@ public class ExistingCustomer extends RecyclerView.Adapter<ExistingCustomer.View
                 intent.putExtra("address",loanCusList.getAddress());
                 intent.putExtra("city",loanCusList.getCity());
                 intent.putExtra("pincode",loanCusList.getPincode());
+                intent.putExtra("lat",loanCusList.getLatMap());
+                intent.putExtra("lan",loanCusList.getLanMap());
                 context.startActivity(intent);
             }
         });

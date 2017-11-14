@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rohasoft.idus.idus_enterprise.other.GPSTracker;
 import com.rohasoft.idus.idus_enterprise.other.GetLoanCallBack;
 import com.rohasoft.idus.idus_enterprise.other.Loan;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
@@ -39,6 +40,7 @@ import java.util.Locale;
  */
 
 public class AddLoan_Activity extends AppCompatActivity implements OnClickListener{
+
     EditText edtcustumname, edtcustumid, edtphnno, edtaddr, edtcity, edtpincode, edtloanamount, edtloanduration,
             edtstartdate, edtenddate, edtremarks;
 
@@ -177,8 +179,8 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
         textView_viewSchedule.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog alertDialog = new AlertDialog.Builder(AddLoan_Activity.this).create();
-                alertDialog.setTitle("Alert Dialog");
+
+
 
                 String loanAmt=edtloanamount.getText().toString().trim();
                 String loanop=spinloanoption.getSelectedItem().toString();
@@ -199,7 +201,8 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
                                 startActivity(intent);
 
                             }else {
-
+                                AlertDialog alertDialog = new AlertDialog.Builder(AddLoan_Activity.this).create();
+                                alertDialog.setTitle("Alert Dialog");
                                 alertDialog.setMessage("Select the Start Date");
                                 alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
@@ -210,7 +213,8 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
                             }
                         }
                         else {
-
+                            AlertDialog alertDialog = new AlertDialog.Builder(AddLoan_Activity.this).create();
+                            alertDialog.setTitle("Alert Dialog");
                             alertDialog.setMessage("Enter the Loan Duration ");
                             alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
@@ -221,6 +225,8 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
                         }
 
                     }else {
+                        AlertDialog alertDialog = new AlertDialog.Builder(AddLoan_Activity.this).create();
+                        alertDialog.setTitle("Alert Dialog");
                         alertDialog.setMessage("Select the Loan Options");
                         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -230,8 +236,8 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
                     }
                 }else {
-
-
+                    AlertDialog alertDialog = new AlertDialog.Builder(AddLoan_Activity.this).create();
+                    alertDialog.setTitle("Alert Dialog");
                     alertDialog.setMessage("Enter the Loan Amount");
                     alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -242,6 +248,7 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
 
                 }
+
 
 
             }
@@ -399,7 +406,7 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 AlertDialog alertDialog = new AlertDialog.Builder(AddLoan_Activity.this).create();
-                alertDialog.setTitle("Alert Dialog");
+
 
 
                 int duration=1;
@@ -422,12 +429,13 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
                 }
                 else {
-
+                    alertDialog.setTitle("Alert Dialog");
                     alertDialog.setMessage("First Enter loan Duration");
                     alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                         }
                     });
+                    alertDialog.show();
 
                 }
 
@@ -459,14 +467,16 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
                 }
                 else {
+                    alertDialog.setTitle("Alert Dialog");
                     alertDialog.setMessage("Select loan option");
                     alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                         }
                     });
+                    alertDialog.show();
                 }
 
-                alertDialog.show();
+
 
                 // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
                 SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");

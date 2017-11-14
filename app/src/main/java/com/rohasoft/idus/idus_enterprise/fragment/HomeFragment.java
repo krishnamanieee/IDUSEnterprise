@@ -2,6 +2,7 @@ package com.rohasoft.idus.idus_enterprise.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,7 +21,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.rohasoft.idus.idus_enterprise.Adapter.CollectLoanAdapter;
 import com.rohasoft.idus.idus_enterprise.Adapter.HomeAdapter;
+import com.rohasoft.idus.idus_enterprise.CollAmtActivity;
 import com.rohasoft.idus.idus_enterprise.R;
+import com.rohasoft.idus.idus_enterprise.TMCollectActivity;
+import com.rohasoft.idus.idus_enterprise.TdCollectActivity;
 import com.rohasoft.idus.idus_enterprise.other.CollectLoanList;
 import com.rohasoft.idus.idus_enterprise.other.HomeList;
 
@@ -43,10 +48,10 @@ public class HomeFragment extends Fragment {
 
     private static final String URL_DATA="http://www.idusmarket.com/loan-app/app/fetchhomepagedata.php";
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter  adapter;
 
-    private List<HomeList> list;
+    Button button_collotionList,button_td,button_tm;
+
+
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -97,70 +102,41 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_home, container, false);
 
-        recyclerView=(RecyclerView) v.findViewById(R.id.recyclerview_home);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        button_collotionList=(Button) v.findViewById(R.id.button_coll);
+        button_td=(Button) v.findViewById(R.id.button_td);
+        button_tm=(Button) v.findViewById(R.id.button_tm);
 
-        list=new ArrayList<>();
-        loadRecyclerViewData();
+
+        button_td.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), TdCollectActivity.class));
+
+            }
+        });
+
+        button_tm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), TMCollectActivity.class));
+
+            }
+        });
+
+        button_collotionList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), CollAmtActivity.class));
+            }
+        });
+
+
+
+
         return v;
     }
 
-    private void loadRecyclerViewData() {
 
-        final ProgressDialog progressDialog=new ProgressDialog(getContext());
-        progressDialog.setMessage("loading Data....");
-        progressDialog.show();
-
-
-        StringRequest stringRequest=new StringRequest(Request.Method.GET,
-                URL_DATA,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        progressDialog.dismiss();
-
-
-                        try {
-                            JSONObject jsonObject=new JSONObject(response);
-//                            JSONArray jsonArray=jsonObject.getJSONArray("server_response");
-                            JSONArray jsonArray=jsonObject.getJSONArray("collect_loan");
-
-                            for (int i=0;i<jsonArray.length();i++){
-                                JSONObject  object=jsonArray.getJSONObject(i);
-
-                                HomeList items=new HomeList(
-                                        object.getString("customer_name"),
-                                        object.getString("city"),
-                                        object.getString("phone"),
-                                        object.getString("due_paid_date"),
-                                        object.getString("due_paid_amount"),
-                                        object.getString("customer_image")
-                                );
-
-                                list.add(items);
-
-                            }
-
-                            adapter=new HomeAdapter(list,getContext());
-                            recyclerView.setAdapter(adapter );
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                });
-
-        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
-        requestQueue.add(stringRequest);
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -76,12 +76,13 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         mHandler = new Handler();
+        //getSupportActionBar().hide();
 
         userLocalstore=new UserLocalStore(this);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        //fab = (FloatingActionButton) findViewById(R.id.fab);
 
                 // Navigation view header
         navHeader = navigationView.getHeaderView(0);
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawers();
 
             // show or hide the fab button
-            toggleFab();
+          //  toggleFab();
             return;
         }
 
@@ -190,7 +191,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         // show or hide the fab button
-        toggleFab();
+        //toggleFab();
 
         //Closing drawer on item click
         drawer.closeDrawers();
@@ -254,24 +255,29 @@ public class MainActivity extends AppCompatActivity
                     case R.id.nav_home:
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_HOME;
+                        getSupportActionBar().show();
                         break;
                     case R.id.nav_Collect_loan:
                         navItemIndex = 1;
                         CURRENT_TAG = TAG_COLLECT;
+                        getSupportActionBar().show();
                         break;
                     case R.id.nav_new_loan:
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_NEWLOAN;
+                        getSupportActionBar().show();
                         break;
                     case R.id.nav_new_customer:
                         navItemIndex = 3;
                         CURRENT_TAG = TAG_NEWCUSTOMER;
+                        getSupportActionBar().show();
                         break;
                     case R.id.nav_existing_customer:
 
                        // startActivity(new Intent(getApplicationContext(),AddLoan_Activity.class));
                         navItemIndex = 4;
                         CURRENT_TAG = TAG_EXISTINGCUSTOMER;
+                        getSupportActionBar().show();
                         break;
                     case R.id.nav_logout:
                         // navItemIndex = 5;
@@ -400,13 +406,13 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    // show or hide the fab
+   /* // show or hide the fab
     private void toggleFab() {
         if (navItemIndex == 0)
             fab.hide();
         else
             fab.hide();
-    }
+    }*/
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

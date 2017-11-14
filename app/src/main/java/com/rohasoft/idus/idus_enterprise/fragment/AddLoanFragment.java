@@ -159,7 +159,9 @@ public class AddLoanFragment extends Fragment {
                                         object.getString("customer_image"),
                                         object.getString("shop_image"),
                                         object.getString("idproof_image"),
-                                        object.getString("addressproof_image")
+                                        object.getString("addressproof_image"),
+                                        object.getString("map_lac"),
+                                        object.getString("map_lan")
                                 );
 
                                 list.add(items);

@@ -5,11 +5,12 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="@string/nav_home" />
+            android:title="@string/nav_home"/>
         <item
             android:id="@+id/nav_Collect_loan"
             android:icon="@drawable/ic_collect_amount"
-            android:title="@string/nav_Collect_loan" />
+            android:title="@string/nav_Collect_loan"
+            android:background="?attr/colorPrimary"/>
         <item
             android:id="@+id/nav_new_loan"
             android:icon="@drawable/icon_newloan"

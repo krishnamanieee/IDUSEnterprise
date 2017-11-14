@@ -9,7 +9,7 @@ public class Customer  {
     String customerName,phone,address,city,pincode,mapLan,mapLac,remaks,id;
 
     String loanId,cusId,totalLoanAmount,loanOption,loanDuration,startDate,endDate,nextdueDate,nextDueAmount,paidLoan,balanceLoan;
-    String   customerImage,shopImage,idProofImage,addressProofImage;
+    String   customerImage,shopImage,idProofImage,addressProofImage,refName,refPhone;
 
     public Customer(String loanId,String cusId){
         this.loanId=loanId;
@@ -28,7 +28,7 @@ public class Customer  {
 
     }
 
-    public Customer(String customerName,String phone, String address, String city, String pincode, String mapLan, String mapLac, String customerImage,String shopImage,String idProofImage,String addressProofImage, String remaks){
+    public Customer(String customerName,String phone, String address, String city, String pincode, String mapLan, String mapLac, String customerImage,String shopImage,String idProofImage,String addressProofImage, String remaks,String refName,String refPhone){
         this.customerName=customerName;
         this.phone=phone;
         this.address=address;
@@ -41,6 +41,8 @@ public class Customer  {
         this.idProofImage=idProofImage;
         this.addressProofImage=addressProofImage;
         this.remaks=remaks;
+        this.refName=refName;
+        this.refPhone=refPhone;
 
 
     }

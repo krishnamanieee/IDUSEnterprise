@@ -50,6 +50,28 @@ public class LaonAdapter extends RecyclerView.Adapter<LaonAdapter.ViewHolder> {
         holder.textView_endDate.setText(list.getEndDate());
         holder.textView_dueDate.setText(list.getDueDate());
         holder.textView_dueAmt.setText(list.getDueAmt());
+        if (Integer.parseInt(list.balAmt.toString().trim()) > 10){
+
+            holder.textView_dueDate.setText(list.getDueDate());
+            holder.textView_dueAmt.setText(list.getDueAmt());
+
+            holder.textView_dueDate.setVisibility(View.VISIBLE);
+            holder.textView_dueAmt.setVisibility(View.VISIBLE);
+            holder.textView_dueAmt_dot1.setVisibility(View.VISIBLE);
+            holder.textView_dueAmt_dot2.setVisibility(View.VISIBLE);
+
+        }
+        else if (Integer.parseInt(list.balAmt.toString().trim()) <= 10){
+
+
+            holder.textView_dueDate.setVisibility(View.INVISIBLE);
+            holder.textView_dueAmt.setVisibility(View.INVISIBLE);
+            holder.textView_dueAmt_dot1.setVisibility(View.INVISIBLE);
+            holder.textView_dueAmt_dot2.setVisibility(View.INVISIBLE);
+            holder.textView_dueDate_text.setVisibility(View.INVISIBLE);
+            holder.textView_dueAmt_text.setVisibility(View.INVISIBLE);
+
+        }
         holder.textView_schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +94,7 @@ public class LaonAdapter extends RecyclerView.Adapter<LaonAdapter.ViewHolder> {
 
         TextView textView_totAmt,textView_loanId,textView_paidAmt,textView_balAmt,textView_loanOption,textView_loanDuration,textView_statDate,textView_endDate;
         TextView textView_dueDate,textView_dueAmt;
-        TextView textView_schedule;
+        TextView textView_schedule,textView_dueDate_text,textView_dueAmt_text,textView_dueAmt_dot1,textView_dueAmt_dot2;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -88,6 +110,10 @@ public class LaonAdapter extends RecyclerView.Adapter<LaonAdapter.ViewHolder> {
             textView_dueDate=(TextView) itemView.findViewById(R.id.txt_cusview_loancurrentdate);
             textView_dueAmt=(TextView) itemView.findViewById(R.id.txt_cusview_loanamt);
             textView_schedule=(TextView) itemView.findViewById(R.id.txt_cusview_viewschedule);
+            textView_dueDate_text=(TextView) itemView.findViewById(R.id.txt_duedate_txt);
+            textView_dueAmt_text=(TextView) itemView.findViewById(R.id.txt_dueamt_txt);
+            textView_dueAmt_dot1=(TextView) itemView.findViewById(R.id.txt_cusview_loancurrentdat_dot);
+            textView_dueAmt_dot2=(TextView) itemView.findViewById(R.id.txt_cusview_loanamt_dot);
 
         }
     }

@@ -2,8 +2,10 @@ package com.rohasoft.idus.idus_enterprise.fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -25,15 +27,18 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.rohasoft.idus.idus_enterprise.AddLoan_Activity;
 import com.rohasoft.idus.idus_enterprise.R;
 import com.rohasoft.idus.idus_enterprise.imageUpload.ConnectionDetector;
 import com.rohasoft.idus.idus_enterprise.imageUpload.HttpFileUpload;
 import com.rohasoft.idus.idus_enterprise.other.Customer;
+import com.rohasoft.idus.idus_enterprise.other.GPSTracker;
 import com.rohasoft.idus.idus_enterprise.other.GetCustomerCallBack;
 import com.rohasoft.idus.idus_enterprise.other.GetUserCallback;
 import com.rohasoft.idus.idus_enterprise.other.Loan;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
 import com.rohasoft.idus.idus_enterprise.other.User;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -50,13 +55,17 @@ import java.util.Random;
  * create an instance of this fragment.
  */
 public class AddCustomerFragment extends Fragment{
+    GPSTracker gps;
 
     EditText editText_cusName,editText_phone,editText_addr1,editText_city,editText_pincode,editText_lacMap,editText_lanMap,
-    editText_remarks;
+    editText_remarks,editText_refName,editText_refPhone;
     Button button_addCustomer,button_reset;
 
     ImageView imgcustum, imgshop, imgidproof, imgaddrproof;
-    String cusName,phone,addr1,city,pincode,lanMap,lacMap,remark;
+    ImageView getMap;
+    String cusName,phone,addr1,city,pincode,lanMap,lacMap,remark,refName,refPhone;
+
+    int cus=0,shop=0,id=0,address=0;
 
 
     String imagepath = "";
@@ -131,6 +140,8 @@ public class AddCustomerFragment extends Fragment{
         editText_lacMap= (EditText) v.findViewById(R.id.edt_addcus_maplac);
         editText_lanMap= (EditText) v.findViewById(R.id.edt_addcus_maplan);
         editText_remarks= (EditText) v.findViewById(R.id.edt_addcus__remark);
+        editText_refName= (EditText) v.findViewById(R.id.edt_addcus_ref_name);
+        editText_refPhone= (EditText) v.findViewById(R.id.edt_addcus_ref_phone);
 
         cd = new ConnectionDetector(getContext());
 
@@ -138,6 +149,7 @@ public class AddCustomerFragment extends Fragment{
         imgshop=(ImageView) v.findViewById(R.id.img_addcus_shop1);
         imgidproof=(ImageView) v.findViewById(R.id.img_addcus_idproof);
         imgaddrproof=(ImageView) v.findViewById(R.id.img_addcus_addrproof);
+        getMap=(ImageView) v.findViewById(R.id.img_addcus_map);
 
 
         imgcustum.setOnClickListener(new View.OnClickListener() {
@@ -165,6 +177,20 @@ public class AddCustomerFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 AddressProof();
+            }
+        });
+
+        getMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gps=new GPSTracker(getContext());
+                if (gps.canGetLocation()){
+                    double latitude = gps.getLatitude();
+                    double longitude = gps.getLongitude();
+
+                    editText_lacMap.setText(String.valueOf(latitude));
+                    editText_lanMap.setText(String.valueOf(longitude));
+                }
             }
         });
 
@@ -196,23 +222,90 @@ public class AddCustomerFragment extends Fragment{
         button_addCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
                 cusName=editText_cusName.getText().toString().trim();
                 phone=editText_phone.getText().toString().trim();
                 addr1=editText_addr1.getText().toString().trim();
-
                 city=editText_city.getText().toString().trim();
                 pincode=editText_pincode.getText().toString().trim();
                 lanMap=editText_lanMap.getText().toString().trim();
                 lacMap=editText_lacMap.getText().toString().trim();
-                 remark=editText_remarks.getText().toString().trim();
+                remark=editText_remarks.getText().toString().trim();
+                refName=editText_refName.getText().toString().trim();
+                refPhone=editText_phone.getText().toString().trim();
 
 
                 if (cusName.length() > 0){
                     if (phone.length() == 10){
                         if(pincode.length()==6){
                             if(city.length() > 0){
-                                User user=new User(phone);
-                                authenticate(user);
+                                if (lacMap.length() >0){
+
+                                    if (lanMap.length() > 0){
+
+                                        if (cus == 1){
+                                    if (shop ==1){
+                                        if (id == 1){
+                                            if (address ==1){
+                                                User user=new User(phone);
+                                                authenticate(user);
+
+                                            }
+                                            else {
+                                                alertDialog.setTitle("Alert Dialog");
+                                                alertDialog.setMessage("Take Address Proof Picture");
+                                                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                    }
+                                                });
+                                                alertDialog.show();
+
+                                            }
+                                        }
+                                        else {
+                                            alertDialog.setTitle("Alert Dialog");
+                                            alertDialog.setMessage("Take id Proof Picture");
+                                            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                }
+                                            });
+                                            alertDialog.show();
+
+                                        }
+                                    }
+                                    else {
+                                        alertDialog.setTitle("Alert Dialog");
+                                        alertDialog.setMessage("Take Shop Picture");
+                                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        });
+                                        alertDialog.show();
+
+                                    }
+                                }
+                                else {
+                                    alertDialog.setTitle("Alert Dialog");
+                                    alertDialog.setMessage("Take Customer Picture");
+                                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    });
+                                    alertDialog.show();
+
+                                }
+
+                                    }
+                                    else{
+                                        editText_lanMap.setError("Please enter Map Latitude");
+                                    }
+
+                                }else{
+                                    editText_lacMap.setError("Please enter Map Longitude");
+                                }
+
+
                             }
                             else{
                                 editText_city.setError("Please enter the City");
@@ -250,7 +343,7 @@ public class AddCustomerFragment extends Fragment{
             public void done(User returedUser) {
                 if (returedUser == null){
 
-                    Customer customer=new Customer(cusName,phone,addr1,city,pincode,lanMap,lacMap,customerImage,shopImage,idProofImage,addressProofImage,remark);
+                    Customer customer=new Customer(cusName,phone,addr1,city,pincode,lanMap,lacMap,customerImage,shopImage,idProofImage,addressProofImage,remark,refName,refPhone);
                     addCustomer(customer);
                     reset();
 
@@ -275,6 +368,13 @@ public class AddCustomerFragment extends Fragment{
                 editText_lacMap.setText("");
                 editText_lanMap.setText("");
                 editText_remarks.setText("");
+                editText_refName.setText("");
+                editText_refPhone.setText("");
+        Picasso.with(getActivity()).load(R.drawable.ic_menu_camera).into(imgcustum);
+        Picasso.with(getActivity()).load(R.drawable.ic_menu_camera).into(imgshop);
+        Picasso.with(getActivity()).load(R.drawable.ic_menu_camera).into(imgidproof);
+        Picasso.with(getActivity()).load(R.drawable.ic_menu_camera).into(imgaddrproof);
+
 
     }
 
@@ -374,10 +474,11 @@ public class AddCustomerFragment extends Fragment{
 
 
                             imgcustum.setImageBitmap(bitmapRotate);
+                            cus=1;
 
 //                            Saving image to mobile internal memory for sometime
                             String root = getContext().getFilesDir().toString();
-                            File myDir = new File(root + "/androidlift");
+                            File myDir = new File(root + "/IDUS");
                             myDir.mkdirs();
 
                             Random generator = new Random();
@@ -387,7 +488,7 @@ public class AddCustomerFragment extends Fragment{
 //                            Give the file name that u want
                             fname = "CUS_IMG_" + longTime + ".jpg";
                             customerImage=fname;
-                            imagepath = root + "/androidlift/" + fname;
+                            imagepath = root + "/IDUS/" + fname;
                             file = new File(myDir, fname);
                             upflag = true;
                         }
@@ -421,10 +522,10 @@ public class AddCustomerFragment extends Fragment{
 
 
                             imgshop.setImageBitmap(bitmapRotate);
-
+                            shop=1;
 //                            Saving image to mobile internal memory for sometime
                             String root = getContext().getFilesDir().toString();
-                            File myDir = new File(root + "/androidlift");
+                            File myDir = new File(root + "/IDUS");
                             myDir.mkdirs();
 
                             Random generator = new Random();
@@ -434,7 +535,7 @@ public class AddCustomerFragment extends Fragment{
 //                            Give the file name that u want
                             fname = "SHOP_IMG_" + longTime + ".jpg";
                             shopImage=fname;
-                            imagepath = root + "/androidlift/" + fname;
+                            imagepath = root + "/IDUS/" + fname;
                             file = new File(myDir, fname);
                             upflag = true;
                         }
@@ -468,10 +569,10 @@ public class AddCustomerFragment extends Fragment{
 
 
                             imgidproof.setImageBitmap(bitmapRotate);
-
+                            id=1;
 //                            Saving image to mobile internal memory for sometime
                             String root = getContext().getFilesDir().toString();
-                            File myDir = new File(root + "/androidlift");
+                            File myDir = new File(root + "/IDUS");
                             myDir.mkdirs();
 
                             Random generator = new Random();
@@ -481,7 +582,7 @@ public class AddCustomerFragment extends Fragment{
 //                            Give the file name that u want
                             fname = "ID_IMG_" + longTime + ".jpg";
                             idProofImage=fname;
-                            imagepath = root + "/androidlift/" + fname;
+                            imagepath = root + "/IDUS/" + fname;
                             file = new File(myDir, fname);
                             upflag = true;
                         }
@@ -516,9 +617,11 @@ public class AddCustomerFragment extends Fragment{
 
                             imgaddrproof.setImageBitmap(bitmapRotate);
 
+                            address=1;
+
 //                            Saving image to mobile internal memory for sometime
                             String root = getContext().getFilesDir().toString();
-                            File myDir = new File(root + "/androidlift");
+                            File myDir = new File(root + "/IDUS");
                             myDir.mkdirs();
 
                             Random generator = new Random();
@@ -528,7 +631,7 @@ public class AddCustomerFragment extends Fragment{
 //                            Give the file name that u want
                             fname = "ADDRESS_IMG_" + longTime + ".jpg";
                             addressProofImage=fname;
-                            imagepath = root + "/androidlift/" + fname;
+                            imagepath = root + "/IDUS/" + fname;
                             file = new File(myDir, fname);
                             upflag = true;
                         }
@@ -632,7 +735,7 @@ public class AddCustomerFragment extends Fragment{
                 pDialog.dismiss();
             }
             if (upflag) {
-                Toast.makeText(getContext(), "Uploading Complete", Toast.LENGTH_LONG).show();
+             //   Toast.makeText(getContext(), "Uploading Complete", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getContext(), "Unfortunately file is not Uploaded..", Toast.LENGTH_LONG).show();
             }
@@ -643,12 +746,37 @@ public class AddCustomerFragment extends Fragment{
     public void onStart() {
         if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA , Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA , Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
             imgcustum.setEnabled(true);
             imgshop.setEnabled(true);
             imgidproof.setEnabled(true);
             imgaddrproof.setEnabled(true);
 
+        }
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.READ_CONTACTS)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
         }
         super.onStart();
     }
@@ -656,7 +784,7 @@ public class AddCustomerFragment extends Fragment{
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 0) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED ) {
                 imgcustum.setEnabled(false);
                 imgshop.setEnabled(false);
                 imgidproof.setEnabled(false);
@@ -664,4 +792,5 @@ public class AddCustomerFragment extends Fragment{
             }
         }
     }
+
 }

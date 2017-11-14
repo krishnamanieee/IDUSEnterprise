@@ -17,8 +17,10 @@ public class AddLoanCusList {
     private String idImg;
     private String addressImg;
 
+    private String latMap;
+    private String lanMap;
 
-    public AddLoanCusList(String cusName, String phone, String cusId, String address, String city, String pincode, String cusImag, String shopImg, String idImg, String addressImg) {
+    public AddLoanCusList(String cusName, String phone, String cusId, String address, String city, String pincode, String cusImag, String shopImg, String idImg, String addressImg, String latMap, String lanMap) {
         this.cusName = cusName;
         this.phone = phone;
         this.cusId = cusId;
@@ -29,6 +31,8 @@ public class AddLoanCusList {
         this.shopImg = shopImg;
         this.idImg = idImg;
         this.addressImg = addressImg;
+        this.latMap = latMap;
+        this.lanMap = lanMap;
     }
 
     public AddLoanCusList(String cusName, String phone, String cusId, String city) {
@@ -42,6 +46,16 @@ public class AddLoanCusList {
         this.shopImg = "";
         this.idImg = "";
         this.addressImg = "";
+        this.latMap = "";
+        this.lanMap = "";
+    }
+
+    public String getLatMap() {
+        return latMap;
+    }
+
+    public String getLanMap() {
+        return lanMap;
     }
 
     public String getCusImag() {

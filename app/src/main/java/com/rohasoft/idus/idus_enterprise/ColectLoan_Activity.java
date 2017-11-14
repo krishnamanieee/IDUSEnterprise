@@ -180,9 +180,6 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                 String dueDate = sdf1.format(c.getTime());
 
 
-
-
-
                 CollectLoan collectLoan=new CollectLoan(cusName,phone,city,loanId,totalAmount,paidAmount,balanceAmount,dueDate,dueAmount,paidDueDate,paidDueAmount,status,cusImg);
                 AddDataToSerever(collectLoan);
                 onBackPressed();
@@ -200,7 +197,7 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
             @Override
             public void done(CollectLoan returnCollectLoan) {
                 if (returnCollectLoan != null){
-                    Toast.makeText(getApplicationContext(),"Collections are sucess",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Collections are success",Toast.LENGTH_SHORT).show();
                 }
             }
         });
