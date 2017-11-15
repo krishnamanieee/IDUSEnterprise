@@ -27,5 +27,6 @@ public class Loan {
         this.shoImg = shoImg;
         this.idImg = idImg;
         this.addressImg = addressImg;
+
     }
 }

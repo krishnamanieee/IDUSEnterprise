@@ -26,6 +26,8 @@ import com.rohasoft.idus.idus_enterprise.other.GPSTracker;
 import com.rohasoft.idus.idus_enterprise.other.GetLoanCallBack;
 import com.rohasoft.idus.idus_enterprise.other.Loan;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
+import com.rohasoft.idus.idus_enterprise.other.User;
+import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -42,7 +44,7 @@ import java.util.Locale;
 public class AddLoan_Activity extends AppCompatActivity implements OnClickListener{
 
     EditText edtcustumname, edtcustumid, edtphnno, edtaddr, edtcity, edtpincode, edtloanamount, edtloanduration,
-            edtstartdate, edtenddate, edtremarks;
+            edtstartdate, edtenddate, edtremarks,editText_refName,editText_refPhone;
 
     ImageView imgcustum, imgshop, imgidproof, imgaddrproof;
 
@@ -56,7 +58,7 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
 
     private SimpleDateFormat dateFormatter;
-    String id,CusName,phone,address,city,pincode,cusImg,shopImg,addressImg,idImg;
+    String id,CusName,phone,address,city,pincode,cusImg,shopImg,addressImg,idImg,refName,refPhone;
 
     TextView textView_viewSchedule;
 
@@ -104,6 +106,8 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
         edtstartdate = (EditText) findViewById(R.id.edit_addloan_start_date);
         edtenddate = (EditText) findViewById(R.id.edit_addloan_end_date);
         edtremarks = (EditText) findViewById(R.id.edit_addloan_remarks);
+        editText_refName = (EditText) findViewById(R.id.edt_addloan_ref_name);
+        editText_refPhone = (EditText) findViewById(R.id.edt_addloan_ref_phone);
 
         edtstartdate.setInputType(InputType.TYPE_NULL);
         InputMethodManager inputMethodManager=(InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -134,6 +138,12 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
         edtcustumid.setEnabled(false);
         edtcustumid.setInputType(InputType.TYPE_NULL);
 
+        editText_refName.setEnabled(false);
+        editText_refName.setInputType(InputType.TYPE_NULL);
+
+        editText_refPhone.setEnabled(false);
+        editText_refPhone.setInputType(InputType.TYPE_NULL);
+
         btnreset.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,12 +172,16 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
             shopImg=getIntent().getExtras().getString("shopImg");
             idImg=getIntent().getExtras().getString("idImg");
             addressImg=getIntent().getExtras().getString("addressImg");
+            refName=getIntent().getExtras().getString("refName");
+            refPhone=getIntent().getExtras().getString("refPhone");
             edtcustumname.setText(CusName);
             edtcustumid.setText("CUS"+id);
             edtphnno.setText(phone);
             edtaddr.setText(address);
             edtcity.setText(city);
             edtpincode.setText(pincode);
+            editText_refName.setText(refName);
+            editText_refPhone.setText(refPhone);
 
             Picasso.with(this).load("http://www.idusmarket.com/loan-app/admin/uploads/"+cusImg).into(imgcustum);
             Picasso.with(this).load("http://www.idusmarket.com/loan-app/admin/uploads/"+shopImg).into(imgshop);
@@ -263,17 +277,13 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
 
     private void reset() {
-        edtcustumname.setText("");
-        edtcustumid.setText("");
-        edtphnno.setText("");
-        edtaddr.setText("");
-        edtcity.setText("");
-        edtpincode.setText("");
+
         edtloanamount.setText("");
         edtloanduration.setText("");
         edtstartdate.setText("");
         edtenddate.setText("");
         edtremarks.setText("");
+        addLoanOption();
 
 
     }
@@ -343,6 +353,11 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
 
                                 String currentDueDate = sdf1.format(c.getTime());
+
+                                UserLocalStore userLocalStore=new UserLocalStore(getApplicationContext());
+
+                                User user = null;
+                               Toast.makeText(getApplicationContext(), user.getEmail().toString(),Toast.LENGTH_SHORT);
 
                                 String DueAmount=String.valueOf(totAmt/totDur);
                                 Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,start_date,end_date,remarks,currentDueDate,DueAmount,cusImg,shopImg,idImg,addressImg);

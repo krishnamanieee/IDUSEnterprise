@@ -48,11 +48,11 @@ public class CustomerViewActivity extends AppCompatActivity {
     TextView textView_cusName, textView_cusId, textView_address, textView_city, textView_phone, textView_pincode;
 
     TextView textView_edit;
-    TextView textView_noloan;
+    TextView textView_noloan,textView_refName,textView_refPhone;
 
     Button button_map;
 
-    String id, CusName, phone, address, city, pincode, latMap,lanMap;
+    String id, CusName, phone, address, city, pincode, latMap,lanMap, refName,refPhone;
     private static final String URL_DATA = "http://www.idusmarket.com/loan-app/app/getcusloandata.php";
 
     private RecyclerView recyclerView;
@@ -74,6 +74,8 @@ public class CustomerViewActivity extends AppCompatActivity {
         textView_pincode = (TextView) findViewById(R.id.txt_cusview_pincode);
         textView_phone = (TextView) findViewById(R.id.txt_cusview_phone);
         textView_address = (TextView) findViewById(R.id.txt_cusview_addr);
+        textView_refName = (TextView) findViewById(R.id.txt_cusview_refname);
+        textView_refPhone = (TextView) findViewById(R.id.txt_cusview_refphone);
         textView_edit = (TextView) findViewById(R.id.txt_cusview_profedit);
         textView_edit.setVisibility(View.INVISIBLE);
 
@@ -98,6 +100,8 @@ public class CustomerViewActivity extends AppCompatActivity {
             pincode = getIntent().getExtras().getString("pincode");
             latMap = getIntent().getExtras().getString("lat");
             lanMap = getIntent().getExtras().getString("lan");
+            refName = getIntent().getExtras().getString("refName");
+            refPhone = getIntent().getExtras().getString("refPhone");
 
             textView_cusName.setText(CusName);
             textView_cusId.setText("CUS" + id);
@@ -105,6 +109,8 @@ public class CustomerViewActivity extends AppCompatActivity {
             textView_address.setText(address);
             textView_city.setText(city);
             textView_pincode.setText(pincode);
+            textView_refName.setText(refName);
+            textView_refPhone.setText(refPhone);
 
         }
 

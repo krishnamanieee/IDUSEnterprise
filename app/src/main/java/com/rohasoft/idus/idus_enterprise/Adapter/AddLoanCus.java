@@ -65,6 +65,8 @@ public class AddLoanCus extends RecyclerView.Adapter<AddLoanCus.ViewHolder>{
                 intent.putExtra("shopImg",loanCusList.getShopImg());
                 intent.putExtra("idImg",loanCusList.getIdImg());
                 intent.putExtra("addressImg",loanCusList.getAddressImg());
+                intent.putExtra("refName",loanCusList.getRefName());
+                intent.putExtra("refPhone",loanCusList.getRefPhone());
                 context.startActivity(intent);
             }
         });

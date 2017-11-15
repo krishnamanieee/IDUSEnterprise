@@ -17,7 +17,17 @@ import com.rohasoft.idus.idus_enterprise.Adapter.CollectLoanAdapter;
 import com.rohasoft.idus.idus_enterprise.Adapter.HomeAdapter;
 import com.rohasoft.idus.idus_enterprise.other.CollectLoanList;
 import com.rohasoft.idus.idus_enterprise.other.HomeList;
+import com.rohasoft.idus.idus_enterprise.other.User;
+import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +40,7 @@ public class CollAmtActivity extends AppCompatActivity {
     private RecyclerView.Adapter  adapter;
     private List<HomeList> list;
     private static final String URL_DATA="http://www.idusmarket.com/loan-app/app/fetchhomepagedata.php";
+    public static final int CONNECTION_TIMEOUT = 1000 * 15;
 
 
     @Override
@@ -52,6 +63,7 @@ public class CollAmtActivity extends AppCompatActivity {
         final ProgressDialog progressDialog=new ProgressDialog(CollAmtActivity.this);
         progressDialog.setMessage("loading Data....");
         progressDialog.show();
+
 
 
         StringRequest stringRequest=new StringRequest(Request.Method.GET,

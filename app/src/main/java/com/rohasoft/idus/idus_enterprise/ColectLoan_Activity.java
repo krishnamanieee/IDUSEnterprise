@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.rohasoft.idus.idus_enterprise.other.CollectLoan;
 import com.rohasoft.idus.idus_enterprise.other.GetCollectLoanCallBack;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
+import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -178,14 +179,32 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                 }
                 SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
                 String dueDate = sdf1.format(c.getTime());
+                UserLocalStore userLocalStore=new UserLocalStore(getApplicationContext());
+                String s=userLocalStore.getLoggedInUser();
 
 
-                CollectLoan collectLoan=new CollectLoan(cusName,phone,city,loanId,totalAmount,paidAmount,balanceAmount,dueDate,dueAmount,paidDueDate,paidDueAmount,status,cusImg);
-                AddDataToSerever(collectLoan);
-                onBackPressed();
+                if (editText_paidAmount.length() >0){
+
+                    if (duePaidDate.length() > 0){
+
+                        CollectLoan collectLoan=new CollectLoan(cusName,phone,city,loanId,totalAmount,paidAmount,balanceAmount,dueDate,dueAmount,paidDueDate,paidDueAmount,status,cusImg,s);
+                        AddDataToSerever(collectLoan);
+                        onBackPressed();
+
+                    }
+                    else {
+                        duePaidDate.setError("Pic the Date");
+                    }
+
+                }
+                else {
+
+                    editText_paidAmount.setError("Enter the Collected Amount");
+
+                }
+
             }
         });
-
 
     }
 

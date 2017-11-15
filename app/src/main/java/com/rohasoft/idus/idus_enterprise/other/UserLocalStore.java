@@ -24,16 +24,15 @@ public class UserLocalStore {
 
         spEditor.commit();
     }
-    public User getLoggedInUser(){
-        String name=userlocalDatabase.getString("name","");
+    public String getLoggedInUser(){
         String email=userlocalDatabase.getString("email","");
-        String phone_no=userlocalDatabase.getString("phone_no","");
+        /*String phone_no=userlocalDatabase.getString("phone_no","");
         String pass=userlocalDatabase.getString("pass","");
-        String otp=userlocalDatabase.getString("otp","");
+        String otp=userlocalDatabase.getString("otp","");*/
 
 
-        User storedUser=new User(name,email,phone_no,pass,otp);
-        return  storedUser;
+       // User storedUser=new User(name,email,phone_no,pass,otp);
+        return  email;
     }
     public void setUserLoggedIn(boolean loggedIn){
         SharedPreferences.Editor spEditor=userlocalDatabase.edit();

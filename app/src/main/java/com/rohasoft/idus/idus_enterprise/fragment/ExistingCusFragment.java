@@ -142,7 +142,9 @@ public class ExistingCusFragment extends Fragment {
                                         object.getString("idproof_image"),
                                         object.getString("addressproof_image"),
                                         object.getString("map_lac"),
-                                        object.getString("map_lan")
+                                        object.getString("map_lan"),
+                                        object.getString("refname"),
+                                        object.getString("refphone")
                                 );
 
                                 list.add(items);

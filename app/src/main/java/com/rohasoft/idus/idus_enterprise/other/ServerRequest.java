@@ -264,6 +264,7 @@ public class ServerRequest {
             dataToSend.add(new BasicNameValuePair("duePaidAmount",collectLoan.duePaidAmount));
             dataToSend.add(new BasicNameValuePair("status",collectLoan.status));
             dataToSend.add(new BasicNameValuePair("cusImg",collectLoan.cusImg));
+            dataToSend.add(new BasicNameValuePair("user",collectLoan.user));
 
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);

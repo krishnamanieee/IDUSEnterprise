@@ -16,11 +16,13 @@ public class AddLoanCusList {
     private String shopImg;
     private String idImg;
     private String addressImg;
+    private String refName;
+    private String refPhone;
 
     private String latMap;
     private String lanMap;
 
-    public AddLoanCusList(String cusName, String phone, String cusId, String address, String city, String pincode, String cusImag, String shopImg, String idImg, String addressImg, String latMap, String lanMap) {
+    public AddLoanCusList(String cusName, String phone, String cusId, String address, String city, String pincode, String cusImag, String shopImg, String idImg, String addressImg, String latMap, String lanMap,String refName,String refPhone) {
         this.cusName = cusName;
         this.phone = phone;
         this.cusId = cusId;
@@ -33,6 +35,8 @@ public class AddLoanCusList {
         this.addressImg = addressImg;
         this.latMap = latMap;
         this.lanMap = lanMap;
+        this.refName = refName;
+        this.refPhone = refPhone;
     }
 
     public AddLoanCusList(String cusName, String phone, String cusId, String city) {
@@ -98,6 +102,14 @@ public class AddLoanCusList {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getRefName() {
+        return refName;
+    }
+
+    public String getRefPhone() {
+        return refPhone;
     }
 }
 
