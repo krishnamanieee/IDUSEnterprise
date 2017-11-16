@@ -109,6 +109,7 @@ public class ServerRequest {
             dataToSend.add(new BasicNameValuePair("remaks",customer.remaks));
             dataToSend.add(new BasicNameValuePair("refName",customer.refName));
             dataToSend.add(new BasicNameValuePair("refPhone",customer.refPhone));
+            dataToSend.add(new BasicNameValuePair("user",customer.user));
 
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -213,6 +214,7 @@ public class ServerRequest {
             dataToSend.add(new BasicNameValuePair("shoImg", loan.shoImg));
             dataToSend.add(new BasicNameValuePair("idImg", loan.idImg));
             dataToSend.add(new BasicNameValuePair("addressImg", loan.addressImg));
+            dataToSend.add(new BasicNameValuePair("user", loan.user));
 
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -253,6 +255,7 @@ public class ServerRequest {
             ArrayList<NameValuePair> dataToSend=new ArrayList<>();
             dataToSend.add(new BasicNameValuePair("customerName",collectLoan.customerName));
             dataToSend.add(new BasicNameValuePair("loanId",collectLoan.loanId));
+            dataToSend.add(new BasicNameValuePair("loanOption",collectLoan.loanOption));
             dataToSend.add(new BasicNameValuePair("phone",collectLoan.phone));
             dataToSend.add(new BasicNameValuePair("city",collectLoan.city));
             dataToSend.add(new BasicNameValuePair("totalAmount",collectLoan.totalAmount));
@@ -265,6 +268,8 @@ public class ServerRequest {
             dataToSend.add(new BasicNameValuePair("status",collectLoan.status));
             dataToSend.add(new BasicNameValuePair("cusImg",collectLoan.cusImg));
             dataToSend.add(new BasicNameValuePair("user",collectLoan.user));
+            dataToSend.add(new BasicNameValuePair("user",collectLoan.user));
+            dataToSend.add(new BasicNameValuePair("rating",collectLoan.rating));
 
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);

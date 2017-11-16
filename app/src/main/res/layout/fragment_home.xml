@@ -34,62 +34,114 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/button_coll"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:orientation="vertical">
-
+            android:orientation="horizontal"
+            android:background="#0D2C54"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp">
             <Button
-                android:id="@+id/button_coll"
-                android:layout_width="match_parent"
+
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
                 android:background="#0D2C54"
                 android:text="Collection"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_row="1"/>
+
+            <TextView
+                android:id="@+id/textView_colAmt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="XXXXX"
+                android:textColor="@color/primaryTextColor"
+                android:textStyle="bold"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
 
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/button_td"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
-
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:background="#DE1A1A"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp">
             <Button
-                android:id="@+id/button_td"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
+
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:background="#DE1A1A"
-                android:text="Today Loan"
+                android:text="Today Laon"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_row="1"/>
 
-            <Button
+            <TextView
+                android:id="@+id/textView_tdAmt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="XXXXX"
+                android:textColor="@color/primaryTextColor"
+                android:textStyle="bold"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+
+
+        </LinearLayout>
+        <LinearLayout
             android:id="@+id/button_tm"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:background="#FF006E"
             android:layout_height="100dp"
-            android:text="Tomorrow Loan"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="18dp"/>
+            android:orientation="horizontal"
+            android:background="#FF006E"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp">
+            <Button
+
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#FF006E"
+                android:text="Tommorrow Laon"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:textAllCaps="false"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_row="1"/>
+
+            <TextView
+                android:id="@+id/textView_tmAmt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="XXXXX"
+                android:textColor="@color/primaryTextColor"
+                android:textStyle="bold"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+
 
         </LinearLayout>
 

@@ -354,13 +354,12 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
                                 String currentDueDate = sdf1.format(c.getTime());
 
-                                UserLocalStore userLocalStore=new UserLocalStore(getApplicationContext());
 
-                                User user = null;
-                               Toast.makeText(getApplicationContext(), user.getEmail().toString(),Toast.LENGTH_SHORT);
 
                                 String DueAmount=String.valueOf(totAmt/totDur);
-                                Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,start_date,end_date,remarks,currentDueDate,DueAmount,cusImg,shopImg,idImg,addressImg);
+                                UserLocalStore userLocalStore=new UserLocalStore(AddLoan_Activity.this);
+                                String user=userLocalStore.getLoggedInUser();
+                                Loan loan=new Loan(cus_name,cus_id,phone,address,city,pincode,loan_amt,loan_opttion,loan_duration,start_date,end_date,remarks,currentDueDate,DueAmount,cusImg,shopImg,idImg,addressImg,user);
 
                                 AddLoan(loan);
                                 reset();

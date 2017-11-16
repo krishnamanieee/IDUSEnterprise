@@ -33,7 +33,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CollAmtActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -51,12 +53,8 @@ public class CollAmtActivity extends AppCompatActivity {
         recyclerView=(RecyclerView) findViewById(R.id.recyclerview_CollAmt);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         list=new ArrayList<>();
         loadRecyclerViewData();
-
-
-
     }
 
     private void loadRecyclerViewData() {
@@ -64,20 +62,14 @@ public class CollAmtActivity extends AppCompatActivity {
         progressDialog.setMessage("loading Data....");
         progressDialog.show();
 
-
-
-        StringRequest stringRequest=new StringRequest(Request.Method.GET,
+        StringRequest stringRequest=new StringRequest(Request.Method.POST,
                 URL_DATA,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
                         progressDialog.dismiss();
-
-
                         try {
                             JSONObject jsonObject=new JSONObject(response);
-//                            JSONArray jsonArray=jsonObject.getJSONArray("server_response");
                             JSONArray jsonArray=jsonObject.getJSONArray("collect_loan");
 
                             for (int i=0;i<jsonArray.length();i++){
@@ -109,7 +101,21 @@ public class CollAmtActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
 
                     }
-                });
+                }){
+            @Override
+            protected Map<String, String> getParams() {
+
+                UserLocalStore userLocalStore=new UserLocalStore(getApplicationContext());
+                String s=userLocalStore.getLoggedInUser();
+
+                // Creating Map String Params.
+                Map<String, String> params = new HashMap<String, String>();
+
+                // Adding All values to Params.
+                params.put("user", s);
+                return params;
+            }
+        };
 
         RequestQueue requestQueue= Volley.newRequestQueue(CollAmtActivity.this);
         requestQueue.add(stringRequest);

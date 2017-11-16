@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.constraint.solver.SolverVariable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,13 +31,19 @@ import com.rohasoft.idus.idus_enterprise.TMCollectActivity;
 import com.rohasoft.idus.idus_enterprise.TdCollectActivity;
 import com.rohasoft.idus.idus_enterprise.other.CollectLoanList;
 import com.rohasoft.idus.idus_enterprise.other.HomeList;
+import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 
 /**
@@ -47,9 +57,16 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private static final String URL_DATA="http://www.idusmarket.com/loan-app/app/fetchhomepagedata.php";
+    private static final String URL_DATA_TD="http://www.idusmarket.com/loan-app/app/todayloan.php";
+    private static final String URL_DATA_TM="http://www.idusmarket.com/loan-app/app/tom_loan.php";
 
 
-    Button button_collotionList,button_td,button_tm;
+    LinearLayout button_collotionList,button_td,button_tm;
+    TextView textView_colAmt,textView_todayAmt,textView_tommorrowAmt;
+
+    int collectedAmt= 0;
+    int TodayLoanAmt= 0;
+    int TommorrowLoanAmt= 0;
 
 
 
@@ -102,9 +119,16 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_home, container, false);
 
-        button_collotionList=(Button) v.findViewById(R.id.button_coll);
-        button_td=(Button) v.findViewById(R.id.button_td);
-        button_tm=(Button) v.findViewById(R.id.button_tm);
+        button_collotionList=(LinearLayout) v.findViewById(R.id.button_coll);
+        button_td=(LinearLayout) v.findViewById(R.id.button_td);
+        button_tm=(LinearLayout) v.findViewById(R.id.button_tm);
+        textView_colAmt=(TextView) v.findViewById(R.id.textView_colAmt);
+        textView_todayAmt=(TextView) v.findViewById(R.id.textView_tdAmt);
+        textView_tommorrowAmt=(TextView) v.findViewById(R.id.textView_tmAmt);
+
+        CollectionAmount();
+        todayLoanAmount();
+        tommorrowLoanAmount();
 
 
         button_td.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +160,121 @@ public class HomeFragment extends Fragment {
         return v;
     }
 
+    private void todayLoanAmount() {
+        final ProgressDialog progressDialog=new ProgressDialog(getContext());
+        progressDialog.setMessage("loading Data....");
+        progressDialog.show();
 
+        StringRequest stringRequest=new StringRequest(Request.Method.POST,
+                URL_DATA_TD,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+                            JSONArray jsonArray=jsonObject.getJSONArray("loan");
+
+                            for (int i=0;i<jsonArray.length();i++){
+                                JSONObject  object=jsonArray.getJSONObject(i);
+
+                                TodayLoanAmt=TodayLoanAmt+Integer.parseInt(object.getString("current_due_amount"));
+                            }
+
+                            DecimalFormat format=new DecimalFormat();
+                            format.setMinimumFractionDigits(2);
+                            String s=format.format(TodayLoanAmt);
+                            textView_todayAmt.setText(s);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() {
+
+                UserLocalStore userLocalStore=new UserLocalStore(getContext());
+                String s=userLocalStore.getLoggedInUser();
+
+                // Creating Map String Params.
+                Map<String, String> params = new HashMap<String, String>();
+
+                // Adding All values to Params.
+                params.put("user", s);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+    }
+
+    private void tommorrowLoanAmount() {
+        final ProgressDialog progressDialog=new ProgressDialog(getContext());
+        progressDialog.setMessage("loading Data....");
+        progressDialog.show();
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST,
+                URL_DATA_TM,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+                            JSONArray jsonArray=jsonObject.getJSONArray("loan");
+
+                            for (int i=0;i<jsonArray.length();i++){
+                                JSONObject  object=jsonArray.getJSONObject(i);
+
+                                TommorrowLoanAmt=TommorrowLoanAmt+Integer.parseInt(object.getString("current_due_amount"));
+                            }
+
+                            DecimalFormat format=new DecimalFormat();
+                            format.setMinimumFractionDigits(2);
+                            String s1=format.format(TommorrowLoanAmt);
+                            textView_tommorrowAmt.setText(s1);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() {
+
+                UserLocalStore userLocalStore=new UserLocalStore(getContext());
+                String s=userLocalStore.getLoggedInUser();
+
+                // Creating Map String Params.
+                Map<String, String> params = new HashMap<String, String>();
+
+                // Adding All values to Params.
+                params.put("user", s);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -175,5 +313,69 @@ public class HomeFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void CollectionAmount() {
+        final ProgressDialog progressDialog=new ProgressDialog(getContext());
+        progressDialog.setMessage("loading Data....");
+        progressDialog.show();
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST,
+                URL_DATA,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+                            JSONArray jsonArray=jsonObject.getJSONArray("collect_loan");
+                            for (int i=0;i<jsonArray.length();i++){
+                                JSONObject  object=jsonArray.getJSONObject(i);
+                                collectedAmt=collectedAmt+Integer.parseInt(object.getString("due_paid_amount"));
+                            }
+                            DecimalFormat format=new DecimalFormat();
+                            format.setMinimumFractionDigits(2);
+                            String s=format.format(collectedAmt);
+                            textView_colAmt.setText(s);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() {
+
+                UserLocalStore userLocalStore=new UserLocalStore(getContext());
+                String s=userLocalStore.getLoggedInUser();
+
+                // Creating Map String Params.
+                Map<String, String> params = new HashMap<String, String>();
+
+                // Adding All values to Params.
+                params.put("user", s);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+    }
+
+    @Override
+    public void onStart() {
+        collectedAmt=0;
+        TommorrowLoanAmt=0;
+        TodayLoanAmt=0;
+        CollectionAmount();
+        todayLoanAmount();
+        tommorrowLoanAmount();
+        super.onStart();
     }
 }

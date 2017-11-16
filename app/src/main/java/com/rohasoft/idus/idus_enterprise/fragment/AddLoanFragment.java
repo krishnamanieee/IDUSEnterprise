@@ -31,6 +31,7 @@ import com.rohasoft.idus.idus_enterprise.other.AddLoanCusList;
 import com.rohasoft.idus.idus_enterprise.other.GetLoanCallBack;
 import com.rohasoft.idus.idus_enterprise.other.Loan;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
+import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +39,9 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -132,7 +135,7 @@ public class AddLoanFragment extends Fragment {
         progressDialog.show();
 
 
-        StringRequest stringRequest=new StringRequest(Request.Method.GET,
+        StringRequest stringRequest=new StringRequest(Request.Method.POST,
                 URL_DATA,
                 new Response.Listener<String>() {
                     @Override
@@ -183,7 +186,21 @@ public class AddLoanFragment extends Fragment {
                     public void onErrorResponse(VolleyError error) {
 
                     }
-                });
+                }){
+            @Override
+            protected Map<String, String> getParams() {
+
+                UserLocalStore userLocalStore=new UserLocalStore(getContext());
+                String s=userLocalStore.getLoggedInUser();
+
+                // Creating Map String Params.
+                Map<String, String> params = new HashMap<String, String>();
+
+                // Adding All values to Params.
+                params.put("user", s);
+                return params;
+            }
+        };
 
         RequestQueue requestQueue= Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);

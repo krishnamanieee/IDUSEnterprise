@@ -1,6 +1,8 @@
 package com.rohasoft.idus.idus_enterprise;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -17,9 +19,11 @@ import com.rohasoft.idus.idus_enterprise.other.GetCollectLoanCallBack;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
 import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -32,10 +36,16 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
     EditText duePaidDate, editText_paidAmount;
     EditText  editText_cusName,editText_phone,editText_city;
     private SimpleDateFormat dateFormatter;
-    String id,CusName,phone,city,loanid,totAmt,padiAmt,balAmt,nextDueDate,nextDueAmount,loanOption, status="Active",cusImg;
+    String id,CusName,phone,city,loanid,totAmt,padiAmt,balAmt,nextDueDate,nextDueAmount,loanOption, status="Active",
+            cusImg, loanRating;
+    int rating=50;
+
+    long diffentbwDate=0;
 
     TextView textView_loanId,textView_totalAmount,textView_paidAmount,textView_balanceAmount,textView_dueDate, textView_dueAmount,textView_balAmount;
     DatePickerDialog datePickerDialog;
+
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +80,8 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
         duePaidDate.setInputType(InputType.TYPE_NULL);
 
         editText_paidAmount  = (EditText) findViewById(R.id.edit_colloan_paid_amount);
+
+
 
 
 
@@ -119,6 +131,9 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+
                 String cusName=editText_cusName.getText().toString();
                 String phone=editText_phone.getText().toString();
                 String city=editText_city.getText().toString();
@@ -136,11 +151,50 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                 int result=tempBalanceAmount - tempPaidDueAmount;
                 String balanceAmount=String.valueOf(result);
 
-                if (result <= 0  ){
+
+
+
+
+
+
+
+                if (result <= 10  ){
                     status = "Deactive";
+                    try {
+                        Date tempDueDate=dateFormatter.parse(paidDueDate);
+                        Date tempCurrentDate=dateFormatter.parse(nextDueDate);
+                        long diff=tempDueDate.getTime() - tempCurrentDate.getTime();
+                        diffentbwDate=diff / (24 * 60 * 60 * 1000);
+                        if (diffentbwDate <=0){
+                            rating=5;
+                        }
+                        else if(diffentbwDate <= 5 && diffentbwDate >0 ){
+                            rating=4;
+                        }
+                        else if (diffentbwDate <=10 && diffentbwDate >5){
+                            rating=3;
+                        }
+                        else if (diffentbwDate <=20 && diffentbwDate >10){
+                            rating=2;
+                        }
+                        else if (diffentbwDate <=30 && diffentbwDate >20){
+                            rating=1;
+                        }
+                        else {
+                            rating=0;
+                        }
+
+                       // Toast.makeText(getApplicationContext(),""+rating,Toast.LENGTH_SHORT).show();
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+
+
+
+
                 }
-
-
 
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                 Calendar c = Calendar.getInstance();
@@ -180,16 +234,53 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                 SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
                 String dueDate = sdf1.format(c.getTime());
                 UserLocalStore userLocalStore=new UserLocalStore(getApplicationContext());
-                String s=userLocalStore.getLoggedInUser();
+                String user=userLocalStore.getLoggedInUser();
+
+                loanRating=String.valueOf(rating);
 
 
                 if (editText_paidAmount.length() >0){
 
                     if (duePaidDate.length() > 0){
 
-                        CollectLoan collectLoan=new CollectLoan(cusName,phone,city,loanId,totalAmount,paidAmount,balanceAmount,dueDate,dueAmount,paidDueDate,paidDueAmount,status,cusImg,s);
-                        AddDataToSerever(collectLoan);
-                        onBackPressed();
+                        if (tempBalanceAmount>= tempPaidDueAmount){
+
+                            CollectLoan collectLoan=new CollectLoan(cusName,phone,city,loanId,loanOption,totalAmount,paidAmount,balanceAmount,dueDate,dueAmount,paidDueDate,paidDueAmount,status,cusImg,user,loanRating);
+                            AddDataToSerever(collectLoan);
+                            onBackPressed();
+                        }else {
+
+                            AlertDialog alertDialog = new AlertDialog.Builder(ColectLoan_Activity.this).create();
+                            alertDialog.setTitle("Alert Dialog");
+                            alertDialog.setMessage("Paid amount greater then balance Amount ");
+                            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                            alertDialog.show();
+                        }
+
+
+                      /*  if ( Integer.parseInt(balanceAmount) >= Integer.parseInt(paidDueAmount) ){
+
+                            CollectLoan collectLoan=new CollectLoan(cusName,phone,city,loanId,loanOption,totalAmount,paidAmount,balanceAmount,dueDate,dueAmount,paidDueDate,paidDueAmount,status,cusImg,user,loanRating);
+                            AddDataToSerever(collectLoan);
+                            onBackPressed();
+
+                        }else {
+
+                            AlertDialog alertDialog = new AlertDialog.Builder(getApplicationContext()).create();
+                            alertDialog.setTitle("Alert Dialog");
+                            alertDialog.setMessage("Paid amount greater then balance Amount ");
+                            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                            alertDialog.show();
+
+                        }*/
+
+
 
                     }
                     else {

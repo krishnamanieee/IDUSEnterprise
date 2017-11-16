@@ -6,7 +6,7 @@ package com.rohasoft.idus.idus_enterprise.other;
 
 public class Customer  {
 
-    String customerName,phone,address,city,pincode,mapLan,mapLac,remaks,id;
+    String customerName,phone,address,city,pincode,mapLan,mapLac,remaks,id, user;
 
     String loanId,cusId,totalLoanAmount,loanOption,loanDuration,startDate,endDate,nextdueDate,nextDueAmount,paidLoan,balanceLoan;
     String   customerImage,shopImage,idProofImage,addressProofImage,refName,refPhone;
@@ -28,7 +28,9 @@ public class Customer  {
 
     }
 
-    public Customer(String customerName,String phone, String address, String city, String pincode, String mapLan, String mapLac, String customerImage,String shopImage,String idProofImage,String addressProofImage, String remaks,String refName,String refPhone){
+    public Customer(String customerName,String phone, String address, String city, String pincode, String mapLan,
+                    String mapLac, String customerImage,String shopImage,String idProofImage,String addressProofImage,
+                    String remaks,String refName,String refPhone, String user){
         this.customerName=customerName;
         this.phone=phone;
         this.address=address;
@@ -43,6 +45,7 @@ public class Customer  {
         this.remaks=remaks;
         this.refName=refName;
         this.refPhone=refPhone;
+        this.user=user;
 
 
     }

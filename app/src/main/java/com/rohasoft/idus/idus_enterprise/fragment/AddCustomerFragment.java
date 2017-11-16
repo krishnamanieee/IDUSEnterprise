@@ -38,6 +38,7 @@ import com.rohasoft.idus.idus_enterprise.other.GetUserCallback;
 import com.rohasoft.idus.idus_enterprise.other.Loan;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
 import com.rohasoft.idus.idus_enterprise.other.User;
+import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -343,7 +344,11 @@ public class AddCustomerFragment extends Fragment{
             public void done(User returedUser) {
                 if (returedUser == null){
 
-                    Customer customer=new Customer(cusName,phone,addr1,city,pincode,lanMap,lacMap,customerImage,shopImage,idProofImage,addressProofImage,remark,refName,refPhone);
+                    UserLocalStore userLocalStore=new UserLocalStore(getContext());
+                    String user=userLocalStore.getLoggedInUser();
+
+                    Customer customer=new Customer(cusName,phone,addr1,city,pincode,lanMap,lacMap,
+                            customerImage,shopImage,idProofImage,addressProofImage,remark,refName,refPhone,user);
                     addCustomer(customer);
                     reset();
 
