@@ -45,6 +45,45 @@ public class AddLoanCus extends RecyclerView.Adapter<AddLoanCus.ViewHolder>{
 
         final AddLoanCusList loanCusList=list.get(position);
 
+        String s=loanCusList.getRating().toString();
+        int i=Integer.parseInt(s);
+        if (i == 5){
+
+            holder.img_star1.setVisibility(View.VISIBLE);
+            holder.img_star2.setVisibility(View.VISIBLE);
+            holder.img_star3.setVisibility(View.VISIBLE);
+            holder.img_star4.setVisibility(View.VISIBLE);
+            holder.img_star5.setVisibility(View.VISIBLE);
+
+        }
+        else if (i ==4){
+            holder.img_star1.setVisibility(View.VISIBLE);
+            holder.img_star2.setVisibility(View.VISIBLE);
+            holder.img_star3.setVisibility(View.VISIBLE);
+            holder.img_star4.setVisibility(View.VISIBLE);
+
+        } else if (i ==3){
+            holder.img_star1.setVisibility(View.VISIBLE);
+            holder.img_star2.setVisibility(View.VISIBLE);
+            holder.img_star3.setVisibility(View.VISIBLE);
+
+
+        } else if (i ==2){
+            holder.img_star1.setVisibility(View.VISIBLE);
+            holder.img_star2.setVisibility(View.VISIBLE);
+
+        } else if (i ==1){
+            holder.img_star1.setVisibility(View.VISIBLE);
+
+        }
+        else {
+            holder.img_star1.setVisibility(View.INVISIBLE);
+            holder.img_star2.setVisibility(View.INVISIBLE);
+            holder.img_star3.setVisibility(View.INVISIBLE);
+            holder.img_star4.setVisibility(View.INVISIBLE);
+            holder.img_star5.setVisibility(View.INVISIBLE);
+        }
+
         holder.textView_cusName.setText(loanCusList.getCusName());
         holder.textView_phone.setText(loanCusList.getPhone());
         holder.textView_cusId.setText("CUS"+loanCusList.getCusId());
@@ -65,6 +104,8 @@ public class AddLoanCus extends RecyclerView.Adapter<AddLoanCus.ViewHolder>{
                 intent.putExtra("shopImg",loanCusList.getShopImg());
                 intent.putExtra("idImg",loanCusList.getIdImg());
                 intent.putExtra("addressImg",loanCusList.getAddressImg());
+                intent.putExtra("shopName",loanCusList.getShopName());
+                intent.putExtra("industry",loanCusList.getIndustry());
                 intent.putExtra("refName",loanCusList.getRefName());
                 intent.putExtra("refPhone",loanCusList.getRefPhone());
                 context.startActivity(intent);
@@ -84,6 +125,7 @@ public class AddLoanCus extends RecyclerView.Adapter<AddLoanCus.ViewHolder>{
         TextView textView_cusName,textView_phone,textView_cusId,textView_city;
         LinearLayout linearLayout;
         ImageView  imageView_cusphoto;
+        ImageView  img_star1,img_star2,img_star3,img_star4,img_star5;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -94,6 +136,17 @@ public class AddLoanCus extends RecyclerView.Adapter<AddLoanCus.ViewHolder>{
             imageView_cusphoto=(ImageView) itemView.findViewById(R.id.img_AddLoanCusImg);
             textView_city=(TextView) itemView.findViewById(R.id.txt_Addloanlistcity);
             linearLayout=(LinearLayout) itemView.findViewById(R.id.linearLayout_addLoanCus);
+
+            img_star1=(ImageView) itemView.findViewById(R.id.img_star1);
+            img_star2=(ImageView) itemView.findViewById(R.id.img_star2);
+            img_star3=(ImageView) itemView.findViewById(R.id.img_star3);
+            img_star4=(ImageView) itemView.findViewById(R.id.img_star4);
+            img_star5=(ImageView) itemView.findViewById(R.id.img_star5);
+            img_star1.setVisibility(View.INVISIBLE);
+            img_star2.setVisibility(View.INVISIBLE);
+            img_star3.setVisibility(View.INVISIBLE);
+            img_star4.setVisibility(View.INVISIBLE);
+            img_star5.setVisibility(View.INVISIBLE);
         }
     }
 }

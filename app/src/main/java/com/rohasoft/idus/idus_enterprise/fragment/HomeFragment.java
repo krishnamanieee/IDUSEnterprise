@@ -367,7 +367,7 @@ public class HomeFragment extends Fragment {
         RequestQueue requestQueue= Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
     }
-
+/*
     @Override
     public void onStart() {
         collectedAmt=0;
@@ -377,5 +377,5 @@ public class HomeFragment extends Fragment {
         todayLoanAmount();
         tommorrowLoanAmount();
         super.onStart();
-    }
+    }*/
 }

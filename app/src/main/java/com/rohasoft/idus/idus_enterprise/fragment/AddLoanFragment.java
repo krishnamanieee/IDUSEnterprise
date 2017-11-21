@@ -65,7 +65,7 @@ public class AddLoanFragment extends Fragment {
     private String mParam2;
 
 //    private static final String URL_DATA="http://autojobshere.company/app/json";
-    private static final String URL_DATA="http://idusmarket.com/loan-app/app/fetchaddloancuslist.php";
+    private static final String URL_DATA="http://idusmarket.com/loan-app/app/newloan.php";
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter  adapter;
@@ -165,8 +165,11 @@ public class AddLoanFragment extends Fragment {
                                         object.getString("addressproof_image"),
                                         object.getString("map_lac"),
                                         object.getString("map_lan"),
+                                        object.getString("shopname"),
+                                        object.getString("industry"),
                                         object.getString("refname"),
-                                        object.getString("refphone")
+                                        object.getString("refphone"),
+                                        object.getString("rating")
                                 );
 
                                 list.add(items);

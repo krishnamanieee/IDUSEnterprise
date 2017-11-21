@@ -55,7 +55,7 @@ public class TMCollectActivity extends AppCompatActivity {
         progressDialog.show();
 
 
-        StringRequest stringRequest=new StringRequest(Request.Method.GET,
+        StringRequest stringRequest=new StringRequest(Request.Method.POST,
                 URL_DATA,
                 new Response.Listener<String>() {
                     @Override

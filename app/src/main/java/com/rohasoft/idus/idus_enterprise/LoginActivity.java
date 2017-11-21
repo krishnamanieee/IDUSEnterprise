@@ -24,6 +24,8 @@ public class LoginActivity extends Activity {
     Button button_login;
     UserLocalStore userLocalstore;
 
+    String username,pass;
+
 
 
 
@@ -53,8 +55,8 @@ public class LoginActivity extends Activity {
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username=editText_username.getText().toString();
-                String pass=editText_password.getText().toString();
+                username=editText_username.getText().toString();
+                pass=editText_password.getText().toString();
                 User user=new User(username,pass);
                 authenticate(user);
             }

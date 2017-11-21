@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rohasoft.idus.idus_enterprise.AddLoan_Activity;
 import com.rohasoft.idus.idus_enterprise.CustomerDescriptionActivity;
@@ -47,12 +48,53 @@ public class ExistingCustomer extends RecyclerView.Adapter<ExistingCustomer.View
 
         final AddLoanCusList loanCusList=list.get(position);
 
+        String s=loanCusList.getRating().toString();
+        int i=Integer.parseInt(s);
+        if (i == 5){
+
+            holder.img_star1.setVisibility(View.VISIBLE);
+            holder.img_star2.setVisibility(View.VISIBLE);
+            holder.img_star3.setVisibility(View.VISIBLE);
+            holder.img_star4.setVisibility(View.VISIBLE);
+            holder.img_star5.setVisibility(View.VISIBLE);
+
+        }
+        else if (i ==4){
+            holder.img_star1.setVisibility(View.VISIBLE);
+            holder.img_star2.setVisibility(View.VISIBLE);
+            holder.img_star3.setVisibility(View.VISIBLE);
+            holder.img_star4.setVisibility(View.VISIBLE);
+
+        } else if (i ==3){
+            holder.img_star1.setVisibility(View.VISIBLE);
+            holder.img_star2.setVisibility(View.VISIBLE);
+            holder.img_star3.setVisibility(View.VISIBLE);
+
+
+        } else if (i ==2){
+            holder.img_star1.setVisibility(View.VISIBLE);
+            holder.img_star2.setVisibility(View.VISIBLE);
+
+        } else if (i ==1){
+            holder.img_star1.setVisibility(View.VISIBLE);
+
+        }
+        else {
+            holder.img_star1.setVisibility(View.INVISIBLE);
+            holder.img_star2.setVisibility(View.INVISIBLE);
+            holder.img_star3.setVisibility(View.INVISIBLE);
+            holder.img_star4.setVisibility(View.INVISIBLE);
+            holder.img_star5.setVisibility(View.INVISIBLE);
+        }
         holder.textView_cusName.setText(loanCusList.getCusName());
         holder.textView_phone.setText(loanCusList.getPhone());
         holder.textView_city.setText(loanCusList.getCity());
         holder.textView_cusid.setText("CUS"+loanCusList.getCusId());
+
+
         Picasso.with(context)
-                .load("http://www.idusmarket.com/loan-app/admin/uploads/"+loanCusList.getCusImag()).into(holder.imageView_cusphoto);
+                .load("http://www.idusmarket.com/loan-app/admin/uploads/"+loanCusList.getCusImag())
+                .into(holder.imageView_cusphoto);
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,8 +107,14 @@ public class ExistingCustomer extends RecyclerView.Adapter<ExistingCustomer.View
                 intent.putExtra("pincode",loanCusList.getPincode());
                 intent.putExtra("lat",loanCusList.getLatMap());
                 intent.putExtra("lan",loanCusList.getLanMap());
+                intent.putExtra("cusImg",loanCusList.getCusImag());
+                intent.putExtra("shopImg",loanCusList.getShopImg());
+                intent.putExtra("idImg",loanCusList.getIdImg());
+                intent.putExtra("addressImg",loanCusList.getAddressImg());
                 intent.putExtra("refName",loanCusList.getRefName());
                 intent.putExtra("refPhone",loanCusList.getRefPhone());
+                intent.putExtra("shopName",loanCusList.getShopName());
+                intent.putExtra("industry",loanCusList.getIndustry());
                 context.startActivity(intent);
             }
         });
@@ -83,6 +131,7 @@ public class ExistingCustomer extends RecyclerView.Adapter<ExistingCustomer.View
         TextView textView_cusName,textView_phone,textView_cusid,textView_city;
         LinearLayout linearLayout;
         ImageView  imageView_cusphoto;
+        ImageView  img_star1,img_star2,img_star3,img_star4,img_star5;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -92,6 +141,16 @@ public class ExistingCustomer extends RecyclerView.Adapter<ExistingCustomer.View
             textView_cusid=(TextView) itemView.findViewById(R.id.txt_Addloanlistcusid);
             textView_city=(TextView) itemView.findViewById(R.id.txt_Addloanlistcity);
             imageView_cusphoto=(ImageView) itemView.findViewById(R.id.img_AddLoanCusImg);
+            img_star1=(ImageView) itemView.findViewById(R.id.img_star1);
+            img_star2=(ImageView) itemView.findViewById(R.id.img_star2);
+            img_star3=(ImageView) itemView.findViewById(R.id.img_star3);
+            img_star4=(ImageView) itemView.findViewById(R.id.img_star4);
+            img_star5=(ImageView) itemView.findViewById(R.id.img_star5);
+            img_star1.setVisibility(View.INVISIBLE);
+            img_star2.setVisibility(View.INVISIBLE);
+            img_star3.setVisibility(View.INVISIBLE);
+            img_star4.setVisibility(View.INVISIBLE);
+            img_star5.setVisibility(View.INVISIBLE);
             linearLayout=(LinearLayout) itemView.findViewById(R.id.linearLayout_addLoanCus);
         }
     }

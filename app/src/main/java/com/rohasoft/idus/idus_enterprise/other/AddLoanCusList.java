@@ -18,11 +18,17 @@ public class AddLoanCusList {
     private String addressImg;
     private String refName;
     private String refPhone;
-
+    private String shopName;
+    private String industry;
+    private String rating;
     private String latMap;
     private String lanMap;
 
-    public AddLoanCusList(String cusName, String phone, String cusId, String address, String city, String pincode, String cusImag, String shopImg, String idImg, String addressImg, String latMap, String lanMap,String refName,String refPhone) {
+    public AddLoanCusList(String cusName, String phone, String cusId, String address,
+                          String city, String pincode, String cusImag, String shopImg,
+                          String idImg, String addressImg, String latMap, String lanMap,
+                          String shopName,String industry,
+                          String refName,String refPhone,String rating) {
         this.cusName = cusName;
         this.phone = phone;
         this.cusId = cusId;
@@ -35,8 +41,11 @@ public class AddLoanCusList {
         this.addressImg = addressImg;
         this.latMap = latMap;
         this.lanMap = lanMap;
+        this.shopName = shopName;
+        this.industry = industry;
         this.refName = refName;
         this.refPhone = refPhone;
+        this.rating = rating;
     }
 
     public AddLoanCusList(String cusName, String phone, String cusId, String city) {
@@ -52,6 +61,11 @@ public class AddLoanCusList {
         this.addressImg = "";
         this.latMap = "";
         this.lanMap = "";
+    }
+
+    public String getRating() {
+
+        return rating;
     }
 
     public String getLatMap() {
@@ -95,6 +109,13 @@ public class AddLoanCusList {
     }
 
 
+    public String getShopName() {
+        return shopName;
+    }
+
+    public String getIndustry() {
+        return industry;
+    }
 
     public String getCusId() {
         return cusId;

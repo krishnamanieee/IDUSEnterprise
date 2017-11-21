@@ -16,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import com.android.volley.toolbox.Volley;
 import com.rohasoft.idus.idus_enterprise.Adapter.LaonAdapter;
 import com.rohasoft.idus.idus_enterprise.Adapter.Loan;
 import com.rohasoft.idus.idus_enterprise.other.GPSTracker;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,12 +49,13 @@ public class CustomerViewActivity extends AppCompatActivity {
 
     TextView textView_cusName, textView_cusId, textView_address, textView_city, textView_phone, textView_pincode;
 
-    TextView textView_edit;
-    TextView textView_noloan,textView_refName,textView_refPhone;
 
-    Button button_map;
+    TextView textView_noloan,textView_refName,textView_refPhone,textView_shopName,textView_business;
+    ImageView imageView_cus,imageView_shop,imageView_idProof,imageView_address;
 
-    String id, CusName, phone, address, city, pincode, latMap,lanMap, refName,refPhone;
+    Button button_map,button_newLoan;
+
+    String id, CusName, phone, address, city, pincode, latMap,lanMap, cusImg,shopImg,addressImg,idImg,refName,refPhone,shopName,industry;
     private static final String URL_DATA = "http://www.idusmarket.com/loan-app/app/getcusloandata.php";
 
     private RecyclerView recyclerView;
@@ -65,7 +68,7 @@ public class CustomerViewActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_customer_view);
+        setContentView(R.layout.activity_cusview);
 
 
         textView_cusName = (TextView) findViewById(R.id.txt_cusview_name);
@@ -76,8 +79,14 @@ public class CustomerViewActivity extends AppCompatActivity {
         textView_address = (TextView) findViewById(R.id.txt_cusview_addr);
         textView_refName = (TextView) findViewById(R.id.txt_cusview_refname);
         textView_refPhone = (TextView) findViewById(R.id.txt_cusview_refphone);
-        textView_edit = (TextView) findViewById(R.id.txt_cusview_profedit);
-        textView_edit.setVisibility(View.INVISIBLE);
+        textView_shopName = (TextView) findViewById(R.id.cusView_txt_shopName);
+        textView_business = (TextView) findViewById(R.id.cusView_txt_business);
+
+        imageView_cus= (ImageView) findViewById(R.id.img_view_execustum);
+        imageView_shop= (ImageView) findViewById(R.id.img_view_exeshop);
+        imageView_idProof= (ImageView) findViewById(R.id.img_view_exeidproof);
+        imageView_address= (ImageView) findViewById(R.id.img_view_exeaddrproof);
+
 
         textView_noloan = (TextView) findViewById(R.id.txt_cusdes_schedule);
         textView_noloan.setVisibility(View.INVISIBLE);
@@ -86,9 +95,12 @@ public class CustomerViewActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         button_map = (Button) findViewById(R.id.button_map);
+        button_newLoan = (Button) findViewById(R.id.button_newloan);
 
         list = new ArrayList<>();
         loadRecyclerViewData();
+
+        newLoan();
 
 
         if (getIntent().getExtras().getString("id").length() > 0) {
@@ -102,6 +114,12 @@ public class CustomerViewActivity extends AppCompatActivity {
             lanMap = getIntent().getExtras().getString("lan");
             refName = getIntent().getExtras().getString("refName");
             refPhone = getIntent().getExtras().getString("refPhone");
+            shopName=getIntent().getExtras().getString("shopName");
+            industry=getIntent().getExtras().getString("industry");
+            cusImg=getIntent().getExtras().getString("cusImg");
+            shopImg=getIntent().getExtras().getString("shopImg");
+            idImg=getIntent().getExtras().getString("idImg");
+            addressImg=getIntent().getExtras().getString("addressImg");
 
             textView_cusName.setText(CusName);
             textView_cusId.setText("CUS" + id);
@@ -111,6 +129,13 @@ public class CustomerViewActivity extends AppCompatActivity {
             textView_pincode.setText(pincode);
             textView_refName.setText(refName);
             textView_refPhone.setText(refPhone);
+            textView_shopName.setText(shopName);
+            textView_business.setText(industry);
+
+            Picasso.with(this).load("http://www.idusmarket.com/loan-app/admin/uploads/"+cusImg).into(imageView_cus);
+            Picasso.with(this).load("http://www.idusmarket.com/loan-app/admin/uploads/"+shopImg).into(imageView_shop);
+            Picasso.with(this).load("http://www.idusmarket.com/loan-app/admin/uploads/"+idImg).into(imageView_idProof);
+            Picasso.with(this).load("http://www.idusmarket.com/loan-app/admin/uploads/"+addressImg).into(imageView_address);
 
         }
 
@@ -149,8 +174,43 @@ public class CustomerViewActivity extends AppCompatActivity {
             }
         });
 
+        imageView_cus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(CustomerViewActivity.this,ImageViewActivity.class);
+                intent.putExtra("img",cusImg);
+                startActivity(intent);
+            }
+        });
 
 
+
+
+    }
+
+    private void newLoan() {
+
+        button_newLoan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), AddLoan_Activity.class);
+                intent.putExtra("id",id);
+                intent.putExtra("cusName",CusName);
+                intent.putExtra("phone",phone);
+                intent.putExtra("address",address);
+                intent.putExtra("city",city);
+                intent.putExtra("pincode",pincode);
+                intent.putExtra("cusImg",cusImg);
+                intent.putExtra("shopImg",shopImg);
+                intent.putExtra("idImg",idImg);
+                intent.putExtra("addressImg",addressImg);
+                intent.putExtra("shopName",shopName);
+                intent.putExtra("industry",industry);
+                intent.putExtra("refName",refName);
+                intent.putExtra("refPhone",refPhone);
+                startActivity(intent);
+            }
+        });
 
     }
 

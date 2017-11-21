@@ -357,10 +357,51 @@
 
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/linearLayout42"
+            android:id="@+id/linearLayout45"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linearLayout9"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Shop Name"/>
+
+                <EditText
+                    android:id="@+id/edt_addloan_shoeName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="8"
+                    android:inputType="text"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Industry"/>
+                <EditText
+                    android:id="@+id/edt_addloan_idustry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="8"
+                    android:inputType="text"
+                    android:maxLength="10" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout42"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout45"
             android:orientation="horizontal">
 
             <LinearLayout

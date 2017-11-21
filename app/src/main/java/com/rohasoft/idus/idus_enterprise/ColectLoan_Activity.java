@@ -2,6 +2,7 @@ package com.rohasoft.idus.idus_enterprise;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,17 +15,31 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.rohasoft.idus.idus_enterprise.Adapter.ExistingCustomer;
+import com.rohasoft.idus.idus_enterprise.other.AddLoanCusList;
 import com.rohasoft.idus.idus_enterprise.other.CollectLoan;
 import com.rohasoft.idus.idus_enterprise.other.GetCollectLoanCallBack;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
 import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Created by Ayothi selvam on 08-11-2017.
@@ -32,13 +47,15 @@ import java.util.Locale;
 
 public class ColectLoan_Activity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String URL_DATA="http://idusmarket.com/loan-app/app/rating.php";
+
     Button pay, reset;
     EditText duePaidDate, editText_paidAmount;
     EditText  editText_cusName,editText_phone,editText_city;
     private SimpleDateFormat dateFormatter;
     String id,CusName,phone,city,loanid,totAmt,padiAmt,balAmt,nextDueDate,nextDueAmount,loanOption, status="Active",
             cusImg, loanRating;
-    int rating=50;
+    int rating, result;
 
     long diffentbwDate=0;
 
@@ -75,17 +92,13 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
 
 
 
+
+
         duePaidDate = (EditText)findViewById(R.id.edit_colloan_due_paid_date);
         duePaidDate.requestFocus();
         duePaidDate.setInputType(InputType.TYPE_NULL);
 
         editText_paidAmount  = (EditText) findViewById(R.id.edit_colloan_paid_amount);
-
-
-
-
-
-
 
         if(getIntent().getExtras().getString("id").length()>0){
             loanid=getIntent().getExtras().getString("id");
@@ -111,10 +124,6 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
             textView_balanceAmount.setText(balAmt);
             textView_dueDate.setText(nextDueDate);
             textView_dueAmount.setText(nextDueAmount);
-
-
-
-
 
         }
 
@@ -148,18 +157,12 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                 int tempBalanceAmount=Integer.parseInt(textView_balanceAmount.getText() .toString());
                 int tempPaidDueAmount=Integer.parseInt(editText_paidAmount.getText().toString());
                 String paidAmount= String.valueOf(tempPaidAmount+tempPaidDueAmount);
-                int result=tempBalanceAmount - tempPaidDueAmount;
+                result=tempBalanceAmount - tempPaidDueAmount;
                 String balanceAmount=String.valueOf(result);
 
-
-
-
-
-
-
-
-                if (result <= 10  ){
+                if (result <= 50  ){
                     status = "Deactive";
+
                     try {
                         Date tempDueDate=dateFormatter.parse(paidDueDate);
                         Date tempCurrentDate=dateFormatter.parse(nextDueDate);
@@ -184,18 +187,18 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                             rating=0;
                         }
 
-                       // Toast.makeText(getApplicationContext(),""+rating,Toast.LENGTH_SHORT).show();
+                        loanRating=String.valueOf(rating);
 
+                       // Toast.makeText(getApplicationContext(),""+rating,Toast.LENGTH_SHORT).show();
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-
-
-
-
-
+                }
+                else {
+                    loanRating="";
                 }
 
+                Toast.makeText(getApplicationContext(),loanRating,Toast.LENGTH_SHORT).show();
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                 Calendar c = Calendar.getInstance();
                 try {
@@ -203,41 +206,26 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
                 if (loanOption.equals("Daily")){
 
                     c.add(Calendar.DATE, 1 );
-
                 }
                 else if(loanOption.equals("Weekly")){
-
-
                     c.add(Calendar.DATE, 7);
-
                 }
                 else if(loanOption.equals("By Weekly")){
-
-
                     c.add(Calendar.DATE, 15);
-
                 }
                 else if(loanOption.equals("Monthly")){
-
-
                     c.add(Calendar.MONTH, 1);
-
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"not ",Toast.LENGTH_LONG).show();
-
                 }
                 SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
                 String dueDate = sdf1.format(c.getTime());
                 UserLocalStore userLocalStore=new UserLocalStore(getApplicationContext());
                 String user=userLocalStore.getLoggedInUser();
-
-                loanRating=String.valueOf(rating);
-
 
                 if (editText_paidAmount.length() >0){
 
@@ -247,9 +235,14 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
 
                             CollectLoan collectLoan=new CollectLoan(cusName,phone,city,loanId,loanOption,totalAmount,paidAmount,balanceAmount,dueDate,dueAmount,paidDueDate,paidDueAmount,status,cusImg,user,loanRating);
                             AddDataToSerever(collectLoan);
-                            onBackPressed();
-                        }else {
+                            Toast.makeText(getApplicationContext(),"Collections are success",Toast.LENGTH_SHORT).show();
+                           /* if (result <= 50  ) {
+                                addRatingCus();
+                            }*/
 
+
+
+                        }else {
                             AlertDialog alertDialog = new AlertDialog.Builder(ColectLoan_Activity.this).create();
                             alertDialog.setTitle("Alert Dialog");
                             alertDialog.setMessage("Paid amount greater then balance Amount ");
@@ -259,43 +252,51 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                             });
                             alertDialog.show();
                         }
-
-
-                      /*  if ( Integer.parseInt(balanceAmount) >= Integer.parseInt(paidDueAmount) ){
-
-                            CollectLoan collectLoan=new CollectLoan(cusName,phone,city,loanId,loanOption,totalAmount,paidAmount,balanceAmount,dueDate,dueAmount,paidDueDate,paidDueAmount,status,cusImg,user,loanRating);
-                            AddDataToSerever(collectLoan);
-                            onBackPressed();
-
-                        }else {
-
-                            AlertDialog alertDialog = new AlertDialog.Builder(getApplicationContext()).create();
-                            alertDialog.setTitle("Alert Dialog");
-                            alertDialog.setMessage("Paid amount greater then balance Amount ");
-                            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            });
-                            alertDialog.show();
-
-                        }*/
-
-
-
                     }
                     else {
                         duePaidDate.setError("Pic the Date");
                     }
-
                 }
                 else {
-
                     editText_paidAmount.setError("Enter the Collected Amount");
-
                 }
-
             }
         });
+    }
+
+    private void addRatingCus() {
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST,
+                URL_DATA,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() {
+
+                UserLocalStore userLocalStore=new UserLocalStore(getApplicationContext());
+                String s=userLocalStore.getLoggedInUser();
+
+                // Creating Map String Params.
+                Map<String, String> params = new HashMap<String, String>();
+                String phone=editText_phone.getText().toString();
+                // Adding All values to Params.
+                params.put("phone", phone);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
 
     }
 
@@ -306,13 +307,13 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
         serverRequest.storeCollectDataInBackground(collectLoan, new GetCollectLoanCallBack() {
             @Override
             public void done(CollectLoan returnCollectLoan) {
+                onBackPressed();
                 if (returnCollectLoan != null){
-                    Toast.makeText(getApplicationContext(),"Collections are success",Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
     }
-
     private void getDate() {
 
         duePaidDate.setOnClickListener(this);
@@ -326,10 +327,7 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                 duePaidDate.setText(dateFormatter.format(newDate.getTime()));
             }
         },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-
-
-
-    }
+            }
 
     private void reset() {
         reset.setOnClickListener(new View.OnClickListener() {
@@ -341,14 +339,14 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
         });
     }
 
+
     @Override
     public void onClick(View view) {
         if(view == duePaidDate) {
             datePickerDialog.show();
-
         }
-
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

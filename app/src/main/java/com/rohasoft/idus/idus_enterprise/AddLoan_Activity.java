@@ -44,7 +44,7 @@ import java.util.Locale;
 public class AddLoan_Activity extends AppCompatActivity implements OnClickListener{
 
     EditText edtcustumname, edtcustumid, edtphnno, edtaddr, edtcity, edtpincode, edtloanamount, edtloanduration,
-            edtstartdate, edtenddate, edtremarks,editText_refName,editText_refPhone;
+            edtstartdate, edtenddate, edtremarks,editText_shopName,editText_industry,editText_refName,editText_refPhone;
 
     ImageView imgcustum, imgshop, imgidproof, imgaddrproof;
 
@@ -58,7 +58,7 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
 
     private SimpleDateFormat dateFormatter;
-    String id,CusName,phone,address,city,pincode,cusImg,shopImg,addressImg,idImg,refName,refPhone;
+    String id,CusName,phone,address,city,pincode,cusImg,shopImg,addressImg,idImg,refName,refPhone,shopName,industry;
 
     TextView textView_viewSchedule;
 
@@ -80,6 +80,14 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
         edtcustumname = (EditText) findViewById(R.id.edit_txt_custumname);
         edtcustumname.setEnabled(false);
         edtcustumname.setInputType(InputType.TYPE_NULL);
+
+        editText_shopName = (EditText) findViewById(R.id.edt_addloan_shoeName);
+        editText_shopName.setEnabled(false);
+        editText_shopName.setInputType(InputType.TYPE_NULL);
+
+        editText_industry = (EditText) findViewById(R.id.edt_addloan_idustry);
+        editText_industry.setEnabled(false);
+        editText_industry.setInputType(InputType.TYPE_NULL);
 
         edtcustumid = (EditText) findViewById(R.id.edit_txt_custumid);
         edtcustumid.setEnabled(false);
@@ -174,6 +182,8 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
             addressImg=getIntent().getExtras().getString("addressImg");
             refName=getIntent().getExtras().getString("refName");
             refPhone=getIntent().getExtras().getString("refPhone");
+            shopName=getIntent().getExtras().getString("shopName");
+            industry=getIntent().getExtras().getString("industry");
             edtcustumname.setText(CusName);
             edtcustumid.setText("CUS"+id);
             edtphnno.setText(phone);
@@ -182,6 +192,8 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
             edtpincode.setText(pincode);
             editText_refName.setText(refName);
             editText_refPhone.setText(refPhone);
+            editText_shopName.setText(shopName);
+            editText_industry.setText(industry);
 
             Picasso.with(this).load("http://www.idusmarket.com/loan-app/admin/uploads/"+cusImg).into(imgcustum);
             Picasso.with(this).load("http://www.idusmarket.com/loan-app/admin/uploads/"+shopImg).into(imgshop);

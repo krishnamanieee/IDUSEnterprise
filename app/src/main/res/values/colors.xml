@@ -10,4 +10,7 @@
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
     <color name="ch1">#7CB518</color>
+    <color name="graylight">#fafafa</color>
+    <color name="startblue">#6f6f6f</color>
+    <color name="endblue">#1d1d1d</color>
 </resources>

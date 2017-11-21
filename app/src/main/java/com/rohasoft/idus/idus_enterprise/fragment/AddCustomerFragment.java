@@ -59,12 +59,13 @@ public class AddCustomerFragment extends Fragment{
     GPSTracker gps;
 
     EditText editText_cusName,editText_phone,editText_addr1,editText_city,editText_pincode,editText_lacMap,editText_lanMap,
-    editText_remarks,editText_refName,editText_refPhone;
+    editText_remarks,editText_refName,editText_refPhone,editText_shopName,editText_industry;
     Button button_addCustomer,button_reset;
 
     ImageView imgcustum, imgshop, imgidproof, imgaddrproof;
     ImageView getMap;
-    String cusName,phone,addr1,city,pincode,lanMap,lacMap,remark,refName,refPhone;
+    String cusName,phone,addr1,city,pincode,lanMap,lacMap,remark,refName,refPhone
+            ,shopNmae,industry;
 
     int cus=0,shop=0,id=0,address=0;
 
@@ -143,6 +144,8 @@ public class AddCustomerFragment extends Fragment{
         editText_remarks= (EditText) v.findViewById(R.id.edt_addcus__remark);
         editText_refName= (EditText) v.findViewById(R.id.edt_addcus_ref_name);
         editText_refPhone= (EditText) v.findViewById(R.id.edt_addcus_ref_phone);
+        editText_shopName= (EditText) v.findViewById(R.id.edt_addcus_shoeName);
+        editText_industry= (EditText) v.findViewById(R.id.edt_addcus_idustry);
 
         cd = new ConnectionDetector(getContext());
 
@@ -196,8 +199,6 @@ public class AddCustomerFragment extends Fragment{
         });
 
 
-
-
         button_addCustomer= (Button) v.findViewById(R.id.btn_addcus_submit);
         button_reset= (Button) v.findViewById(R.id.btn_addcus_reset);
 
@@ -209,16 +210,7 @@ public class AddCustomerFragment extends Fragment{
         });
 
 
-
-
-
-
          longTime = String.valueOf(System.currentTimeMillis());
-
-
-
-
-
 
         button_addCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,7 +226,9 @@ public class AddCustomerFragment extends Fragment{
                 lacMap=editText_lacMap.getText().toString().trim();
                 remark=editText_remarks.getText().toString().trim();
                 refName=editText_refName.getText().toString().trim();
-                refPhone=editText_phone.getText().toString().trim();
+                refPhone=editText_refPhone.getText().toString().trim();
+                shopNmae=editText_shopName.getText().toString().trim();
+                industry=editText_industry.getText().toString().trim();
 
 
                 if (cusName.length() > 0){
@@ -249,8 +243,23 @@ public class AddCustomerFragment extends Fragment{
                                     if (shop ==1){
                                         if (id == 1){
                                             if (address ==1){
-                                                User user=new User(phone);
-                                                authenticate(user);
+                                                if (shopNmae.length()>0){
+                                                    if (industry.length() >0){
+                                                        User user=new User(phone);
+                                                        authenticate(user);
+                                                    }
+                                                    else{
+
+                                                        editText_industry.setError("Enter the Industry");
+
+                                                    }
+                                                }
+                                                else{
+
+                                                    editText_industry.setError("Enter the Shop Name");
+
+                                                }
+
 
                                             }
                                             else {
@@ -348,7 +357,7 @@ public class AddCustomerFragment extends Fragment{
                     String user=userLocalStore.getLoggedInUser();
 
                     Customer customer=new Customer(cusName,phone,addr1,city,pincode,lanMap,lacMap,
-                            customerImage,shopImage,idProofImage,addressProofImage,remark,refName,refPhone,user);
+                            customerImage,shopImage,idProofImage,addressProofImage,remark,shopNmae,industry,refName,refPhone,user);
                     addCustomer(customer);
                     reset();
 
@@ -375,6 +384,8 @@ public class AddCustomerFragment extends Fragment{
                 editText_remarks.setText("");
                 editText_refName.setText("");
                 editText_refPhone.setText("");
+                editText_shopName.setText("");
+                editText_industry.setText("");
         Picasso.with(getActivity()).load(R.drawable.ic_menu_camera).into(imgcustum);
         Picasso.with(getActivity()).load(R.drawable.ic_menu_camera).into(imgshop);
         Picasso.with(getActivity()).load(R.drawable.ic_menu_camera).into(imgidproof);
@@ -480,7 +491,6 @@ public class AddCustomerFragment extends Fragment{
 
                             imgcustum.setImageBitmap(bitmapRotate);
                             cus=1;
-
 //                            Saving image to mobile internal memory for sometime
                             String root = getContext().getFilesDir().toString();
                             File myDir = new File(root + "/IDUS");
@@ -491,7 +501,7 @@ public class AddCustomerFragment extends Fragment{
                             n = generator.nextInt(n);
 
 //                            Give the file name that u want
-                            fname = "CUS_IMG_" + longTime + ".jpg";
+                            fname = "CUS_IMG" + longTime + ".jpg";
                             customerImage=fname;
                             imagepath = root + "/IDUS/" + fname;
                             file = new File(myDir, fname);

@@ -107,6 +107,8 @@ public class ServerRequest {
             dataToSend.add(new BasicNameValuePair("idProofImage",customer.idProofImage));
             dataToSend.add(new BasicNameValuePair("addressProofImage",customer.addressProofImage));
             dataToSend.add(new BasicNameValuePair("remaks",customer.remaks));
+            dataToSend.add(new BasicNameValuePair("shopNmae",customer.shopNmae));
+            dataToSend.add(new BasicNameValuePair("industry",customer.industry));
             dataToSend.add(new BasicNameValuePair("refName",customer.refName));
             dataToSend.add(new BasicNameValuePair("refPhone",customer.refPhone));
             dataToSend.add(new BasicNameValuePair("user",customer.user));

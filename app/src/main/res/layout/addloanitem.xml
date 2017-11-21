@@ -28,7 +28,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="196dp"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:orientation="vertical">
@@ -67,23 +67,27 @@
                         android:layout_gravity="end"
                         android:gravity="right">
                         <ImageView
+                            android:id="@+id/img_star5"
                             android:layout_width="15dp"
                             android:layout_height="15dp"
-                            android:src="@drawable/icon_start"
-                            />
+                            android:src="@drawable/icon_start" />
                         <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:src="@drawable/icon_start"/>
-                        <ImageView
+                            android:id="@+id/img_star4"
                             android:layout_width="15dp"
                             android:layout_height="15dp"
                             android:src="@drawable/icon_start"/>
                         <ImageView
+                            android:id="@+id/img_star3"
                             android:layout_width="15dp"
                             android:layout_height="15dp"
                             android:src="@drawable/icon_start"/>
                         <ImageView
+                            android:id="@+id/img_star2"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/icon_start"/>
+                        <ImageView
+                            android:id="@+id/img_star1"
                             android:layout_width="15dp"
                             android:layout_height="15dp"
                             android:src="@drawable/icon_start"/>

@@ -49,12 +49,16 @@
         <activity
             android:name=".NewScheduleActivity"
             android:label="Due Schedule" />
-        <activity android:name=".TdCollectActivity"
-            android:label="Today Loan"/>
-        <activity android:name=".TMCollectActivity"
-            android:label="Tommorrow Loan"/>
-        <activity android:name=".CollAmtActivity"
-            android:label="Collected Amount"></activity>
+        <activity
+            android:name=".TdCollectActivity"
+            android:label="Today Loan" />
+        <activity
+            android:name=".TMCollectActivity"
+            android:label="Tommorrow Loan" />
+        <activity
+            android:name=".CollAmtActivity"
+            android:label="Collected Amount" />
+        <activity android:name=".ImageViewActivity"></activity>
     </application>
 
 </manifest>

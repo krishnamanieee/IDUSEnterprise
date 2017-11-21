@@ -43,7 +43,7 @@ import java.util.Map;
  */
 public class ExistingCusFragment extends Fragment {
 
-    private static final String URL_DATA="http://idusmarket.com/loan-app/app/fetchaddloancuslist.php";
+    private static final String URL_DATA="http://idusmarket.com/loan-app/app/existingcus.php";
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter  adapter;
@@ -146,8 +146,11 @@ public class ExistingCusFragment extends Fragment {
                                         object.getString("addressproof_image"),
                                         object.getString("map_lac"),
                                         object.getString("map_lan"),
+                                        object.getString("shopname"),
+                                        object.getString("industry"),
                                         object.getString("refname"),
-                                        object.getString("refphone")
+                                        object.getString("refphone"),
+                                        object.getString("rating")
                                 );
 
                                 list.add(items);
