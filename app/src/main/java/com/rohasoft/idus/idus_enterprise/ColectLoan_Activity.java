@@ -54,8 +54,8 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
     EditText  editText_cusName,editText_phone,editText_city;
     private SimpleDateFormat dateFormatter;
     String id,CusName,phone,city,loanid,totAmt,padiAmt,balAmt,nextDueDate,nextDueAmount,loanOption, status="Active",
-            cusImg, loanRating;
-    int rating, result;
+            cusImg, loanRating,loanTerm;
+    int rating, result, tempLoanTerm,pendingAmt,extraAmt,tempPaidAmount,tempBalanceAmount,tempPaidDueAmount,tempsubAmt;
 
     long diffentbwDate=0;
 
@@ -107,12 +107,17 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
             city=getIntent().getExtras().getString("city");
             totAmt=getIntent().getExtras().getString("totalAmount");
             loanOption=getIntent().getExtras().getString("loanOption");
+            loanTerm=getIntent().getExtras().getString("loanTerm");
             id=getIntent().getExtras().getString("totalAmount");
             padiAmt=getIntent().getExtras().getString("paidAmount");
             balAmt =getIntent().getExtras().getString("balanceAmount");
             nextDueDate=getIntent().getExtras().getString("NextdueDate");
             nextDueAmount=getIntent().getExtras().getString("NextdueAmount");
             cusImg=getIntent().getExtras().getString("cusImg");
+
+            tempLoanTerm=Integer.parseInt(loanTerm);
+            tempLoanTerm=tempLoanTerm+1;
+
 
 
             editText_cusName.setText(CusName);
@@ -153,9 +158,13 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                 String paidDueDate=duePaidDate.getText().toString();
                 String paidDueAmount=editText_paidAmount.getText().toString();
 
-                int tempPaidAmount=Integer.parseInt(textView_paidAmount.getText().toString());
-                int tempBalanceAmount=Integer.parseInt(textView_balanceAmount.getText() .toString());
-                int tempPaidDueAmount=Integer.parseInt(editText_paidAmount.getText().toString());
+                tempsubAmt=Integer.parseInt(dueAmount)- Integer.parseInt(paidDueAmount);
+
+                Toast.makeText(getApplicationContext(),""+tempsubAmt,Toast.LENGTH_SHORT).show();
+
+                  tempPaidAmount=Integer.parseInt(textView_paidAmount.getText().toString());
+                  tempBalanceAmount=Integer.parseInt(textView_balanceAmount.getText() .toString());
+                  tempPaidDueAmount=Integer.parseInt(editText_paidAmount.getText().toString());
                 String paidAmount= String.valueOf(tempPaidAmount+tempPaidDueAmount);
                 result=tempBalanceAmount - tempPaidDueAmount;
                 String balanceAmount=String.valueOf(result);
@@ -163,39 +172,37 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                 if (result <= 50  ){
                     status = "Deactive";
 
-                    try {
-                        Date tempDueDate=dateFormatter.parse(paidDueDate);
-                        Date tempCurrentDate=dateFormatter.parse(nextDueDate);
-                        long diff=tempDueDate.getTime() - tempCurrentDate.getTime();
-                        diffentbwDate=diff / (24 * 60 * 60 * 1000);
-                        if (diffentbwDate <=0){
-                            rating=5;
-                        }
-                        else if(diffentbwDate <= 5 && diffentbwDate >0 ){
-                            rating=4;
-                        }
-                        else if (diffentbwDate <=10 && diffentbwDate >5){
-                            rating=3;
-                        }
-                        else if (diffentbwDate <=20 && diffentbwDate >10){
-                            rating=2;
-                        }
-                        else if (diffentbwDate <=30 && diffentbwDate >20){
-                            rating=1;
-                        }
-                        else {
-                            rating=0;
-                        }
 
-                        loanRating=String.valueOf(rating);
-
-                       // Toast.makeText(getApplicationContext(),""+rating,Toast.LENGTH_SHORT).show();
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
                 }
-                else {
-                    loanRating="";
+                try {
+                    Date tempDueDate=dateFormatter.parse(paidDueDate);
+                    Date tempCurrentDate=dateFormatter.parse(nextDueDate);
+                    long diff=tempDueDate.getTime() - tempCurrentDate.getTime();
+                    diffentbwDate=diff / (24 * 60 * 60 * 1000);
+                    if (diffentbwDate <=0){
+                        rating=5;
+                    }
+                    else if(diffentbwDate <= 5 && diffentbwDate >0 ){
+                        rating=4;
+                    }
+                    else if (diffentbwDate <=10 && diffentbwDate >5){
+                        rating=3;
+                    }
+                    else if (diffentbwDate <=20 && diffentbwDate >10){
+                        rating=2;
+                    }
+                    else if (diffentbwDate <=30 && diffentbwDate >20){
+                        rating=1;
+                    }
+                    else {
+                        rating=0;
+                    }
+
+                    loanRating=String.valueOf(rating);
+
+                    // Toast.makeText(getApplicationContext(),""+rating,Toast.LENGTH_SHORT).show();
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
 
                 Toast.makeText(getApplicationContext(),loanRating,Toast.LENGTH_SHORT).show();
@@ -233,7 +240,28 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
 
                         if (tempBalanceAmount>= tempPaidDueAmount){
 
-                            CollectLoan collectLoan=new CollectLoan(cusName,phone,city,loanId,loanOption,totalAmount,paidAmount,balanceAmount,dueDate,dueAmount,paidDueDate,paidDueAmount,status,cusImg,user,loanRating);
+                            if (tempsubAmt <0){
+                                pendingAmt=0;
+                                extraAmt=Math.abs(tempsubAmt);
+
+                            }
+                            else if (tempLoanTerm >0){
+                                pendingAmt=tempsubAmt;
+                                extraAmt=0;
+
+                            }
+                            else {
+                                pendingAmt=0;
+                                extraAmt=0;
+
+                            }
+
+
+
+
+                            CollectLoan collectLoan=new CollectLoan(cusName,phone,city,loanId,loanOption,""+tempLoanTerm,
+                                    totalAmount,paidAmount,balanceAmount,dueDate,dueAmount,paidDueDate,paidDueAmount,status,
+                                    cusImg,user,loanRating,""+pendingAmt,""+extraAmt);
                             AddDataToSerever(collectLoan);
                             Toast.makeText(getApplicationContext(),"Collections are success",Toast.LENGTH_SHORT).show();
                            /* if (result <= 50  ) {

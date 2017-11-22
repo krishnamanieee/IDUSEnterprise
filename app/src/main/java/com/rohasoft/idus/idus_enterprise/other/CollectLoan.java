@@ -7,18 +7,19 @@ import android.widget.Button;
  */
 
 public class CollectLoan {
-    String customerName,phone,city,loanId,loanOption,totalAmount,paidAmount,balanceAmount,dueDate,
-            dueAmount,duePaidDate,duePaidAmount,status,cusImg,user,rating;
+    String customerName,phone,city,loanId,loanOption,loanTrem,totalAmount,paidAmount,balanceAmount,dueDate,
+            dueAmount,duePaidDate,duePaidAmount,status,cusImg,user,rating,pendingAmt,extraAmt;
 
-    public CollectLoan(String customerName, String phone, String city, String loanId,String loanOption,
+    public CollectLoan(String customerName, String phone, String city, String loanId,String loanOption,String loanTrem,
                        String totalAmount, String paidAmount, String balanceAmount, String dueDate,
                        String dueAmount, String duePaidDate, String duePaidAmount, String status,
-                       String cusImg, String user, String rating) {
+                       String cusImg, String user, String rating,String pendingAmt,String extraAmt) {
         this.customerName = customerName;
         this.phone = phone;
         this.city = city;
         this.loanId = loanId;
         this.loanOption = loanOption;
+        this.loanTrem = loanTrem;
         this.totalAmount = totalAmount;
         this.paidAmount = paidAmount;
         this.balanceAmount = balanceAmount;
@@ -30,5 +31,7 @@ public class CollectLoan {
         this.cusImg = cusImg;
         this.user = user;
         this.rating = rating;
+        this.pendingAmt = pendingAmt;
+        this.extraAmt = extraAmt;
     }
 }

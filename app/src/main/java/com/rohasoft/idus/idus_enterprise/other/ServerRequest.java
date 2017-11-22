@@ -258,6 +258,7 @@ public class ServerRequest {
             dataToSend.add(new BasicNameValuePair("customerName",collectLoan.customerName));
             dataToSend.add(new BasicNameValuePair("loanId",collectLoan.loanId));
             dataToSend.add(new BasicNameValuePair("loanOption",collectLoan.loanOption));
+            dataToSend.add(new BasicNameValuePair("loanTerm",collectLoan.loanTrem));
             dataToSend.add(new BasicNameValuePair("phone",collectLoan.phone));
             dataToSend.add(new BasicNameValuePair("city",collectLoan.city));
             dataToSend.add(new BasicNameValuePair("totalAmount",collectLoan.totalAmount));
@@ -272,6 +273,8 @@ public class ServerRequest {
             dataToSend.add(new BasicNameValuePair("user",collectLoan.user));
             dataToSend.add(new BasicNameValuePair("user",collectLoan.user));
             dataToSend.add(new BasicNameValuePair("rating",collectLoan.rating));
+            dataToSend.add(new BasicNameValuePair("pendingAmt",collectLoan.pendingAmt));
+            dataToSend.add(new BasicNameValuePair("extraAmt",collectLoan.extraAmt));
 
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);

@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.rohasoft.idus.idus_enterprise.Adapter.CollectLoanAdapter;
+import com.rohasoft.idus.idus_enterprise.Adapter.TdCollectLoanAdapter;
 import com.rohasoft.idus.idus_enterprise.other.CollectLoanList;
 import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
 
@@ -87,6 +88,7 @@ public class TdCollectActivity extends AppCompatActivity {
                                         object.getString("city"),
                                         object.getString("id"),
                                         object.getString("loan_option"),
+                                        object.getString("loan_term"),
                                         object.getString("loan_amount"),
                                         object.getString("paid_amount"),
                                         object.getString("balance_amount"),
@@ -102,7 +104,7 @@ public class TdCollectActivity extends AppCompatActivity {
 
                             }
 
-                            adapter=new CollectLoanAdapter(list,TdCollectActivity.this);
+                            adapter=new TdCollectLoanAdapter(list,TdCollectActivity.this);
                             recyclerView.setAdapter(adapter );
                         } catch (JSONException e) {
                             e.printStackTrace();

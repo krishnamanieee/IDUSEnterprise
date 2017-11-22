@@ -140,6 +140,7 @@ public class CollectLoanFragment extends Fragment {
                                         object.getString("city"),
                                         object.getString("id"),
                                         object.getString("loan_option"),
+                                        object.getString("loan_term"),
                                         object.getString("loan_amount"),
                                         object.getString("paid_amount"),
                                         object.getString("balance_amount"),

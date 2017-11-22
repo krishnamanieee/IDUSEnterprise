@@ -67,6 +67,7 @@ public class CollectLoanAdapter extends RecyclerView.Adapter<CollectLoanAdapter.
                 intent.putExtra("city",collectLoan.getCity());
                 intent.putExtra("cusId",collectLoan.getCusId());
                 intent.putExtra("loanOption",collectLoan.getLoanOption());
+                intent.putExtra("loanTerm",collectLoan.getLoan_term());
                 intent.putExtra("totalAmount",collectLoan.getTotalAmount());
                 intent.putExtra("paidAmount",collectLoan.getPaidAmount());
                 intent.putExtra("balanceAmount",collectLoan.getBalanceAmount());
