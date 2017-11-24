@@ -9,10 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.rohasoft.idus.idus_enterprise.AddLoan_Activity;
-import com.rohasoft.idus.idus_enterprise.CustomerDescriptionActivity;
 import com.rohasoft.idus.idus_enterprise.CustomerViewActivity;
 import com.rohasoft.idus.idus_enterprise.R;
 import com.rohasoft.idus.idus_enterprise.other.AddLoanCusList;

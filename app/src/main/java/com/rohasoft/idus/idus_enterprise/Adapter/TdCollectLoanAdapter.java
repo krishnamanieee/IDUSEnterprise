@@ -20,10 +20,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.rohasoft.idus.idus_enterprise.AddLoan_Activity;
 import com.rohasoft.idus.idus_enterprise.ColectLoan_Activity;
 import com.rohasoft.idus.idus_enterprise.R;
-import com.rohasoft.idus.idus_enterprise.other.AddLoanCusList;
+import com.rohasoft.idus.idus_enterprise.TdCollectActivity;
 import com.rohasoft.idus.idus_enterprise.other.CollectLoanList;
 import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
 import com.squareup.picasso.Picasso;
@@ -35,7 +34,6 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -51,13 +49,12 @@ public class TdCollectLoanAdapter extends RecyclerView.Adapter<TdCollectLoanAdap
     private List<CollectLoanList> cusLists;
     private Context context;
 
-    String date, id;
-    String loanRating;
+    String Col_date, id;
+    String phone,due_date;
 
     private static final String URL_DATA="http://idusmarket.com/loan-app/app/unpay.php";
 
-    long diffentbwDate=0;
-    int rating;
+
 
     public TdCollectLoanAdapter(List<CollectLoanList> cusLists, Context context) {
         this.cusLists = cusLists;
@@ -82,17 +79,9 @@ public class TdCollectLoanAdapter extends RecyclerView.Adapter<TdCollectLoanAdap
         holder.textView_phone.setText(collectLoan.getPhone());
         holder.textView_city.setText(collectLoan.getCity());
         holder.textView_loanId.setText("LOAN"+collectLoan.getLoanId());
-
-
         holder.textView_loanAmount.setText(collectLoan.getTotalAmount());
-
-
-
-        //Toast.makeText(context,date,Toast.LENGTH_SHORT).show();
-
         Picasso.with(context)
                 .load("http://www.idusmarket.com/loan-app/admin/uploads/"+collectLoan.getCustomerImage()).into(holder.imageView_cus);
-
 
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,15 +121,12 @@ public class TdCollectLoanAdapter extends RecyclerView.Adapter<TdCollectLoanAdap
                       Calendar c = Calendar.getInstance();
                       c.add(Calendar.DATE, 1 );
                       SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
-                      date = sdf1.format(c.getTime());
-
+                      Col_date = sdf1.format(c.getTime());
+                      due_date=collectLoan.getDueDate();
                       id=collectLoan.getLoanId();
+                      phone=collectLoan.getPhone();
 
-                      try {
-                          changeColDate(id,date,collectLoan.getDueDate());
-                      } catch (ParseException e) {
-                          e.printStackTrace();
-                      }
+                      loadUnPay();
 
                   }
               });
@@ -155,38 +141,7 @@ public class TdCollectLoanAdapter extends RecyclerView.Adapter<TdCollectLoanAdap
 
     }
 
-    private void changeColDate(final String id, String Date, String Duedate) throws ParseException {
-
-
-
-        Date tempDueDate=new SimpleDateFormat("dd/MM/yyyy").parse(Duedate);
-        Date tempCurrentDate=new SimpleDateFormat("dd/MM/yyyy").parse(Date);
-
-        long diff=tempDueDate.getTime() - tempCurrentDate.getTime();
-        Toast.makeText(context,""+diff,Toast.LENGTH_SHORT).show();
-        diffentbwDate=diff / (24 * 60 * 60 * 1000);
-        if (diffentbwDate <=0){
-            rating=5;
-        }
-        else if(diffentbwDate <= 5 && diffentbwDate >0 ){
-            rating=4;
-        }
-        else if (diffentbwDate <=10 && diffentbwDate >5){
-            rating=3;
-        }
-        else if (diffentbwDate <=20 && diffentbwDate >10){
-            rating=2;
-        }
-        else if (diffentbwDate <=30 && diffentbwDate >20){
-            rating=1;
-        }
-        else {
-            rating=0;
-        }
-
-         loanRating=String.valueOf(rating);
-
-        // Toast.makeText(getApplicationContext(),""+rating,Toast.LENGTH_SHORT).show();
+    private void loadUnPay() {
 
         final ProgressDialog progressDialog=new ProgressDialog(context);
         progressDialog.setMessage("loading Data....");
@@ -198,7 +153,9 @@ public class TdCollectLoanAdapter extends RecyclerView.Adapter<TdCollectLoanAdap
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
                         progressDialog.dismiss();
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -210,22 +167,24 @@ public class TdCollectLoanAdapter extends RecyclerView.Adapter<TdCollectLoanAdap
             @Override
             protected Map<String, String> getParams() {
 
+
+
                 // Creating Map String Params.
                 Map<String, String> params = new HashMap<String, String>();
 
                 // Adding All values to Params.
-                params.put("date", date);
                 params.put("id", id);
-                params.put("rating", loanRating);
+                params.put("Col_date", Col_date);
+                params.put("due_date", due_date);
+                params.put("phone", phone);
                 return params;
             }
         };
 
         RequestQueue requestQueue= Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
-
-
     }
+
 
     @Override
     public int getItemCount() {

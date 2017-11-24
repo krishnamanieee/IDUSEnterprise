@@ -100,7 +100,7 @@ public class CollectLoanAdapter extends RecyclerView.Adapter<CollectLoanAdapter.
             textView_cusName=(TextView) itemView.findViewById(R.id.txt_colloanlistcusnmae);
             textView_loanId=(TextView) itemView.findViewById(R.id.txt_colloanlistloanid);
             textView_city=(TextView) itemView.findViewById(R.id.txt_coloanlistcity);
-            textView_phone=(TextView) itemView.findViewById(R.id.txt_colloanlistphone);
+             textView_phone=(TextView) itemView.findViewById(R.id.txt_colloanlistphone);
             imageView_cus=(ImageView) itemView.findViewById(R.id.img_colLoanCusImg);
             textView_loanAmount=(TextView) itemView.findViewById(R.id.txt_colloanlistloanamt);
             linearLayout=(LinearLayout) itemView.findViewById(R.id.linearLayout_ColLoanCusitems);

@@ -177,11 +177,31 @@ public class CustomerViewActivity extends AppCompatActivity {
         imageView_cus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(CustomerViewActivity.this,ImageViewActivity.class);
-                intent.putExtra("img",cusImg);
-                startActivity(intent);
+                ViewImg(cusImg);
+
             }
-        });
+                });
+         imageView_address.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ViewImg(addressImg);
+
+                    }
+                });
+         imageView_shop.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ViewImg(shopImg);
+
+                    }
+                });
+         imageView_idProof.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ViewImg(idImg);
+
+                    }
+                });
 
 
 
@@ -298,6 +318,12 @@ public class CustomerViewActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    public void ViewImg(String path){
+        Intent intent=new Intent(CustomerViewActivity.this,ImageViewActivity.class);
+        intent.putExtra("img",path);
+        startActivity(intent);
     }
 
 }

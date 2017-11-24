@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.rohasoft.idus.idus_enterprise.CustomerViewActivity;
 import com.rohasoft.idus.idus_enterprise.NewScheduleActivity;
+import com.rohasoft.idus.idus_enterprise.PayDetailActivity;
 import com.rohasoft.idus.idus_enterprise.R;
 
 import java.util.List;
@@ -83,6 +84,14 @@ public class LaonAdapter extends RecyclerView.Adapter<LaonAdapter.ViewHolder> {
                 context.startActivity(intent);
             }
         });
+        holder.textView_payDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, PayDetailActivity.class);
+                intent.putExtra("loan_id","LOAN"+list.getLoanId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -94,7 +103,8 @@ public class LaonAdapter extends RecyclerView.Adapter<LaonAdapter.ViewHolder> {
 
         TextView textView_totAmt,textView_loanId,textView_paidAmt,textView_balAmt,textView_loanOption,textView_loanDuration,textView_statDate,textView_endDate;
         TextView textView_dueDate,textView_dueAmt;
-        TextView textView_schedule,textView_dueDate_text,textView_dueAmt_text,textView_dueAmt_dot1,textView_dueAmt_dot2;
+        TextView textView_schedule,textView_dueDate_text,textView_dueAmt_text,
+                textView_dueAmt_dot1,textView_dueAmt_dot2,textView_payDetail;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -114,6 +124,7 @@ public class LaonAdapter extends RecyclerView.Adapter<LaonAdapter.ViewHolder> {
             textView_dueAmt_text=(TextView) itemView.findViewById(R.id.txt_dueamt_txt);
             textView_dueAmt_dot1=(TextView) itemView.findViewById(R.id.txt_cusview_loancurrentdat_dot);
             textView_dueAmt_dot2=(TextView) itemView.findViewById(R.id.txt_cusview_loanamt_dot);
+            textView_payDetail=(TextView) itemView.findViewById(R.id.txt_cusview_payDetail);
 
         }
     }

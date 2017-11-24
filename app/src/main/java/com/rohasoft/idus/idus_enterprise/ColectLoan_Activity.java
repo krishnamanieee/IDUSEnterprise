@@ -2,7 +2,6 @@ package com.rohasoft.idus.idus_enterprise;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,31 +14,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.rohasoft.idus.idus_enterprise.Adapter.ExistingCustomer;
-import com.rohasoft.idus.idus_enterprise.other.AddLoanCusList;
 import com.rohasoft.idus.idus_enterprise.other.CollectLoan;
 import com.rohasoft.idus.idus_enterprise.other.GetCollectLoanCallBack;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
 import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * Created by Ayothi selvam on 08-11-2017.
@@ -47,7 +31,7 @@ import java.util.Map;
 
 public class ColectLoan_Activity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String URL_DATA="http://idusmarket.com/loan-app/app/rating.php";
+    //private static final String URL_DATA="http://idusmarket.loan-app/app/rating.php";
 
     Button pay, reset;
     EditText duePaidDate, editText_paidAmount;
@@ -264,9 +248,6 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                                     cusImg,user,loanRating,""+pendingAmt,""+extraAmt);
                             AddDataToSerever(collectLoan);
                             Toast.makeText(getApplicationContext(),"Collections are success",Toast.LENGTH_SHORT).show();
-                           /* if (result <= 50  ) {
-                                addRatingCus();
-                            }*/
 
 
 
@@ -292,41 +273,6 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
         });
     }
 
-    private void addRatingCus() {
-
-        StringRequest stringRequest=new StringRequest(Request.Method.POST,
-                URL_DATA,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                }){
-            @Override
-            protected Map<String, String> getParams() {
-
-                UserLocalStore userLocalStore=new UserLocalStore(getApplicationContext());
-                String s=userLocalStore.getLoggedInUser();
-
-                // Creating Map String Params.
-                Map<String, String> params = new HashMap<String, String>();
-                String phone=editText_phone.getText().toString();
-                // Adding All values to Params.
-                params.put("phone", phone);
-                return params;
-            }
-        };
-
-        RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(stringRequest);
-
-    }
 
     private void AddDataToSerever(CollectLoan collectLoan) {
 

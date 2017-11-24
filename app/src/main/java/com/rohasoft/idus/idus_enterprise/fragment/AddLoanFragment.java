@@ -140,15 +140,10 @@ public class AddLoanFragment extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
                         progressDialog.dismiss();
-
-
                         try {
                             JSONObject jsonObject=new JSONObject(response);
-//                            JSONArray jsonArray=jsonObject.getJSONArray("server_response");
                             JSONArray jsonArray=jsonObject.getJSONArray("admin");
-
                             for (int i=0;i<jsonArray.length();i++){
                                 JSONObject  object=jsonArray.getJSONObject(i);
 
