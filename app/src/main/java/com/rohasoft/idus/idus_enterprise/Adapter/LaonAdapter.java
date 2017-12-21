@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.rohasoft.idus.idus_enterprise.CustomerViewActivity;
+import com.rohasoft.idus.idus_enterprise.NewPayDetails;
 import com.rohasoft.idus.idus_enterprise.NewScheduleActivity;
 import com.rohasoft.idus.idus_enterprise.PayDetailActivity;
 import com.rohasoft.idus.idus_enterprise.R;
@@ -87,7 +88,7 @@ public class LaonAdapter extends RecyclerView.Adapter<LaonAdapter.ViewHolder> {
         holder.textView_payDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context, PayDetailActivity.class);
+                Intent intent=new Intent(context, NewPayDetails.class);
                 intent.putExtra("loan_id","LOAN"+list.getLoanId());
                 context.startActivity(intent);
             }

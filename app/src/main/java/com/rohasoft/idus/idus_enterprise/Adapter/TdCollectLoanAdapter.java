@@ -117,14 +117,15 @@ public class TdCollectLoanAdapter extends RecyclerView.Adapter<TdCollectLoanAdap
               builder.setNegativeButton("UnPay", new DialogInterface.OnClickListener() {
                   @Override
                   public void onClick(DialogInterface dialogInterface, int i) {
-                      SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                       Calendar c = Calendar.getInstance();
                       c.add(Calendar.DATE, 1 );
-                      SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+                      SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
                       Col_date = sdf1.format(c.getTime());
                       due_date=collectLoan.getDueDate();
                       id=collectLoan.getLoanId();
                       phone=collectLoan.getPhone();
+                      notifyDataSetChanged();
 
                       loadUnPay();
 
@@ -155,6 +156,7 @@ public class TdCollectLoanAdapter extends RecyclerView.Adapter<TdCollectLoanAdap
                     public void onResponse(String response) {
 
                         progressDialog.dismiss();
+                        notifyDataSetChanged();
 
                     }
                 },

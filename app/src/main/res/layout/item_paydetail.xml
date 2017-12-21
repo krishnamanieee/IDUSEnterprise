@@ -12,10 +12,13 @@
             android:layout_width="55dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+
+            android:textAlignment="center"
             android:text="Loan Term"/>
         <TextView
             android:id="@+id/ipd_date"
-            android:layout_width="40dp"
+            android:layout_width="60dp"
+            android:textAlignment="center"
             android:layout_height="wrap_content"
             android:text="Date"
             android:layout_weight="1"/>
@@ -24,18 +27,23 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="Amount"
+            android:textAlignment="viewEnd"
             android:layout_weight="1"/>
         <TextView
             android:id="@+id/ipd_pending"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="Pending"
+
+            android:textAlignment="viewEnd"
             android:layout_weight="1"/>
         <TextView
             android:id="@+id/ipd_extra"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="Extra"
+            android:paddingRight="5dp"
+            android:textAlignment="viewEnd"
             android:layout_weight="1"/>
     </LinearLayout>
 
