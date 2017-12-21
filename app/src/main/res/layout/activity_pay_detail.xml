@@ -134,13 +134,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview_paydetails"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </android.support.v7.widget.RecyclerView>
+    <ListView
+        android:id="@+id/new_pay_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
     </LinearLayout>
 
 </LinearLayout>
