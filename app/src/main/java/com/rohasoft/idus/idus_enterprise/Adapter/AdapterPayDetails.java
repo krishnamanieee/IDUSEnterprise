@@ -2,6 +2,7 @@ package com.rohasoft.idus.idus_enterprise.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,7 @@ public class AdapterPayDetails extends RecyclerView.Adapter<AdapterPayDetails.Vi
         holder.textView_amt.setError(payDetails.getLoanTerm());
         holder.textView_pending.setError(payDetails.getLoanTerm());
         holder.textView_extra.setError(payDetails.getLoanTerm());
+        Log.e("TAG",payDetails.getLoanAmt());
 
     }
 
