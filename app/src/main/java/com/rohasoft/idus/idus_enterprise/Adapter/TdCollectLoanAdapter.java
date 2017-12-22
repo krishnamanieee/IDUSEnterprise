@@ -21,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.rohasoft.idus.idus_enterprise.ColectLoan_Activity;
+import com.rohasoft.idus.idus_enterprise.MainActivity;
 import com.rohasoft.idus.idus_enterprise.R;
 import com.rohasoft.idus.idus_enterprise.TdCollectActivity;
 import com.rohasoft.idus.idus_enterprise.other.CollectLoanList;
@@ -157,6 +158,7 @@ public class TdCollectLoanAdapter extends RecyclerView.Adapter<TdCollectLoanAdap
 
                         progressDialog.dismiss();
                         notifyDataSetChanged();
+                        context.startActivity(new Intent(context, MainActivity.class));
 
                     }
                 },

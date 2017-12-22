@@ -375,7 +375,7 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
                                 AddLoan(loan);
                                 reset();
-                                onBackPressed();
+
 
                             }
                             else{
@@ -416,6 +416,7 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
             @Override
             public void done(Loan returedGuser) {
                 Toast.makeText(getApplicationContext(),"New Loan Added Successfully...",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(AddLoan_Activity.this,MainActivity.class));
             }
         });
 

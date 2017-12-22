@@ -3,6 +3,7 @@ package com.rohasoft.idus.idus_enterprise;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -144,7 +145,8 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
 
                 tempsubAmt=Integer.parseInt(dueAmount)- Integer.parseInt(paidDueAmount);
 
-                Toast.makeText(getApplicationContext(),""+tempsubAmt,Toast.LENGTH_SHORT).show();
+//
+
 
                   tempPaidAmount=Integer.parseInt(textView_paidAmount.getText().toString());
                   tempBalanceAmount=Integer.parseInt(textView_balanceAmount.getText() .toString());
@@ -189,7 +191,7 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                     e.printStackTrace();
                 }
 
-                Toast.makeText(getApplicationContext(),loanRating,Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(getApplicationContext(),loanRating,Toast.LENGTH_SHORT).show();
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                 Calendar c = Calendar.getInstance();
                 try {
@@ -211,9 +213,9 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                     c.add(Calendar.MONTH, 1);
                 }
                 else {
-                    Toast.makeText(getApplicationContext(),"not ",Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(getApplicationContext(),"not ",Toast.LENGTH_LONG).show();
                 }
-                SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
                 String dueDate = sdf1.format(c.getTime());
                 UserLocalStore userLocalStore=new UserLocalStore(getApplicationContext());
                 String user=userLocalStore.getLoggedInUser();
@@ -248,6 +250,7 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                                     cusImg,user,loanRating,""+pendingAmt,""+extraAmt);
                             AddDataToSerever(collectLoan);
                             Toast.makeText(getApplicationContext(),"Collections are success",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(ColectLoan_Activity.this,MainActivity.class));
 
 
 

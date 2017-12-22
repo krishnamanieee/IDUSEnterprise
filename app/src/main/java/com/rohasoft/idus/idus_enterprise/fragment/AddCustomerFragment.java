@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 
 import com.rohasoft.idus.idus_enterprise.AddLoan_Activity;
+import com.rohasoft.idus.idus_enterprise.MainActivity;
 import com.rohasoft.idus.idus_enterprise.R;
 import com.rohasoft.idus.idus_enterprise.imageUpload.ConnectionDetector;
 import com.rohasoft.idus.idus_enterprise.imageUpload.HttpFileUpload;
@@ -403,6 +404,7 @@ public class AddCustomerFragment extends Fragment{
             @Override
             public void done(Customer returedCustomer) {
                 Toast.makeText(getContext(),"new Customer add sucessfully",Toast.LENGTH_SHORT).show();
+                getContext().startActivity(new Intent(getActivity(),MainActivity.class));
             }
         });
     }
