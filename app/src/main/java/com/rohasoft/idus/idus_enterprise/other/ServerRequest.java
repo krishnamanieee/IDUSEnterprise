@@ -3,6 +3,7 @@
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -32,8 +33,6 @@ public class ServerRequest {
     private List<GetLoanData> list;
 
     public static final String SERVER_ADDRESS = "http://www.idusmarket.com/loan-app/app/";
-//    public static final String SERVER_ADDRESS = "http://127.0.0.1/loan_app/add_cus.php";
-  //  public static final String SERVER_ADDRESS = "http://localhost/loan_app/";
 
 
     public ServerRequest(Context context) {
@@ -271,7 +270,6 @@ public class ServerRequest {
             dataToSend.add(new BasicNameValuePair("status",collectLoan.status));
             dataToSend.add(new BasicNameValuePair("cusImg",collectLoan.cusImg));
             dataToSend.add(new BasicNameValuePair("user",collectLoan.user));
-            dataToSend.add(new BasicNameValuePair("user",collectLoan.user));
             dataToSend.add(new BasicNameValuePair("rating",collectLoan.rating));
             dataToSend.add(new BasicNameValuePair("pendingAmt",collectLoan.pendingAmt));
             dataToSend.add(new BasicNameValuePair("extraAmt",collectLoan.extraAmt));
@@ -320,7 +318,7 @@ public class ServerRequest {
 
             dataToSend.add(new BasicNameValuePair("email", user.email));
             dataToSend.add(new BasicNameValuePair("password", user.pass));
-
+            Log.e("Tag",user.email+user.pass);
 
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);
@@ -348,6 +346,7 @@ public class ServerRequest {
                     String email = jobject.getString("email");
                     String password = jobject.getString("password");
                     returnedUser = new User(email, password);
+                    Log.e("Tag",email+password);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -183,15 +183,13 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                     else {
                         rating=0;
                     }
-
                     loanRating=String.valueOf(rating);
-
                     // Toast.makeText(getApplicationContext(),""+rating,Toast.LENGTH_SHORT).show();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
-             //   Toast.makeText(getApplicationContext(),loanRating,Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(getApplicationContext(),loanRating,Toast.LENGTH_SHORT).show();
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                 Calendar c = Calendar.getInstance();
                 try {
@@ -215,7 +213,7 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                 else {
                   //  Toast.makeText(getApplicationContext(),"not ",Toast.LENGTH_LONG).show();
                 }
-                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
                 String dueDate = sdf1.format(c.getTime());
                 UserLocalStore userLocalStore=new UserLocalStore(getApplicationContext());
                 String user=userLocalStore.getLoggedInUser();
@@ -284,7 +282,7 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
         serverRequest.storeCollectDataInBackground(collectLoan, new GetCollectLoanCallBack() {
             @Override
             public void done(CollectLoan returnCollectLoan) {
-                onBackPressed();
+
                 if (returnCollectLoan != null){
 
                 }

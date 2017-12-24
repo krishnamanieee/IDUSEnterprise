@@ -526,10 +526,6 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
     private void addLoanOption() {
 
-
-
-
-
         List<String> list =new ArrayList<String>();
         list.add("Select Option");
         list.add("Daily");

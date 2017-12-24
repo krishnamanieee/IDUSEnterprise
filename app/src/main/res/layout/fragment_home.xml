@@ -13,23 +13,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/secondaryColor"
             android:orientation="vertical"
-            android:padding="25dp"
-            android:background="@color/secondaryColor">
+            android:padding="25dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/logo"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:src="@drawable/logo" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="IDUS"
                 android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:text="IDUS"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="@color/primaryTextColor"
-                android:gravity="center"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -37,25 +39,26 @@
             android:id="@+id/button_coll"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:orientation="horizontal"
-            android:background="#0D2C54"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:background="#0D2C54"
+            android:orientation="horizontal">
+
             <Button
 
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_row="1"
                 android:background="#0D2C54"
-                android:text="Collection"
                 android:paddingLeft="50dp"
                 android:paddingRight="50dp"
+                android:text="Collection"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="18dp"
-                android:textStyle="bold"
-                android:layout_row="1"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView_colAmt"
@@ -64,35 +67,37 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="XXXXX"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="@color/primaryTextColor"
-                android:textStyle="bold"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+                android:textStyle="bold" />
 
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/button_td"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:orientation="horizontal"
-            android:background="#DE1A1A"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:background="#DE1A1A"
+            android:orientation="horizontal">
+
             <Button
 
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_row="1"
                 android:background="#DE1A1A"
-                android:text="Today Loan"
                 android:paddingLeft="50dp"
                 android:paddingRight="50dp"
+                android:text="Today Loan"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="18dp"
-                android:textStyle="bold"
-                android:layout_row="1"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView_tdAmt"
@@ -101,48 +106,100 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="XXXXX"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="@color/primaryTextColor"
-                android:textStyle="bold"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+                android:textStyle="bold" />
 
 
         </LinearLayout>
+
         <LinearLayout
-            android:id="@+id/button_tm"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#FF006E"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp">
-            <Button
+            android:weightSum="2">
 
+            <LinearLayout
+                android:id="@+id/button_tm"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
                 android:background="#FF006E"
-                android:text="Tommorrow Loan"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
-                android:textAllCaps="false"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:layout_row="1"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView_tmAmt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="XXXXX"
-                android:textColor="@color/primaryTextColor"
-                android:textStyle="bold"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_row="1"
+                    android:background="#FF006E"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:gravity="center"
+                    android:text="Tommorrow Loan"
+                    android:textAllCaps="false"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView_tmAmt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="XXXXX"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textColor="@color/primaryTextColor"
+                    android:textStyle="bold" />
 
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout_pedingAmt"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="#DE1A1A"
+                android:orientation="vertical">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_row="1"
+                    android:background="#DE1A1A"
+                    android:paddingLeft="20dp"
+                    android:gravity="center"
+                    android:paddingRight="20dp"
+                    android:text="Pending Loan"
+                    android:textAllCaps="false"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView_pedingAmt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="XXXXX"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textColor="@color/primaryTextColor"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
 
 

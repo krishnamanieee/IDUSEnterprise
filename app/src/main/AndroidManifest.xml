@@ -59,7 +59,8 @@
             android:name=".CollAmtActivity"
             android:label="Collected Amount" />
         <activity android:name=".ImageViewActivity" />
-        <activity android:name=".NewPayDetails"></activity>
+        <activity android:name=".NewPayDetails" />
+        <activity android:name=".PendingActivity"></activity>
     </application>
 
 </manifest>
