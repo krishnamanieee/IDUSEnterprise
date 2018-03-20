@@ -1,9 +1,12 @@
 package com.rohasoft.idus.idus_enterprise;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 import com.rohasoft.idus.idus_enterprise.Adapter.Schedule;
 import com.rohasoft.idus.idus_enterprise.Adapter.ScheduleAdapter;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,7 +28,7 @@ import java.util.List;
 
 public class NewScheduleActivity extends AppCompatActivity {
     List<Schedule> list;
-    ListView listView;
+        ListView listView;
 
     Button button_share;
     ArrayList<String> arrayList;
@@ -103,8 +107,8 @@ public class NewScheduleActivity extends AppCompatActivity {
 
             }
 
-            SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
-            String output = sdf1.format(c.getTime());
+                SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+                String output = sdf1.format(c.getTime());
 
             list.add(new Schedule(output,due_amt+"",bal_amt+""));
             arrayList.add("Due Date -"+output+"----"+" pay Amount - "+due_amt+"----"+"Balance due - "+bal_amt+"\n");
@@ -120,6 +124,20 @@ public class NewScheduleActivity extends AppCompatActivity {
     }
 
     private void share() {
+
+
+
+     /*   File outputFile = new File(Environment.getExternalStoragePublicDirectory
+                (Environment.DIRECTORY_DOWNLOADS), "example.pdf");
+        Uri uri = Uri.fromFile(outputFile);
+
+        Intent share = new Intent();
+        share.setAction(Intent.ACTION_SEND);
+        share.setType("application/pdf");
+        share.putExtra(Intent.EXTRA_STREAM, uri);
+        share.setPackage("com.whatsapp");
+
+        startActivity(share);*/
         Intent share=new Intent(Intent.ACTION_SEND);
         share.setType("text/plain");
 //                String shareBodyText = "i am test data for share button \n kris";
@@ -128,10 +146,29 @@ public class NewScheduleActivity extends AppCompatActivity {
         share.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
         startActivity(Intent.createChooser(share, "Choose sharing method"));
     }
-
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        finish();
         return true;
+    }
+
+    private static final int TIME_DELAY = 2000;
+    private static long back_pressed;
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+            finish();
+            System.exit(0);
+
+        } else {
+            Toast.makeText(getBaseContext(), "Press once again to exit!",
+                    Toast.LENGTH_SHORT).show();
+        }
+        back_pressed = System.currentTimeMillis();
     }
 }

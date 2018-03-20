@@ -57,10 +57,10 @@ import java.util.Map;
  */
 public class HomeFragment extends Fragment {
 
-    private static final String URL_DATA="http://www.idusmarket.com/loan-app/app/fetchhomepagedata.php";
-    private static final String URL_DATA_TD="http://www.idusmarket.com/loan-app/app/todayloan.php";
-    private static final String URL_DATA_TM="http://www.idusmarket.com/loan-app/app/tom_loan.php";
-    private static final String URL_DATA_PN="http://www.idusmarket.com/loan-app/app/pending_loan.php";
+    private static final String URL_DATA="http://finance.idusmarket.com/api/fetchhomepagedata.php";
+    private static final String URL_DATA_TD="http://finance.idusmarket.com/api/todayloan.php";
+    private static final String URL_DATA_TM="http://finance.idusmarket.com/api/tom_loan.php";
+    private static final String URL_DATA_PN="http://finance.idusmarket.com/api/pending_loan.php";
 
 
     LinearLayout button_collotionList,button_td,button_tm,mLinearLayout_pending;

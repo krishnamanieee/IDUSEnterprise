@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/IDUSEnterprise.iml" filepath="$PROJECT_DIR$/IDUSEnterprise.iml" />
-      <module fileurl="file://F:\idus\IDUSEnterprise\IDUS_Enterprise.iml" filepath="F:\idus\IDUSEnterprise\IDUS_Enterprise.iml" />
+      <module fileurl="file://F:/idus/IDUSEnterprise/IDUS_Enterprise.iml" filepath="F:/idus/IDUSEnterprise/IDUS_Enterprise.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

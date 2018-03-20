@@ -302,6 +302,8 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                 duePaidDate.setText(dateFormatter.format(newDate.getTime()));
             }
         },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
             }
 
     private void reset() {
@@ -324,7 +326,33 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        finish();
         return true;
     }
+
+    private static final int TIME_DELAY = 2000;
+    private static long back_pressed;
+
+    @Override
+    public void onBackPressed() {
+
+
+        if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+            finish();
+            System.exit(0);
+
+        } else {
+
+            Toast.makeText(getBaseContext(), "Press once again to exit!",
+                    Toast.LENGTH_SHORT).show();
+        }
+        back_pressed = System.currentTimeMillis();
+    }
+
+
 }

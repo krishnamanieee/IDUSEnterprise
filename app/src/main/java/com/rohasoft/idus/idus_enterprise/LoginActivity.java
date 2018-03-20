@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.rohasoft.idus.idus_enterprise.other.GetUserCallback;
 import com.rohasoft.idus.idus_enterprise.other.ServerRequest;
@@ -94,6 +95,30 @@ public class LoginActivity extends Activity {
         startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
     }
+
+
+
+
+    private static final int TIME_DELAY = 2000;
+    private static long back_pressed;
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+            finish();
+            System.exit(0);
+
+        } else {
+            Toast.makeText(getBaseContext(), "Press once again to exit!",
+                    Toast.LENGTH_SHORT).show();
+        }
+        back_pressed = System.currentTimeMillis();
+    }
+
     /*@Override
     protected void onStart() {
         super.onStart();

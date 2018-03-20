@@ -43,7 +43,7 @@ import java.util.Map;
  */
 public class ExistingCusFragment extends Fragment {
 
-    private static final String URL_DATA="http://idusmarket.com/loan-app/app/existingcus.php";
+    private static final String URL_DATA="http://finance.idusmarket.com/api/existingcus.php";
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter  adapter;

@@ -56,19 +56,18 @@ import java.util.Random;
  * Use the {@link AddCustomerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddCustomerFragment extends Fragment{
+public class AddCustomerFragment extends Fragment {
     GPSTracker gps;
 
-    EditText editText_cusName,editText_phone,editText_addr1,editText_city,editText_pincode,editText_lacMap,editText_lanMap,
-    editText_remarks,editText_refName,editText_refPhone,editText_shopName,editText_industry;
-    Button button_addCustomer,button_reset;
+    EditText editText_cusName, editText_phone, editText_addr1, editText_city, editText_pincode, editText_lacMap, editText_lanMap,
+            editText_remarks, editText_refName, editText_refPhone, editText_shopName, editText_industry;
+    Button button_addCustomer, button_reset;
 
     ImageView imgcustum, imgshop, imgidproof, imgaddrproof;
     ImageView getMap;
-    String cusName,phone,addr1,city,pincode,lanMap,lacMap,remark,refName,refPhone
-            ,shopNmae,industry;
+    String cusName, phone, addr1, city, pincode, lanMap, lacMap, remark, refName, refPhone, shopNmae, industry;
 
-    int cus=0,shop=0,id=0,address=0;
+    int cus = 0, shop = 0, id = 0, address = 0;
 
 
     String imagepath = "";
@@ -80,7 +79,7 @@ public class AddCustomerFragment extends Fragment{
     private ProgressDialog pDialog;
     private ConnectionDetector cd;
 
-    String customerImage,shopImage,idProofImage,addressProofImage,longTime;
+    String customerImage, shopImage, idProofImage, addressProofImage, longTime;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -129,32 +128,30 @@ public class AddCustomerFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v=  inflater.inflate(R.layout.fragment_add_customer, container, false);
+        View v = inflater.inflate(R.layout.fragment_add_customer, container, false);
 
 
+        editText_cusName = (EditText) v.findViewById(R.id.edt_addcus_custmname);
+        editText_phone = (EditText) v.findViewById(R.id.edt_addcus_phnno);
+        editText_addr1 = (EditText) v.findViewById(R.id.edt_addcus_addr1);
 
-
-        editText_cusName= (EditText) v.findViewById(R.id.edt_addcus_custmname);
-        editText_phone= (EditText) v.findViewById(R.id.edt_addcus_phnno);
-        editText_addr1= (EditText) v.findViewById(R.id.edt_addcus_addr1);
-
-        editText_city= (EditText) v.findViewById(R.id.edt_addcus_city);
-        editText_pincode= (EditText) v.findViewById(R.id.edt_addcus_pincode);
-        editText_lacMap= (EditText) v.findViewById(R.id.edt_addcus_maplac);
-        editText_lanMap= (EditText) v.findViewById(R.id.edt_addcus_maplan);
-        editText_remarks= (EditText) v.findViewById(R.id.edt_addcus__remark);
-        editText_refName= (EditText) v.findViewById(R.id.edt_addcus_ref_name);
-        editText_refPhone= (EditText) v.findViewById(R.id.edt_addcus_ref_phone);
-        editText_shopName= (EditText) v.findViewById(R.id.edt_addcus_shoeName);
-        editText_industry= (EditText) v.findViewById(R.id.edt_addcus_idustry);
+        editText_city = (EditText) v.findViewById(R.id.edt_addcus_city);
+        editText_pincode = (EditText) v.findViewById(R.id.edt_addcus_pincode);
+        editText_lacMap = (EditText) v.findViewById(R.id.edt_addcus_maplac);
+        editText_lanMap = (EditText) v.findViewById(R.id.edt_addcus_maplan);
+        editText_remarks = (EditText) v.findViewById(R.id.edt_addcus__remark);
+        editText_refName = (EditText) v.findViewById(R.id.edt_addcus_ref_name);
+        editText_refPhone = (EditText) v.findViewById(R.id.edt_addcus_ref_phone);
+        editText_shopName = (EditText) v.findViewById(R.id.edt_addcus_shoeName);
+        editText_industry = (EditText) v.findViewById(R.id.edt_addcus_idustry);
 
         cd = new ConnectionDetector(getContext());
 
-        imgcustum=(ImageView) v.findViewById(R.id.img_addcus_custm);
-        imgshop=(ImageView) v.findViewById(R.id.img_addcus_shop1);
-        imgidproof=(ImageView) v.findViewById(R.id.img_addcus_idproof);
-        imgaddrproof=(ImageView) v.findViewById(R.id.img_addcus_addrproof);
-        getMap=(ImageView) v.findViewById(R.id.img_addcus_map);
+        imgcustum = (ImageView) v.findViewById(R.id.img_addcus_custm);
+        imgshop = (ImageView) v.findViewById(R.id.img_addcus_shop1);
+        imgidproof = (ImageView) v.findViewById(R.id.img_addcus_idproof);
+        imgaddrproof = (ImageView) v.findViewById(R.id.img_addcus_addrproof);
+        getMap = (ImageView) v.findViewById(R.id.img_addcus_map);
 
 
         imgcustum.setOnClickListener(new View.OnClickListener() {
@@ -188,8 +185,8 @@ public class AddCustomerFragment extends Fragment{
         getMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gps=new GPSTracker(getContext());
-                if (gps.canGetLocation()){
+                gps = new GPSTracker(getContext());
+                if (gps.canGetLocation()) {
                     double latitude = gps.getLatitude();
                     double longitude = gps.getLongitude();
 
@@ -200,8 +197,8 @@ public class AddCustomerFragment extends Fragment{
         });
 
 
-        button_addCustomer= (Button) v.findViewById(R.id.btn_addcus_submit);
-        button_reset= (Button) v.findViewById(R.id.btn_addcus_reset);
+        button_addCustomer = (Button) v.findViewById(R.id.btn_addcus_submit);
+        button_reset = (Button) v.findViewById(R.id.btn_addcus_reset);
 
         button_reset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,61 +208,78 @@ public class AddCustomerFragment extends Fragment{
         });
 
 
-         longTime = String.valueOf(System.currentTimeMillis());
+        longTime = String.valueOf(System.currentTimeMillis());
 
         button_addCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-                cusName=editText_cusName.getText().toString().trim();
-                phone=editText_phone.getText().toString().trim();
-                addr1=editText_addr1.getText().toString().trim();
-                city=editText_city.getText().toString().trim();
-                pincode=editText_pincode.getText().toString().trim();
-                lanMap=editText_lanMap.getText().toString().trim();
-                lacMap=editText_lacMap.getText().toString().trim();
-                remark=editText_remarks.getText().toString().trim();
-                refName=editText_refName.getText().toString().trim();
-                refPhone=editText_refPhone.getText().toString().trim();
-                shopNmae=editText_shopName.getText().toString().trim();
-                industry=editText_industry.getText().toString().trim();
+                cusName = editText_cusName.getText().toString().trim();
+                phone = editText_phone.getText().toString().trim();
+                addr1 = editText_addr1.getText().toString().trim();
+                city = editText_city.getText().toString().trim();
+                pincode = editText_pincode.getText().toString().trim();
+                lanMap = editText_lanMap.getText().toString().trim();
+                lacMap = editText_lacMap.getText().toString().trim();
+                remark = editText_remarks.getText().toString().trim();
+                refName = editText_refName.getText().toString().trim();
+                refPhone = editText_refPhone.getText().toString().trim();
+                shopNmae = editText_shopName.getText().toString().trim();
+                industry = editText_industry.getText().toString().trim();
 
 
-                if (cusName.length() > 0){
-                    if (phone.length() == 10){
-                        if(pincode.length()==6){
-                            if(city.length() > 0){
-                                if (lacMap.length() >0){
+                if (cusName.length() > 0) {
+                    if (phone.length() == 10) {
+                        if (pincode.length() == 6) {
+                            if (city.length() > 0) {
+                                if (lacMap.length() > 0) {
 
-                                    if (lanMap.length() > 0){
+                                    if (lanMap.length() > 0) {
 
-                                        if (cus == 1){
-                                    if (shop ==1){
-                                        if (id == 1){
-                                            if (address ==1){
-                                                if (shopNmae.length()>0){
-                                                    if (industry.length() >0){
-                                                        User user=new User(phone);
-                                                        authenticate(user);
+                                        if (cus == 1) {
+                                            if (shop == 1) {
+                                                if (id == 1) {
+                                                    if (address == 1) {
+                                                        if (shopNmae.length() > 0) {
+                                                            if (industry.length() > 0) {
+                                                                User user = new User(phone);
+                                                                authenticate(user);
+                                                            } else {
+
+                                                                editText_industry.setError("Enter the Industry");
+
+                                                            }
+                                                        } else {
+
+                                                            editText_industry.setError("Enter the Shop Name");
+
+                                                        }
+
+
+                                                    } else {
+                                                        alertDialog.setTitle("Alert Dialog");
+                                                        alertDialog.setMessage("Take Address Proof Picture");
+                                                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                            }
+                                                        });
+                                                        alertDialog.show();
+
                                                     }
-                                                    else{
+                                                } else {
+                                                    alertDialog.setTitle("Alert Dialog");
+                                                    alertDialog.setMessage("Take id Proof Picture");
+                                                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                        }
+                                                    });
+                                                    alertDialog.show();
 
-                                                        editText_industry.setError("Enter the Industry");
-
-                                                    }
                                                 }
-                                                else{
-
-                                                    editText_industry.setError("Enter the Shop Name");
-
-                                                }
-
-
-                                            }
-                                            else {
+                                            } else {
                                                 alertDialog.setTitle("Alert Dialog");
-                                                alertDialog.setMessage("Take Address Proof Picture");
+                                                alertDialog.setMessage("Take Shop Picture");
                                                 alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                     }
@@ -273,10 +287,9 @@ public class AddCustomerFragment extends Fragment{
                                                 alertDialog.show();
 
                                             }
-                                        }
-                                        else {
+                                        } else {
                                             alertDialog.setTitle("Alert Dialog");
-                                            alertDialog.setMessage("Take id Proof Picture");
+                                            alertDialog.setMessage("Take Customer Picture");
                                             alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                 }
@@ -284,57 +297,29 @@ public class AddCustomerFragment extends Fragment{
                                             alertDialog.show();
 
                                         }
-                                    }
-                                    else {
-                                        alertDialog.setTitle("Alert Dialog");
-                                        alertDialog.setMessage("Take Shop Picture");
-                                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                            }
-                                        });
-                                        alertDialog.show();
 
-                                    }
-                                }
-                                else {
-                                    alertDialog.setTitle("Alert Dialog");
-                                    alertDialog.setMessage("Take Customer Picture");
-                                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
-                                    });
-                                    alertDialog.show();
-
-                                }
-
-                                    }
-                                    else{
+                                    } else {
                                         editText_lanMap.setError("Please enter Map Latitude");
                                     }
 
-                                }else{
+                                } else {
                                     editText_lacMap.setError("Please enter Map Longitude");
                                 }
 
 
-                            }
-                            else{
+                            } else {
                                 editText_city.setError("Please enter the City");
                             }
 
 
-                        }
-                        else {
+                        } else {
                             editText_pincode.setError("please enter valid pincode");
                         }
 
-                    }
-                    else {
+                    } else {
                         editText_phone.setError("please enter valid phone no");
                     }
-                }
-
-                else {
+                } else {
                     editText_cusName.setError("please fill customer name");
                 }
 
@@ -346,24 +331,23 @@ public class AddCustomerFragment extends Fragment{
     }
 
 
-
-    private void authenticate(User user){
-        ServerRequest serverRequest=new ServerRequest(getContext());
+    private void authenticate(User user) {
+        ServerRequest serverRequest = new ServerRequest(getContext());
         serverRequest.fetchPhoneDataInBackground(user, new GetUserCallback() {
             @Override
             public void done(User returedUser) {
-                if (returedUser == null){
+                if (returedUser == null) {
 
-                    UserLocalStore userLocalStore=new UserLocalStore(getContext());
-                    String user=userLocalStore.getLoggedInUser();
+                    UserLocalStore userLocalStore = new UserLocalStore(getContext());
+                    String user = userLocalStore.getLoggedInUser();
 
-                    Customer customer=new Customer(cusName,phone,addr1,city,pincode,lanMap,lacMap,
-                            customerImage,shopImage,idProofImage,addressProofImage,remark,shopNmae,industry,refName,refPhone,user);
+                    Customer customer = new Customer(cusName, phone, addr1, city, pincode, lanMap, lacMap,
+                            customerImage, shopImage, idProofImage, addressProofImage, remark, shopNmae, industry, refName, refPhone, user);
                     addCustomer(customer);
                     reset();
 
 
-                }else {
+                } else {
                     editText_phone.setError("phone exists");
                 }
             }
@@ -373,20 +357,18 @@ public class AddCustomerFragment extends Fragment{
     private void reset() {
 
 
-
-
-                editText_cusName.setText("");
-                editText_phone.setText("");
-                editText_addr1.setText("");
-                editText_city.setText("");
-                editText_pincode.setText("");
-                editText_lacMap.setText("");
-                editText_lanMap.setText("");
-                editText_remarks.setText("");
-                editText_refName.setText("");
-                editText_refPhone.setText("");
-                editText_shopName.setText("");
-                editText_industry.setText("");
+        editText_cusName.setText("");
+        editText_phone.setText("");
+        editText_addr1.setText("");
+        editText_city.setText("");
+        editText_pincode.setText("");
+        editText_lacMap.setText("");
+        editText_lanMap.setText("");
+        editText_remarks.setText("");
+        editText_refName.setText("");
+        editText_refPhone.setText("");
+        editText_shopName.setText("");
+        editText_industry.setText("");
         Picasso.with(getActivity()).load(R.drawable.ic_menu_camera).into(imgcustum);
         Picasso.with(getActivity()).load(R.drawable.ic_menu_camera).into(imgshop);
         Picasso.with(getActivity()).load(R.drawable.ic_menu_camera).into(imgidproof);
@@ -396,15 +378,14 @@ public class AddCustomerFragment extends Fragment{
     }
 
 
-
     private void addCustomer(Customer customer) {
 
-        ServerRequest serverRequest=new ServerRequest(getContext());
+        ServerRequest serverRequest = new ServerRequest(getContext());
         serverRequest.storeCustomerDataInBackground(customer, new GetCustomerCallBack() {
             @Override
             public void done(Customer returedCustomer) {
-                Toast.makeText(getContext(),"new Customer add sucessfully",Toast.LENGTH_SHORT).show();
-                getContext().startActivity(new Intent(getActivity(),MainActivity.class));
+                Toast.makeText(getContext(), "new Customer add sucessfully", Toast.LENGTH_SHORT).show();
+                getContext().startActivity(new Intent(getActivity(), MainActivity.class));
             }
         });
     }
@@ -448,21 +429,25 @@ public class AddCustomerFragment extends Fragment{
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
     private void customerImg() {
         Intent cameraintent = new Intent(
                 android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(cameraintent, 101);
     }
+
     private void ShopImage() {
         Intent cameraintent = new Intent(
                 android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(cameraintent, 102);
     }
+
     private void IdProof() {
         Intent cameraintent = new Intent(
                 android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(cameraintent, 103);
     }
+
     private void AddressProof() {
         Intent cameraintent = new Intent(
                 android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
@@ -492,7 +477,7 @@ public class AddCustomerFragment extends Fragment{
 
 
                             imgcustum.setImageBitmap(bitmapRotate);
-                            cus=1;
+                            cus = 1;
 //                            Saving image to mobile internal memory for sometime
                             String root = getContext().getFilesDir().toString();
                             File myDir = new File(root + "/IDUS");
@@ -504,10 +489,11 @@ public class AddCustomerFragment extends Fragment{
 
 //                            Give the file name that u want
                             fname = "CUS_IMG" + longTime + ".jpg";
-                            customerImage=fname;
+                            customerImage = fname;
                             imagepath = root + "/IDUS/" + fname;
                             file = new File(myDir, fname);
                             upflag = true;
+
                         }
                         if (cd.isConnectingToInternet()) {
                             if (!upflag) {
@@ -539,7 +525,7 @@ public class AddCustomerFragment extends Fragment{
 
 
                             imgshop.setImageBitmap(bitmapRotate);
-                            shop=1;
+                            shop = 1;
 //                            Saving image to mobile internal memory for sometime
                             String root = getContext().getFilesDir().toString();
                             File myDir = new File(root + "/IDUS");
@@ -551,7 +537,7 @@ public class AddCustomerFragment extends Fragment{
 
 //                            Give the file name that u want
                             fname = "SHOP_IMG_" + longTime + ".jpg";
-                            shopImage=fname;
+                            shopImage = fname;
                             imagepath = root + "/IDUS/" + fname;
                             file = new File(myDir, fname);
                             upflag = true;
@@ -586,7 +572,7 @@ public class AddCustomerFragment extends Fragment{
 
 
                             imgidproof.setImageBitmap(bitmapRotate);
-                            id=1;
+                            id = 1;
 //                            Saving image to mobile internal memory for sometime
                             String root = getContext().getFilesDir().toString();
                             File myDir = new File(root + "/IDUS");
@@ -598,7 +584,7 @@ public class AddCustomerFragment extends Fragment{
 
 //                            Give the file name that u want
                             fname = "ID_IMG_" + longTime + ".jpg";
-                            idProofImage=fname;
+                            idProofImage = fname;
                             imagepath = root + "/IDUS/" + fname;
                             file = new File(myDir, fname);
                             upflag = true;
@@ -634,7 +620,7 @@ public class AddCustomerFragment extends Fragment{
 
                             imgaddrproof.setImageBitmap(bitmapRotate);
 
-                            address=1;
+                            address = 1;
 
 //                            Saving image to mobile internal memory for sometime
                             String root = getContext().getFilesDir().toString();
@@ -647,7 +633,7 @@ public class AddCustomerFragment extends Fragment{
 
 //                            Give the file name that u want
                             fname = "ADDRESS_IMG_" + longTime + ".jpg";
-                            addressProofImage=fname;
+                            addressProofImage = fname;
                             imagepath = root + "/IDUS/" + fname;
                             file = new File(myDir, fname);
                             upflag = true;
@@ -667,7 +653,7 @@ public class AddCustomerFragment extends Fragment{
 
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -737,7 +723,7 @@ public class AddCustomerFragment extends Fragment{
                 // Set your file path here
                 FileInputStream fstrm = new FileInputStream(imagepath);
                 // Set your server page url (and the file title/description)
-                HttpFileUpload hfu = new HttpFileUpload("http://www.idusmarket.com/loan-app/admin/file_upload.php", "ftitle", "fdescription", fname);
+                HttpFileUpload hfu = new HttpFileUpload("http://finance.idusmarket.com/file_upload.php", "ftitle", "fdescription", fname);
                 upflag = hfu.Send_Now(fstrm);
             } catch (FileNotFoundException e) {
                 // Error: File not found
@@ -752,7 +738,7 @@ public class AddCustomerFragment extends Fragment{
                 pDialog.dismiss();
             }
             if (upflag) {
-             //   Toast.makeText(getContext(), "Uploading Complete", Toast.LENGTH_LONG).show();
+                //   Toast.makeText(getContext(), "Uploading Complete", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getContext(), "Unfortunately file is not Uploaded..", Toast.LENGTH_LONG).show();
             }
@@ -763,7 +749,7 @@ public class AddCustomerFragment extends Fragment{
     public void onStart() {
         if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA , Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
             imgcustum.setEnabled(true);
             imgshop.setEnabled(true);
             imgidproof.setEnabled(true);
@@ -788,7 +774,7 @@ public class AddCustomerFragment extends Fragment{
                 // No explanation needed, we can request the permission.
 
                 ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 
                 // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                 // app-defined int constant. The callback method gets the
@@ -801,7 +787,7 @@ public class AddCustomerFragment extends Fragment{
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 0) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED ) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 imgcustum.setEnabled(false);
                 imgshop.setEnabled(false);
                 imgidproof.setEnabled(false);

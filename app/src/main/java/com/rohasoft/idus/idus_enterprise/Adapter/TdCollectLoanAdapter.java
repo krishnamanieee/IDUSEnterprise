@@ -53,7 +53,7 @@ public class TdCollectLoanAdapter extends RecyclerView.Adapter<TdCollectLoanAdap
     String Col_date, id;
     String phone,due_date;
 
-    private static final String URL_DATA="http://idusmarket.com/loan-app/app/unpay.php";
+    private static final String URL_DATA="http://finance.idusmarket.com/api/unpay.php";
 
 
 
@@ -82,7 +82,7 @@ public class TdCollectLoanAdapter extends RecyclerView.Adapter<TdCollectLoanAdap
         holder.textView_loanId.setText("LOAN"+collectLoan.getLoanId());
         holder.textView_loanAmount.setText(collectLoan.getTotalAmount());
         Picasso.with(context)
-                .load("http://www.idusmarket.com/loan-app/admin/uploads/"+collectLoan.getCustomerImage()).into(holder.imageView_cus);
+                .load("http://finance.idusmarket.com/uploads/"+collectLoan.getCustomerImage()).into(holder.imageView_cus);
 
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override

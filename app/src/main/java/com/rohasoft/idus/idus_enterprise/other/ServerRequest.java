@@ -32,7 +32,7 @@ public class ServerRequest {
     public static final int CONNECTION_TIMEOUT = 1000 * 15;
     private List<GetLoanData> list;
 
-    public static final String SERVER_ADDRESS = "http://www.idusmarket.com/loan-app/app/";
+    public static final String SERVER_ADDRESS = "http://finance.idusmarket.com/api/";
 
 
     public ServerRequest(Context context) {

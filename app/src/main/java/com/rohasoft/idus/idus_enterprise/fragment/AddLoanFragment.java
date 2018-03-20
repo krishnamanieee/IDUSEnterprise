@@ -65,7 +65,7 @@ public class AddLoanFragment extends Fragment {
     private String mParam2;
 
 //    private static final String URL_DATA="http://autojobshere.company/app/json";
-    private static final String URL_DATA="http://idusmarket.com/loan-app/app/newloan.php";
+    private static final String URL_DATA="http://finance.idusmarket.com/api/newloan.php";
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter  adapter;

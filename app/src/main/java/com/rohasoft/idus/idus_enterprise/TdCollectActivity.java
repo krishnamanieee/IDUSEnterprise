@@ -39,7 +39,7 @@ public class TdCollectActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter  adapter;
     private List<CollectLoanList> list;
-    private static final String URL_DATA="http://www.idusmarket.com/loan-app/app/todayloan.php";
+    private static final String URL_DATA="http://finance.idusmarket.com/api/todayloan.php";
 
 
     @Override
@@ -142,11 +142,10 @@ public class TdCollectActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-
-        onBackPressed();
+        finish();
         return true;
-
     }
+
 
 
 }

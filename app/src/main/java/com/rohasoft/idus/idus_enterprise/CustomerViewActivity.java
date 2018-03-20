@@ -60,7 +60,7 @@ public class CustomerViewActivity extends AppCompatActivity {
     Button button_map, button_newLoan;
 
     String id, CusName, phone, address, city, pincode, latMap, lanMap, cusImg, shopImg, addressImg, idImg, refName, refPhone, shopName, industry;
-    private static final String URL_DATA = "http://www.idusmarket.com/loan-app/app/getcusloandata.php";
+    private static final String URL_DATA = "http://finance.idusmarket.com/api/getcusloandata.php";
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -136,10 +136,10 @@ public class CustomerViewActivity extends AppCompatActivity {
             textView_shopName.setText(shopName);
             textView_business.setText(industry);
 
-            Picasso.with(this).load("http://www.idusmarket.com/loan-app/admin/uploads/" + cusImg).into(imageView_cus);
-            Picasso.with(this).load("http://www.idusmarket.com/loan-app/admin/uploads/" + shopImg).into(imageView_shop);
-            Picasso.with(this).load("http://www.idusmarket.com/loan-app/admin/uploads/" + idImg).into(imageView_idProof);
-            Picasso.with(this).load("http://www.idusmarket.com/loan-app/admin/uploads/" + addressImg).into(imageView_address);
+            Picasso.with(this).load("http://finance.idusmarket.com/uploads/" + cusImg).into(imageView_cus);
+            Picasso.with(this).load("http://finance.idusmarket.com/uploads/" + shopImg).into(imageView_shop);
+            Picasso.with(this).load("http://finance.idusmarket.com/uploads/" + idImg).into(imageView_idProof);
+            Picasso.with(this).load("http://finance.idusmarket.com/uploads/" + addressImg).into(imageView_address);
 
         }
 
@@ -329,8 +329,29 @@ public class CustomerViewActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        finish();
         return true;
+    }
+
+
+    private static final int TIME_DELAY = 2000;
+    private static long back_pressed;
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+            finish();
+            System.exit(0);
+
+        } else {
+            Toast.makeText(getBaseContext(), "Press once again to exit!",
+                    Toast.LENGTH_SHORT).show();
+        }
+        back_pressed = System.currentTimeMillis();
     }
 
     public void ViewImg(String path) {

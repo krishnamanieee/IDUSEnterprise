@@ -10,11 +10,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.rohasoft.idus.idus_enterprise.AddLoan_Activity;
 import com.rohasoft.idus.idus_enterprise.ColectLoan_Activity;
 import com.rohasoft.idus.idus_enterprise.R;
-import com.rohasoft.idus.idus_enterprise.other.AddLoanCusList;
-import com.rohasoft.idus.idus_enterprise.other.CollectLoan;
 import com.rohasoft.idus.idus_enterprise.other.CollectLoanList;
 import com.squareup.picasso.Picasso;
 
@@ -24,12 +21,12 @@ import java.util.List;
  * Created by Ayothi selvam on 08-11-2017.
  */
 
-public class CollectLoanAdapter extends RecyclerView.Adapter<CollectLoanAdapter.ViewHolder> {
+public class TMCollectLoanAdapter extends RecyclerView.Adapter<TMCollectLoanAdapter.ViewHolder> {
 
     private List<CollectLoanList> cusLists;
     private Context context;
 
-    public CollectLoanAdapter(List<CollectLoanList> cusLists, Context context) {
+    public TMCollectLoanAdapter(List<CollectLoanList> cusLists, Context context) {
         this.cusLists = cusLists;
         this.context = context;
     }
@@ -40,7 +37,7 @@ public class CollectLoanAdapter extends RecyclerView.Adapter<CollectLoanAdapter.
         View v= LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.loancustomerlistitems,parent,false);
 
-        return new CollectLoanAdapter.ViewHolder(v);
+        return new TMCollectLoanAdapter.ViewHolder(v);
     }
 
     @Override
@@ -58,7 +55,7 @@ public class CollectLoanAdapter extends RecyclerView.Adapter<CollectLoanAdapter.
 
 
 
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+     /*   holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(context, ColectLoan_Activity.class);
@@ -78,7 +75,7 @@ public class CollectLoanAdapter extends RecyclerView.Adapter<CollectLoanAdapter.
 
                 context.startActivity(intent);
             }
-        });
+        });*/
 
 
 

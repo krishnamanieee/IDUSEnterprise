@@ -1,11 +1,13 @@
 package com.rohasoft.idus.idus_enterprise;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -14,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.rohasoft.idus.idus_enterprise.Adapter.CollectLoanAdapter;
+import com.rohasoft.idus.idus_enterprise.Adapter.TMCollectLoanAdapter;
 import com.rohasoft.idus.idus_enterprise.other.CollectLoanList;
 import com.rohasoft.idus.idus_enterprise.other.UserLocalStore;
 
@@ -30,7 +33,7 @@ public class TMCollectActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter  adapter;
     private List<CollectLoanList> list;
-    private static final String URL_DATA="http://www.idusmarket.com/loan-app/app/tom_loan.php";
+    private static final String URL_DATA="http://finance.idusmarket.com/api/tom_loan.php";
 
 
     @Override
@@ -95,7 +98,7 @@ public class TMCollectActivity extends AppCompatActivity {
 
                             }
 
-                            adapter=new CollectLoanAdapter(list,TMCollectActivity.this);
+                            adapter=new TMCollectLoanAdapter(list,TMCollectActivity.this);
                             recyclerView.setAdapter(adapter );
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -130,9 +133,26 @@ public class TMCollectActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-
-        onBackPressed();
+        finish();
         return true;
+    }
+    private static final int TIME_DELAY = 2000;
+    private static long back_pressed;
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+            finish();
+            System.exit(0);
 
+        } else {
+            Toast.makeText(getBaseContext(), "Press once again to exit!",
+                    Toast.LENGTH_SHORT).show();
+        }
+        back_pressed = System.currentTimeMillis();
     }
 }

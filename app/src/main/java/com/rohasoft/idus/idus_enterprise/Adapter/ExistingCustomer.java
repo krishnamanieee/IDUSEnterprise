@@ -90,7 +90,7 @@ public class ExistingCustomer extends RecyclerView.Adapter<ExistingCustomer.View
 
 
         Picasso.with(context)
-                .load("http://www.idusmarket.com/loan-app/admin/uploads/"+loanCusList.getCusImag())
+                .load("http://finance.idusmarket.com/uploads/"+loanCusList.getCusImag())
                 .into(holder.imageView_cusphoto);
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override

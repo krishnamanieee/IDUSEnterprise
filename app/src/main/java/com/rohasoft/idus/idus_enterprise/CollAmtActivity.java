@@ -41,7 +41,7 @@ public class CollAmtActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter  adapter;
     private List<HomeList> list;
-    private static final String URL_DATA="http://www.idusmarket.com/loan-app/app/fetchhomepagedata.php";
+    private static final String URL_DATA="http://finance.idusmarket.com/api/fetchhomepagedata.php";
     public static final int CONNECTION_TIMEOUT = 1000 * 15;
 
 
@@ -128,4 +128,5 @@ public class CollAmtActivity extends AppCompatActivity {
         return true;
 
     }
+
 }

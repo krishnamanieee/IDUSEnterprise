@@ -41,7 +41,7 @@ import java.util.Map;
  */
 public class CollectLoanFragment extends Fragment {
 
-    private static final String URL_DATA="http://www.idusmarket.com/loan-app/app/allloan.php";
+    private static final String URL_DATA="http://finance.idusmarket.com/api/allloan.php";
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter  adapter;

@@ -38,14 +38,7 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     private FloatingActionButton fab;
 
-    private static final int TIME_DELAY = 2000;
 
-    private static long back_pressed;
-
-    // urls to load navigation header background image
-    // and profile image
-    // private static final String urlNavHeaderBg = "http://api.androidhive.info/images/nav-menu-header-bg.jpg";
-    // private static final String urlProfileImg = "https://lh3.googleusercontent.com/eCtE_G34M9ygdkmOpYvCag1vBARCmZwnVS6rS5t4JLzJ6QgQSBquM0nuTsCpLhYbKljoyS-txg";
 
     // index to identify current nav menu item
     public static int navItemIndex = 0;
@@ -329,35 +322,24 @@ public class MainActivity extends AppCompatActivity
         actionBarDrawerToggle.syncState();
     }
 
+    private static final int TIME_DELAY = 2000;
+    private static long back_pressed;
     @Override
     public void onBackPressed() {
         if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
-            super.onBackPressed();
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+            finish();
+            System.exit(0);
 
         } else {
             Toast.makeText(getBaseContext(), "Press once again to exit!",
                     Toast.LENGTH_SHORT).show();
         }
         back_pressed = System.currentTimeMillis();
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawers();
-            return ;
-        }
-
-        /*// This code loads home fragment when back key is pressed
-        // when user is in com.rohasoft.idus.idus_enterprise.other fragment than home
-        if (shouldLoadHomeFragOnBackPress) {
-            // checking if user is on com.rohasoft.idus.idus_enterprise.other navigation menu
-            // rather than home
-            if (navItemIndex != 0) {
-                navItemIndex = 0;
-                CURRENT_TAG = TAG_HOME;
-                loadHomeFragment();
-                return;
-            }
-        }*/
-
-
     }
 
     @Override

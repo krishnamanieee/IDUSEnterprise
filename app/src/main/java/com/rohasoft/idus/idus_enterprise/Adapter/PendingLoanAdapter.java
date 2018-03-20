@@ -43,7 +43,7 @@ public class PendingLoanAdapter extends RecyclerView.Adapter<PendingLoanAdapter.
     String Col_date, id;
     String phone,due_date;
 
-    private static final String URL_DATA="http://idusmarket.com/loan-app/app/unpay.php";
+    private static final String URL_DATA="http://finance.idusmarket.com/api/unpay.php";
 
 
 
