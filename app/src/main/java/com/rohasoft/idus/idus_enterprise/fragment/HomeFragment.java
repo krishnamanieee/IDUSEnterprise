@@ -245,13 +245,10 @@ public class HomeFragment extends Fragment {
                         try {
                             JSONObject jsonObject=new JSONObject(response);
                             JSONArray jsonArray=jsonObject.getJSONArray("loan");
-
                             for (int i=0;i<jsonArray.length();i++){
                                 JSONObject  object=jsonArray.getJSONObject(i);
-
                                 TodayLoanAmt=TodayLoanAmt+Integer.parseInt(object.getString("current_due_amount"));
                             }
-
                             DecimalFormat format=new DecimalFormat();
                             format.setMinimumFractionDigits(2);
                             String s=format.format(TodayLoanAmt);

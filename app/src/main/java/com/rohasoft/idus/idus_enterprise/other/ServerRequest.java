@@ -209,6 +209,7 @@ public class ServerRequest {
             dataToSend.add(new BasicNameValuePair("start_date", loan.start_date));
             dataToSend.add(new BasicNameValuePair("end_date", loan.end_date));
             dataToSend.add(new BasicNameValuePair("current_due_date", loan.current_due_date));
+            dataToSend.add(new BasicNameValuePair("tomor_due_date", loan.tomor_due_date));
             dataToSend.add(new BasicNameValuePair("current_due_amount", loan.current_due_amount));
             dataToSend.add(new BasicNameValuePair("remarks", loan.remarks));
             dataToSend.add(new BasicNameValuePair("cusImg", loan.cusImg));
@@ -273,6 +274,7 @@ public class ServerRequest {
             dataToSend.add(new BasicNameValuePair("rating",collectLoan.rating));
             dataToSend.add(new BasicNameValuePair("pendingAmt",collectLoan.pendingAmt));
             dataToSend.add(new BasicNameValuePair("extraAmt",collectLoan.extraAmt));
+            dataToSend.add(new BasicNameValuePair("tomor_due_date",collectLoan.tomor_due_date));
 
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIMEOUT);

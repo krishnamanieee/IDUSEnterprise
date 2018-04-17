@@ -8,12 +8,12 @@ import android.widget.Button;
 
 public class CollectLoan {
     String customerName,phone,city,loanId,loanOption,loanTrem,totalAmount,paidAmount,balanceAmount,dueDate,
-            dueAmount,duePaidDate,duePaidAmount,status,cusImg,user,rating,pendingAmt,extraAmt;
+            dueAmount,duePaidDate,duePaidAmount,status,cusImg,user,rating,pendingAmt,extraAmt,tomor_due_date;
 
     public CollectLoan(String customerName, String phone, String city, String loanId,String loanOption,String loanTrem,
                        String totalAmount, String paidAmount, String balanceAmount, String dueDate,
                        String dueAmount, String duePaidDate, String duePaidAmount, String status,
-                       String cusImg, String user, String rating,String pendingAmt,String extraAmt) {
+                       String cusImg, String user, String rating,String pendingAmt,String extraAmt,String tomor_due_date) {
         this.customerName = customerName;
         this.phone = phone;
         this.city = city;
@@ -33,5 +33,6 @@ public class CollectLoan {
         this.rating = rating;
         this.pendingAmt = pendingAmt;
         this.extraAmt = extraAmt;
+        this.tomor_due_date=tomor_due_date;
     }
 }

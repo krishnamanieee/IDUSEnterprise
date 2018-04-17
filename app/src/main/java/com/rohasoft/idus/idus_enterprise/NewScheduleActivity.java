@@ -73,7 +73,7 @@ public class NewScheduleActivity extends AppCompatActivity {
 
 
         // Start date
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();
         try {
             c.setTime(sdf.parse(dt));
@@ -107,7 +107,7 @@ public class NewScheduleActivity extends AppCompatActivity {
 
             }
 
-                SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
                 String output = sdf1.format(c.getTime());
 
             list.add(new Schedule(output,due_amt+"",bal_amt+""));

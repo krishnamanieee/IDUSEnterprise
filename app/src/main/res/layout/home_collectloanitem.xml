@@ -23,7 +23,7 @@
                     android:id="@+id/img_homeitem"
                     android:layout_width="63dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/logo" />
+                    android:src="@drawable/bg_circle" />
             </LinearLayout>
 
             <LinearLayout

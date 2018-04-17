@@ -118,7 +118,7 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
         }
 
         reset();
-        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         getDate();
 
         pay();
@@ -142,11 +142,15 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                 String dueAmount=textView_dueAmount.getText().toString();
                 String paidDueDate=duePaidDate.getText().toString();
                 String paidDueAmount=editText_paidAmount.getText().toString();
+                try{
+                    if(getIntent().getExtras().getBoolean("unPay")){
+                        paidDueAmount= String.valueOf('0');
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
 
                 tempsubAmt=Integer.parseInt(dueAmount)- Integer.parseInt(paidDueAmount);
-
-//
-
 
                   tempPaidAmount=Integer.parseInt(textView_paidAmount.getText().toString());
                   tempBalanceAmount=Integer.parseInt(textView_balanceAmount.getText() .toString());
@@ -190,31 +194,37 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
                 }
 
             //    Toast.makeText(getApplicationContext(),loanRating,Toast.LENGTH_SHORT).show();
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Calendar c = Calendar.getInstance();
+                Calendar tomorLoan=Calendar.getInstance();
                 try {
                     c.setTime(sdf.parse(textView_dueDate.getText().toString()));
+                    tomorLoan.setTime(sdf.parse(textView_dueDate.getText().toString()));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
                 if (loanOption.equals("Daily")){
-
                     c.add(Calendar.DATE, 1 );
+                    tomorLoan.add(Calendar.DATE, 2);
                 }
                 else if(loanOption.equals("Weekly")){
                     c.add(Calendar.DATE, 7);
+                    tomorLoan.add(Calendar.DATE, 14);
                 }
                 else if(loanOption.equals("By Weekly")){
                     c.add(Calendar.DATE, 15);
+                    tomorLoan.add(Calendar.DATE, 30);
                 }
                 else if(loanOption.equals("Monthly")){
                     c.add(Calendar.MONTH, 1);
+                    tomorLoan.add(Calendar.MONTH, 2);
                 }
                 else {
                   //  Toast.makeText(getApplicationContext(),"not ",Toast.LENGTH_LONG).show();
                 }
-                SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
                 String dueDate = sdf1.format(c.getTime());
+                String tomorLoanDate= sdf1.format(tomorLoan.getTime());
                 UserLocalStore userLocalStore=new UserLocalStore(getApplicationContext());
                 String user=userLocalStore.getLoggedInUser();
 
@@ -245,7 +255,7 @@ public class ColectLoan_Activity extends AppCompatActivity implements View.OnCli
 
                             CollectLoan collectLoan=new CollectLoan(cusName,phone,city,loanId,loanOption,""+tempLoanTerm,
                                     totalAmount,paidAmount,balanceAmount,dueDate,dueAmount,paidDueDate,paidDueAmount,status,
-                                    cusImg,user,loanRating,""+pendingAmt,""+extraAmt);
+                                    cusImg,user,loanRating,""+pendingAmt,""+extraAmt,tomorLoanDate);
                             AddDataToSerever(collectLoan);
                             Toast.makeText(getApplicationContext(),"Collections are success",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(ColectLoan_Activity.this,MainActivity.class));

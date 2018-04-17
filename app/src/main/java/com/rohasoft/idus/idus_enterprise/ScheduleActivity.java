@@ -41,7 +41,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
     int tot_amt = 14000;
     int duration = 10;
-    String dt = "10-11-2017";
+    String dt = "2017-11-10";
     int due_amt = 0;
     int bal_amt = tot_amt;
     String loanOption = "Weekly";
@@ -82,7 +82,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
 
         // Start date
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();
         try {
             c.setTime(sdf.parse(dt));
@@ -111,7 +111,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
             }
 
-            SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
             String output = sdf1.format(c.getTime());
 
             list.add(new Schedule(output, due_amt + "", bal_amt + ""));

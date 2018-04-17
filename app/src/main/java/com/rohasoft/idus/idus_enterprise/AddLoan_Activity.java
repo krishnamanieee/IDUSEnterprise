@@ -154,7 +154,7 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
 
         spinloanoption = (Spinner) findViewById(R.id.spin_addloan_loan_option);
-        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         setDateTimeField();
 
 
@@ -309,10 +309,12 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
                         if (pincode.length() == 6) {
                             if (city.length() > 0) {
 
-                                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                 Calendar c = Calendar.getInstance();
+                                Calendar tomorLoan=Calendar.getInstance();
                                 try {
                                     c.setTime(sdf.parse(start_date));
+                                    tomorLoan.setTime(sdf.parse(start_date));
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -320,37 +322,36 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
                                 if (loan_opttion == "Daily") {
 
                                     c.add(Calendar.DATE, 1);
+                                    tomorLoan.add(Calendar.DATE, 2);
 
                                 } else if (loan_opttion == "Weekly") {
-
-
                                     c.add(Calendar.DATE, 7);
-
+                                    tomorLoan.add(Calendar.DATE, 14);
                                 } else if (loan_opttion == "By Weekly") {
-
-
                                     c.add(Calendar.DATE, 15);
+                                    tomorLoan.add(Calendar.DATE, 30);
 
                                 } else if (loan_opttion == "Monthly") {
 
-
                                     c.add(Calendar.MONTH, 1);
+                                    tomorLoan.add(Calendar.MONTH, 2);
 
                                 }
 
 
-                                SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+                                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
                                 int totAmt = Integer.parseInt(loan_amt);
                                 int totDur = Integer.parseInt(loan_duration);
 
 
-                                String currentDueDate = sdf1.format(c.getTime());
 
+                                String currentDueDate = sdf1.format(c.getTime());
+                                String tomorLoanDate= sdf1.format(tomorLoan.getTime());
 
                                 String DueAmount = String.valueOf(totAmt / totDur);
                                 UserLocalStore userLocalStore = new UserLocalStore(AddLoan_Activity.this);
                                 String user = userLocalStore.getLoggedInUser();
-                                Loan loan = new Loan(cus_name, cus_id, phone, address, city, pincode, loan_amt, loan_opttion, loan_duration, start_date, end_date, remarks, currentDueDate, DueAmount, cusImg, shopImg, idImg, addressImg, user);
+                                Loan loan = new Loan(cus_name, cus_id, phone, address, city, pincode, loan_amt, loan_opttion, loan_duration, start_date, end_date, remarks, currentDueDate,tomorLoanDate, DueAmount, cusImg, shopImg, idImg, addressImg, user);
 
                                 AddLoan(loan);
                                 reset();
@@ -411,13 +412,14 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
                 edtstartdate.setText(dateFormatter.format(newDate.getTime()));
                 String s = edtstartdate.getText().toString();
                 //String dt = "2012-01-04";  // Start date
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Calendar c = Calendar.getInstance();
                 try {
                     c.setTime(sdf.parse(s));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                edtstartdate.setText(sdf.format(c.getTime()));
                 int laonduration = 1;
                 String s1 = edtloanduration.getText().toString().trim();
                 if (s1.length() != 0) {
@@ -469,7 +471,7 @@ public class AddLoan_Activity extends AppCompatActivity implements OnClickListen
 
 
                 // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
-                SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
                 String output = sdf1.format(c.getTime());
                 edtenddate.setText(output);
             }

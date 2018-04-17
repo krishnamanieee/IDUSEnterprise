@@ -89,7 +89,7 @@ public class AddLoanCus extends RecyclerView.Adapter<AddLoanCus.ViewHolder>{
         holder.textView_cusId.setText("CUS"+loanCusList.getCusId());
         holder.textView_city.setText(loanCusList.getCity());
         Picasso.with(context)
-                .load("http://www.idusmarket.com/loan-app/admin/uploads/"+loanCusList.getCusImag()).into(holder.imageView_cusphoto);
+                .load("http://finance.idusmarket.com/uploads/"+loanCusList.getCusImag()).into(holder.imageView_cusphoto);
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
